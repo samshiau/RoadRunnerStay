@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="752.0" prefWidth="921.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreateAccountController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="442.0" layoutX="239.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" width="444.0" />
+      <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css">
+         <children>
+            <Label fx:id="title" alignment="CENTER" layoutX="104.0" layoutY="14.0" text="Create Account" textAlignment="CENTER" />
+         </children>
+      </Pane>
+      <Button fx:id="create" layoutX="291.0" layoutY="578.0" mnemonicParsing="false" onAction="#changeScreenCreateAccount" prefHeight="124.0" prefWidth="340.0" text="Create Account">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <TextField fx:id="userNameInput" layoutX="386.0" layoutY="150.0" />
+      <TextField fx:id="nameInput" layoutX="386.0" layoutY="298.0" />
+      <TextField fx:id="emailInput" layoutX="386.0" layoutY="364.0" />
+      <TextField fx:id="positionInput" layoutX="508.0" layoutY="451.0" />
+      <Button fx:id="create1" layoutX="721.0" layoutY="90.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="87.0" prefWidth="149.0" text="Home">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Text layoutX="434.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+      <Text layoutX="434.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+      <Text layoutX="445.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+      <Text layoutX="447.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+      <Text layoutX="558.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Position" wrappingWidth="49.951171875" />
+      <Button fx:id="create11" layoutX="728.0" layoutY="203.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="87.0" prefWidth="149.0" text="Temp Create">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <TextField fx:id="companyNameInput" layoutX="298.0" layoutY="451.0" />
+      <Text layoutX="330.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company Name" />
+      <PasswordField fx:id="passwordInput" layoutX="384.0" layoutY="234.0" />
+   </children>
+</AnchorPane>
