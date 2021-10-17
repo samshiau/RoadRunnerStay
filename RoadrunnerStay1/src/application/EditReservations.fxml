@@ -43,5 +43,10 @@
       <ComboBox fx:id="comboBox" layoutX="302.0" layoutY="343.0" onAction="#weekendDifferential" prefWidth="150.0" promptText="Percent surcharge" />
       <Label layoutX="302.0" layoutY="328.0" text="Percent of nightly rate surcharge" />
       <TextField fx:id="numRooms" layoutX="295.0" layoutY="222.0" prefHeight="25.0" prefWidth="73.0" />
+      <Button fx:id="create11" layoutX="719.0" layoutY="179.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="87.0" prefWidth="149.0" text="Profile">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
