@@ -61,5 +61,9 @@ public class CreateAccountController {
 		emailInput.clear();
 		companyNameInput.clear();
 		positionInput.clear();
+		
+		HotelDBManager connection = new HotelDBManager();
+		connection.addUser(username, passWord, name, email, companyName, position);
+		connection.closeManager();
 	}
 }
