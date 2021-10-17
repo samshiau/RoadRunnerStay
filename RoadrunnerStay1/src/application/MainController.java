@@ -23,7 +23,7 @@ import javafx.util.Duration;
 public class MainController  implements Initializable{
 	
 	@FXML
-	private Button difficulty, start, rules, highscore, back;
+	private Button start, back;
 	
 	@FXML ImageView imageView; @FXML ImageView imageView2; @FXML ImageView imageView3;
 	int count = 0;
@@ -60,41 +60,22 @@ public class MainController  implements Initializable{
 		slideshow();
 	}
 	
-	@FXML
+	@FXML 
 	public void changeScreenCreateAccount(ActionEvent event) throws IOException {
-		FXMLLoader viewDifficulty = new FXMLLoader(getClass().getResource("CreateAccount.fxml"));
-		Parent root = (Parent) viewDifficulty.load();
-	
-		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		
-		Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-		
-		stage.centerOnScreen();
-		
-		stage.setScene(scene);
-		stage.setTitle("Create Account");
-		stage.getIcons().add(new Image(getClass().getResourceAsStream("roadrunnerIcon.png")));
-		stage.show();
+		SwitchScenesController change = new SwitchScenesController();
+		change.changeScreenCreateAccount(event);
 	}
 	
 	@FXML 
-	public void changeScreenonBack(ActionEvent event) throws IOException {
-		FXMLLoader viewHome = new FXMLLoader(getClass().getResource("MainRoadrunnerStay.fxml"));
-		Parent root = (Parent) viewHome.load();
-		root.setId("Home");
+	public void changeScreenLogin(ActionEvent event) throws IOException {
+		SwitchScenesController change = new SwitchScenesController();
+		change.changeScreenLogin(event);
+	}
 	
-		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		
-		Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-		
-		stage.centerOnScreen();
-		
-		stage.setScene(scene);
-		stage.setTitle("MainRoadrunnerStay: Home");
-		stage.getIcons().add(new Image(getClass().getResourceAsStream("roadrunnerIcon.png")));
-		stage.show();
+	@FXML 
+	public void changeScreenProfile(ActionEvent event) throws IOException {
+		SwitchScenesController change = new SwitchScenesController();
+		change.changeScreenProfile(event);
 	}
 
 }

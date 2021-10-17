@@ -22,14 +22,13 @@ public class CreateAccountController {
 	
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
-		MainController home = new MainController();
-		home.changeScreenonBack(event);
+		SwitchScenesController change = new SwitchScenesController();
+		change.changeScreenonHome(event);
 	}
-	
 	@FXML 
 	public void changeScreenCreateAccount(ActionEvent event) throws IOException {
-		MainController home = new MainController();
-		home.changeScreenonBack(event);
+		SwitchScenesController change = new SwitchScenesController();
+		change.changeScreenonHome(event);
 	}
 	
 	@FXML 
@@ -43,13 +42,17 @@ public class CreateAccountController {
 		String companyName = companyNameInput.getText();
 		String position = positionInput.getText();
 		
-		// print user input
+		// print user input (for testing)
 		System.out.println("username is: "+ username + "\n");
 		System.out.println("passWord is: "+ passWord + "\n");
 		System.out.println("name is: "+ name + "\n");
 		System.out.println("email is: "+ email + "\n");
 		System.out.println("Company Name is: "+ companyName + "\n");
 		System.out.println("position is: "+ position + "\n");
+		
+		
+		/* send data to database */
+		
 		
 		// clear textfields
 		userNameInput.clear();

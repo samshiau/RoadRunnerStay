@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="752.0" prefWidth="921.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="280.0" layoutX="329.0" layoutY="170.0" stroke="BLACK" strokeType="INSIDE" width="261.0" />
+      <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
+      <Button fx:id="create" layoutX="388.0" layoutY="343.0" mnemonicParsing="false" onAction="#Login" prefHeight="67.0" prefWidth="141.0" text="Login">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <TextField fx:id="userNameInput" layoutX="386.0" layoutY="212.0" />
+      <Button fx:id="create1" layoutX="720.0" layoutY="90.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="87.0" prefWidth="149.0" text="Home">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Text layoutX="434.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+      <Text layoutX="434.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+      <PasswordField fx:id="passwordInput" layoutX="384.0" layoutY="278.0" />
+      <Label fx:id="title" alignment="CENTER" layoutX="399.0" layoutY="70.0" text="Login" textAlignment="CENTER" />
+      <Label fx:id="loginLabel" layoutX="399.0" layoutY="310.0" prefHeight="20.0" prefWidth="134.0" text="Status: " textFill="#d70d0d">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="234.0" layoutY="212.0" text="Temp use &quot;user&quot;" />
+      <Label layoutX="233.0" layoutY="282.0" text="Temp use &quot;pass&quot;" />
+   </children>
+</AnchorPane>

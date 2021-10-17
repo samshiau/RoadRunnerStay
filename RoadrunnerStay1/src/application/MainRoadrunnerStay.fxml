@@ -16,7 +16,7 @@
             <Font size="26.0" />
          </font>
       </Button>
-      <Button fx:id="rules" layoutX="813.0" layoutY="87.0" mnemonicParsing="false" onAction="#changeScreenCreateAccount" prefHeight="55.0" prefWidth="175.0" text="Login">
+      <Button fx:id="rules" layoutX="813.0" layoutY="87.0" mnemonicParsing="false" onAction="#changeScreenLogin" prefHeight="55.0" prefWidth="175.0" text="Login">
          <font>
             <Font size="36.0" />
          </font>
@@ -43,7 +43,7 @@
             <Font size="36.0" />
          </font>
       </Button>
-      <Button fx:id="rules11" layoutX="813.0" layoutY="147.0" mnemonicParsing="false" onAction="#changeScreenCreateAccount" prefHeight="55.0" prefWidth="175.0" text="Profile">
+      <Button fx:id="rules11" layoutX="813.0" layoutY="147.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="55.0" prefWidth="175.0" text="Profile">
          <font>
             <Font size="36.0" />
          </font>
