@@ -77,5 +77,10 @@ public class MainController  implements Initializable{
 		SwitchScenesController change = new SwitchScenesController();
 		change.changeScreenProfile(event);
 	}
+	@FXML 
+	public void changeScreenResult(ActionEvent event) throws IOException {
+		SwitchScenesController change = new SwitchScenesController();
+		change.changeScreenResult(event);
+	}
 
 }

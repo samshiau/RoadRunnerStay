@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="752.0" prefWidth="921.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Results">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="442.0" layoutX="95.0" layoutY="93.0" stroke="BLACK" strokeType="INSIDE" width="732.0" />
+      <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css">
+         <children>
+            <Label fx:id="title" alignment="CENTER" layoutX="182.0" text="Results" textAlignment="CENTER" />
+         </children>
+      </Pane>
+      <Button fx:id="create1" layoutX="733.0" layoutY="625.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="63.0" prefWidth="149.0" text="Home">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Text layoutX="257.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Availables Reservations">
+         <font>
+            <Font size="36.0" />
+         </font></Text>
+      <ListView fx:id="resultsList" layoutX="118.0" layoutY="146.0" prefHeight="371.0" prefWidth="687.0" />
+   </children>
+</AnchorPane>
