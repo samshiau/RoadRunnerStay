@@ -15,6 +15,7 @@ public class LoginController {
 	@FXML private PasswordField passwordInput;
 	@FXML private Label loginLabel;
 	static boolean admin;
+	static boolean isLoggedIn = false;
 	
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
@@ -45,11 +46,13 @@ public class LoginController {
 		if(username.equals("user") && passWord.equals("pass")) {
 			loginLabel.setText("Login Success");
 			admin = false;
+			isLoggedIn = true;
 			changeScreenLogin(event);	
 		}
 		if(username.equals("admin") && passWord.equals("pass")) {
 			loginLabel.setText("Login Success");
 			admin = true;
+			isLoggedIn = true;
 			/* send that user is a admin to database*/
 			changeScreenLogin(event);
 		} else {

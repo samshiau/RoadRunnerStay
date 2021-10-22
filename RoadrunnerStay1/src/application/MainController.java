@@ -26,12 +26,12 @@ public class MainController  implements Initializable{
 	@FXML private Button start, back;
 	@FXML ImageView imageView, imageView2, imageView3;
 	@FXML CheckBox pool, gym, spa, businessOffice;
+	boolean isTheUserLoggedIn;
 	
 	boolean poolSelected = false, gymSelected = false, spaSelected = false, businessOfficeSelected = false; 
 	int count = 0;
 	int count2 = 1;
 	int count3 = 2;
-	
 	
 	public void slideshow() {
 		ArrayList<Image> images = new ArrayList<Image>();
@@ -98,8 +98,14 @@ public class MainController  implements Initializable{
 	
 	@FXML 
 	public void changeScreenProfile(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenProfile(event);
+		isTheUserLoggedIn = LoginController.isLoggedIn;
+		if(isTheUserLoggedIn) {
+			SwitchScenesController change = new SwitchScenesController();
+			change.changeScreenProfile(event);
+		}
+		else {
+			changeScreenLogin(event);
+		}
 	}
 	
 
