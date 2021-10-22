@@ -24,12 +24,7 @@ public class Results implements Initializable{
 			
 	@FXML private ListView<String> resultsList;
 	
-	@FXML 
-	public void changeScreenHome(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenonHome(event);
-	}
-
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -38,7 +33,6 @@ public class Results implements Initializable{
 		try {
 			inFile1 = new Scanner(new File("resutls.txt")).useDelimiter(",\\s*");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		List<String> temps = new ArrayList<String>();
@@ -53,10 +47,13 @@ public class Results implements Initializable{
 
 		    for (String s : tempsArray) {
 		    	resultsList.getItems().add(s);
-		      System.out.println(s);
 		    }
-		  }
-
+	}
+	@FXML 
+	public void changeScreenHome(ActionEvent event) throws IOException {
+		SwitchScenesController change = new SwitchScenesController();
+		change.changeScreenonHome(event);
+	}
 		
 	
 	
