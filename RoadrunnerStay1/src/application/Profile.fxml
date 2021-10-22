@@ -21,10 +21,6 @@
             <Font size="36.0" />
          </font>
       </Button>
-      <Text layoutX="323.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wecome: &lt;Username&gt;">
-         <font>
-            <Font size="24.0" />
-         </font></Text>
       <Label fx:id="title" alignment="CENTER" layoutX="375.0" layoutY="-1.0" text="Profile" textAlignment="CENTER" />
       <ListView fx:id="reservationsList" layoutX="116.0" layoutY="185.0" prefHeight="408.0" prefWidth="690.0" />
       <Text layoutX="374.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Reservations">
@@ -32,5 +28,10 @@
             <Font size="18.0" />
          </font>
       </Text>
+      <Label fx:id="wecomeUser" layoutX="308.0" layoutY="107.0" text="Wecome: &lt;Username&gt;">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
