@@ -1,39 +1,33 @@
 package application;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 
-public class ProfileController implements Initializable{
+public class Results implements Initializable{
+			
+	@FXML private ListView<String> resultsList;
 	
-	@FXML private ListView<String> reservationsList;
-	@FXML private Label wecomeUser;
-	
-	boolean userActType;
-
-	public void checkType() {
-		userActType = LoginController.admin; 
-		System.out.println(userActType); 
-		if (userActType) {
-			wecomeUser.setText("Wecome Admin");
-		} else {
-			wecomeUser.setText("Wecome User");
-		}
-	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
 		Scanner inFile1 = null;
 		String token1 = "";
 		try {
@@ -52,22 +46,15 @@ public class ProfileController implements Initializable{
 		    String[] tempsArray = temps.toArray(new String[0]);
 
 		    for (String s : tempsArray) {
-		    	reservationsList.getItems().add(s);
+		    	resultsList.getItems().add(s);
 		    }
-		checkType();
 	}
-
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
 		SwitchScenesController change = new SwitchScenesController();
 		change.changeScreenonHome(event);
 	}
-	
-	@FXML
-	public void changeScreenEditReservations(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenEditReservations(event);	
-	}
+		
 	
 	
 }

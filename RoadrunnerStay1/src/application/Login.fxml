@@ -33,5 +33,6 @@
       </Label>
       <Label layoutX="234.0" layoutY="212.0" text="Temp use &quot;user&quot;" />
       <Label layoutX="233.0" layoutY="282.0" text="Temp use &quot;pass&quot;" />
+      <Label layoutX="228.0" layoutY="229.0" text="Temp use &quot;admin&quot;" />
    </children>
 </AnchorPane>

@@ -14,7 +14,8 @@ public class LoginController {
 	@FXML private TextField userNameInput;
 	@FXML private PasswordField passwordInput;
 	@FXML private Label loginLabel;
-	
+	static boolean admin;
+	static boolean isLoggedIn = false;
 	
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
@@ -44,14 +45,21 @@ public class LoginController {
 		
 		if(username.equals("user") && passWord.equals("pass")) {
 			loginLabel.setText("Login Success");
+			admin = false;
+			isLoggedIn = true;
+			changeScreenLogin(event);	
+		}
+		
+		if(username.equals("admin") && passWord.equals("pass")) {
+			loginLabel.setText("Login Success");
+			admin = true;
+			isLoggedIn = true;
+			
 			changeScreenLogin(event);
 		} else {
 			loginLabel.setText("Login Failed");
 		}
-		
-		// check username and password against database
-		/* code to send username and password to database to verify */
-		
+////////////////////////////////////////////////////////////
 		HotelDBManager connection = new HotelDBManager();
 		int rc = connection.login(username, passWord);
 		if (rc != ReturnCodes.RC_OK) {
@@ -64,5 +72,7 @@ public class LoginController {
 			System.out.println("Authentication successful!");
 		}
 		connection.closeManager();
-	}
+
+		}
+		////////////////////////////////////////////////////////////
 }

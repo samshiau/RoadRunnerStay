@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Scanner;
- 
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -98,10 +98,8 @@ public class Encryption {
         System.out.println("Original: " + originalString);
         System.out.println("Encrypted: " + encryptedString);
         System.out.println("Decrypted: " + decryptedString);
-
         System.out.println("Encrypted length: " + encryptedString.length());
         System.out.println("Decrypted length: " + decryptedString.length());
-
         input.close();
     }
     */
