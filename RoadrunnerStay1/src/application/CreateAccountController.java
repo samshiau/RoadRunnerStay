@@ -63,7 +63,12 @@ public class CreateAccountController {
 		positionInput.clear();
 		
 		HotelDBManager connection = new HotelDBManager();
-		connection.addUser(username, passWord, name, email, companyName, position);
+		int rc = connection.addUser(username, passWord, name, email, companyName, position);
+		if (rc != ReturnCodes.RC_OK) {
+			String rcStr = ReturnCodes.getRcAsString(rc);
+			// TODO: Delete the below line and display the error to the status.
+			System.out.println(rcStr);
+		}
 		connection.closeManager();
 	}
 }

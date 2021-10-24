@@ -1,6 +1,7 @@
 package application;
 
 import java.sql.*;
+import java.util.regex.*;
 
 /**
  * Part of the model package. This class manages the hotel database based on user actions.
@@ -42,23 +43,117 @@ public class HotelDBManager {
 	 * @param email		the entered email.
 	 * @param company	the entered company (can be empty).
 	 * @param position	the entered position (can be empty).
+	 * @returns			RC_OK if the account creation is successful. RC_MISSING_ENTRY if a required field is missing,
+	 * 					or RC_MISC_ERR if some other error occurred.
 	 */
-	public void addUser(String username, String password, String name, String email, String company, String position) {
+	public int addUser(String username, String password, String name, String email, String company, String position) {
+		Pattern emailSyntax = Pattern.compile("[A-Za-z0-9]@[A-Za-z]+\\.[a-z]");
+		Matcher matcher = emailSyntax.matcher(email);
+		boolean syntaxIsCorrect = matcher.find();
+		
+		// Checks to make sure required entries are entered.
+		if (username.equals("") || password.equals("") || name.equals("") || email.equals("")) {
+			return ReturnCodes.RC_MISSING_ENTRY;
+		}
+		else if (!syntaxIsCorrect) {
+			// Ensures the email syntax is correct.
+			return ReturnCodes.RC_EMAIL_SYN_WRONG;
+		}
+		
 		String encryptPass = Encryption.encrypt(password, username);	// Encrypt the password for the database.
 		
 		try {
-			// Inserts the new user with the passed credentials into the User table of the database.
-			statement.executeUpdate("INSERT INTO `User` (`userId`, `password`, `name`, `emailAddress`)" +
-												"values (\"" + username + "\", \""
-															+ encryptPass + "\", \""
-															+ name + "\", \""
-															+ email + "\");");
+			if (company.equals("") || position.equals("")) {
+				// Inserts a new customer with the passed credentials into the User table of the database.
+				statement.executeUpdate("INSERT INTO `User` (`userId`, `password`, `name`, `emailAddress`)" +
+													"VALUES (\"" + username + "\", \""
+																+ encryptPass + "\", \""
+																+ name + "\", \""
+																+ email + "\");");
+			}
+			else {
+				// Adds a new employee given the credentials which includes the company and position.
+				statement.executeUpdate("INSERT INTO `User` (`userId`, `password`, `userType`, `name`, `emailAddress`)" +
+										"VALUES (\"" + username + "\", \""
+													+ encryptPass + "\", \""
+													+ "EMPLOYEE\", \""
+													+ name + "\", \""
+													+ email + "\");");
+			}
 			// FIXME: Delete this line once account creation is successful (i.e., credentials must be on database).
 			System.out.println("Account creation successful!");
+			
+			return ReturnCodes.RC_OK;
+		}
+		catch (SQLIntegrityConstraintViolationException e) {
+			// If a duplicate username exists in the database.
+			return ReturnCodes.RC_DUP_USER;
 		}
 		catch (SQLException e) {
+			// If any other SQLException occurs.
 			e.printStackTrace();
+			return ReturnCodes.RC_MISC_ERR;
 		}
+	}
+	
+	/**
+	 * Logs the user into the system, but first checks if the user exists and that their password matches.
+	 * 
+	 * @param username	the entered username.
+	 * @param password	the entered password.
+	 * @return			RC_OK if the login was successful, RC_MISSING_ENTRY if either of the text fields are empty,
+	 * 					RC_INVALID_CRED if the username is not found or the password is incorrect, or RC_MISC_ERR if
+	 * 					some other error occurred.
+	 */
+	public int login(String username, String password) {
+		String foundUser = "";
+		String foundPass = "";
+		String decryptPass;
+		
+		try {
+			// Ensures the fields the user entered are not empty.
+			if (username.equals("") || password.equals("")) {
+				return ReturnCodes.RC_MISSING_ENTRY;
+			}
+			
+			// Only stores the username and password into the result set as to not waste resources during authentication.
+			resultSet = statement.executeQuery("SELECT DISTINCT u.userId, u.password FROM User u WHERE u.userId = \"" + username + "\";");
+			if (resultSet == null) {
+				// The case if the username was not found in the database.
+				return ReturnCodes.RC_INVALID_CRED;
+			}
+			
+			// Retrieves the user credentials from the database.
+			while (resultSet.next()) {
+				foundUser = resultSet.getString("userId");
+				foundPass = resultSet.getString("password");
+			}
+			
+			// Decrypts the password and compares it to the user's entered password.
+			decryptPass = Encryption.decrypt(foundPass, foundUser);
+			if (!decryptPass.equals(password)) {
+				// The case where the user enters the incorrect password.
+				return ReturnCodes.RC_INVALID_CRED;
+			}
+			
+			return ReturnCodes.RC_OK;
+		}
+		catch (SQLException e) {
+			// the case where some other error occurred.
+			e.printStackTrace();
+			return ReturnCodes.RC_MISC_ERR;
+		}
+	}
+	
+	/**
+	 * Edits a hotel reservation for the user.
+	 * 
+	 * @return RC_OK if changes to the reservation were saved successfully. Otherwise RC_MISC_ERR to indicate some
+	 * 			other error occurred.
+	 */
+	public int editReservation() {
+		// TODO: Write the code to get the user's reservations and make a change to one.
+		return ReturnCodes.RC_MISC_ERR;
 	}
 	
 	/**

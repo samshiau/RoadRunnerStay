@@ -52,8 +52,17 @@ public class LoginController {
 		// check username and password against database
 		/* code to send username and password to database to verify */
 		
-		
-		
-		
+		HotelDBManager connection = new HotelDBManager();
+		int rc = connection.login(username, passWord);
+		if (rc != ReturnCodes.RC_OK) {
+			String rcStr = ReturnCodes.getRcAsString(rc);
+			// TODO: Delete the below line and display the error to the status.
+			System.out.println(rcStr);
 		}
+		else {
+			// Handle the case where the log-in is successful.
+			System.out.println("Authentication successful!");
+		}
+		connection.closeManager();
+	}
 }
