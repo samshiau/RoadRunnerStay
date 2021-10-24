@@ -9,11 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class CreateAccountController {
-	
-	
-	
 	@FXML private TextField userNameInput;
-	//@FXML private TextField passwordInput;
 	@FXML private PasswordField passwordInput;
 	@FXML private TextField nameInput;
 	@FXML private TextField emailInput;
@@ -50,10 +46,6 @@ public class CreateAccountController {
 		System.out.println("Company Name is: "+ companyName + "\n");
 		System.out.println("position is: "+ position + "\n");
 		
-		
-		/* send data to database */
-		
-		
 		// clear textfields
 		userNameInput.clear();
 		passwordInput.clear();
@@ -61,5 +53,17 @@ public class CreateAccountController {
 		emailInput.clear();
 		companyNameInput.clear();
 		positionInput.clear();
+		
+		
+		
+		HotelDBManager connection = new HotelDBManager();
+		int rc = connection.addUser(username, passWord, name, email, companyName, position);
+		if (rc != ReturnCodes.RC_OK) {
+			String rcStr = ReturnCodes.getRcAsString(rc);
+			// TODO: Delete the below line and display the error to the status.
+			System.out.println(rcStr);
+		}
+		connection.closeManager();
+		
 	}
 }

@@ -49,17 +49,32 @@ public class LoginController {
 			isLoggedIn = true;
 			changeScreenLogin(event);	
 		}
+		
 		if(username.equals("admin") && passWord.equals("pass")) {
 			loginLabel.setText("Login Success");
 			admin = true;
 			isLoggedIn = true;
-			/* send that user is a admin to database*/
+			
 			changeScreenLogin(event);
 		} else {
 			loginLabel.setText("Login Failed");
 		}
 		
-		// check username and password against database
+		
+		////////////////////////////////////////////////////////////
+		HotelDBManager connection = new HotelDBManager();
+		int rc = connection.login(username, passWord);
+		if (rc != ReturnCodes.RC_OK) {
+			String rcStr = ReturnCodes.getRcAsString(rc);
+			// TODO: Delete the below line and display the error to the status.
+			System.out.println(rcStr);
+		}
+		else {
+			// Handle the case where the log-in is successful.
+			System.out.println("Authentication successful!");
+		}
+		connection.closeManager();
 
 		}
+		////////////////////////////////////////////////////////////
 }

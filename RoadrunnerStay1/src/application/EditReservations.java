@@ -59,7 +59,15 @@ public class EditReservations implements Initializable{
 		System.out.println(roomPricePerNight);
 		System.out.println(percent);
 		
+		
+		////////////////////////////////////////////////////////////
 		/* send data to database */
+		HotelDBManager connection = new HotelDBManager();
+		// TODO: Call editReservation to modify the reservation.
+		connection.closeManager();
+		////////////////////////////////////////////////////////////
+		
+		
 		
 		
 		// clear textfields
