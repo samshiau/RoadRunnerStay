@@ -53,9 +53,7 @@ public class CreateAccountController {
 		emailInput.clear();
 		companyNameInput.clear();
 		positionInput.clear();
-		
-		
-		
+
 		HotelDBManager connection = new HotelDBManager();
 		int rc = connection.addUser(username, passWord, name, email, companyName, position);
 		if (rc != ReturnCodes.RC_OK) {
@@ -64,6 +62,6 @@ public class CreateAccountController {
 			System.out.println(rcStr);
 		}
 		connection.closeManager();
-		
+
 	}
 }

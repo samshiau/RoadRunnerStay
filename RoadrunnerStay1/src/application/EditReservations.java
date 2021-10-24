@@ -65,10 +65,6 @@ public class EditReservations implements Initializable{
 		HotelDBManager connection = new HotelDBManager();
 		// TODO: Call editReservation to modify the reservation.
 		connection.closeManager();
-		////////////////////////////////////////////////////////////
-		
-		
-		
 		
 		// clear textfields
 		numRooms.clear();

@@ -18,7 +18,6 @@ public class HotelDBManager {
     /**
      * Constructor: Establishes and initializes the connection to the database.
      */
-
 	public HotelDBManager() {
 		String url = "jdbc:mysql://174.138.182.12:3306/roadrunn_hotelbooksdb";
 		
