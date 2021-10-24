@@ -59,6 +59,9 @@ public class LoginController {
 		} else {
 			loginLabel.setText("Login Failed");
 		}
+		
+
+
 ////////////////////////////////////////////////////////////
 		HotelDBManager connection = new HotelDBManager();
 		int rc = connection.login(username, passWord);
