@@ -167,6 +167,35 @@ public class HotelDBManager {
 	}
 	
 	/**
+	 * Gets the ID of the hotel based on the name of the hotel. Be careful that even though this function returns an
+	 * integer, it does NOT represent any of the return codes.
+	 * 
+	 * @param hotelName	the name of the hotel.
+	 * @return			the ID of the hotel if found, {@code 0} otherwise since none of the hotels have IDs of 0.
+	 */
+	public int getHotelId(String hotelName) {
+		int hotelId = 0;
+		
+		try {
+			// Executes the query to get the hotel by name assuming there is only one hotel with that name.
+			resultSet = statement.executeQuery("SELECT h.hotelId FROM Hotel h WHERE h.name = \"" + hotelName + "\";");
+
+			// Gets the ID as an integer from the returned ResultSet. The value returned from getInt is 0 if that
+			// value is NULL or the hotel with the passed name is not found.
+			while (resultSet.next()) {
+				hotelId = resultSet.getInt("hotelId");
+			}
+			
+			return hotelId;
+		}
+		catch (SQLException e) {
+			// This clause executes if there was an error processing the SQL query.
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	/**
 	 * Closes the statement and connection. Call this to close the connection to the database.
 	 */
 	public void closeManager() {
