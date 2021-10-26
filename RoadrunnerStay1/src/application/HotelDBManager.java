@@ -21,6 +21,7 @@ public class HotelDBManager {
 	public HotelDBManager() {
 		String url = "jdbc:mysql://174.138.182.12:3306/roadrunn_hotelbooksdb";
 		System.out.println("testing");
+		System.out.println("testing2");
 		
 		try {
 			// Establishes the connection.
