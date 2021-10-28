@@ -2,6 +2,7 @@ package application;
 
 import java.sql.*;
 import java.util.regex.*;
+import java.util.ArrayList;
 
 /**
  * Part of the model package. This class manages the hotel database based on user actions.
@@ -159,13 +160,13 @@ public class HotelDBManager {
 		
 		try {
 			// Executes the SQL query to get the user attributes for the application.
-			resultSet = statement.executeQuery("SELECT u.name, u.email, u.companyName, u.empPosition FROM User u" + 
+			resultSet = statement.executeQuery("SELECT u.name, u.emailAddress, u.companyName, u.empPosition FROM User u" + 
 												" WHERE u.userId = \"" + userKey + "\";");
 			
 			// Stores each attribute into the array.
 			while (resultSet.next()) {
 				userAttributes[0] = resultSet.getString("name");
-				userAttributes[1] = resultSet.getString("email");
+				userAttributes[1] = resultSet.getString("emailAddress");
 				userAttributes[2] = resultSet.getString("companyName");
 				userAttributes[3] = resultSet.getString("empPosition");
 			}
@@ -177,6 +178,10 @@ public class HotelDBManager {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public void getCheckBoxes(boolean poolSelected, boolean gymSelected, boolean spaSelected, boolean bOSelected) {
+		
 	}
 	
 	/**
@@ -191,13 +196,87 @@ public class HotelDBManager {
 	}
 	
 	/**
-	 * Executes the search query on hotels based on the keyword string passed to the parameter.
+	 * Executes the search query based on the user's input.
 	 * 
-	 * @param keywords the string containing keywords separated by a space.
+	 * @param 	hotelName	the name of the hotel, this can be empty.
+	 * @param 	amenities	the list of amenities.
+	 * @param 	fromDate	start book date.
+	 * @param 	toDate		end book date.
+	 * @param	minPrice	minimum price to look for.
+	 * @param 	maxPrice	maximum price to look for.
+	 * @return				the ArrayList of results, or {@code null} if an error occurred while executing the query.
 	 */
-	public void search(String keywords) {
-		// TODO: Write the code to execute the search based on the criteria string passed to the string. Return statements
-		// will be dealt with later.
+	public ArrayList<Hotel> search(String hotelName, boolean[] amenities, String fromDate, String toDate, double minPrice, double maxPrice) {
+		try {
+			ArrayList<Hotel> results = new ArrayList<>();
+			StringBuilder query = new StringBuilder("SELECT h.name, h.amenities, h.location, h.address, h.numRoomsStandard, h.numRoomsQueen, h.numRoomsKing, " +
+													"h.rmPriceStandard, h.rmPriceQueen, h.rmPriceKing, h.wkndDiff FROM Hotel h WHERE ");
+			
+			// Build the query string from the parameters passed. First check for null values.
+			
+			// TODO: Once the hotelName text field is binded, append a statement that will pick up results of
+			// hotels with that name.
+			
+			// Builds the amenity set.
+			query.append("h.amenities = (\"");
+			if (amenities[0]) {
+				query.append("gym");
+			}
+			if (amenities[1]) {
+				if (amenities[0]) query.append(",");
+				query.append("spa");
+			}
+			if (amenities[2]) {
+				if (amenities[1] || amenities[0]) query.append(",");
+				query.append("pool");
+			}
+			if (amenities[3]) {
+				if (amenities[2] || amenities[1] || amenities[0]) query.append(",");
+				query.append("business office");
+			}
+			query.append("\")");
+			
+			// Restricts the price range, if there is one.
+			if (minPrice > 0) {
+				// Uses the standard room price to check minimum price since it is the cheapest option.
+				query.append(" AND h.rmPriceStandard >= " + minPrice);
+			}
+			if (maxPrice > 0) {
+				// Uses the king room price to check the maximum price since it is the most expensive option.
+				query.append(" AND h.rmPriceKing <= " + maxPrice);
+			}
+			
+			// TODO: Once dates are worked out, append a string that will search the dates.
+			
+			// Concludes the query string.
+			query.append(";");
+			resultSet = statement.executeQuery(query.toString());
+			
+			// Gets the data obtained and stores them into the resultSet.
+			while (resultSet.next()) {
+				String name = resultSet.getString("name");
+				String availableAmenities = resultSet.getString("amenities");
+				String[] amenityList = availableAmenities.split(",");
+				String location = resultSet.getString("location");
+				String address = resultSet.getString("address");
+				int roomsStandard = resultSet.getInt("numRoomsStandard");
+				int roomsQueen = resultSet.getInt("numRoomsQueen");
+				int roomsKing = resultSet.getInt("numRoomsKing");
+				double priceStandard = resultSet.getDouble("rmPriceStandard");
+				double priceQueen = resultSet.getDouble("rmPriceQueen");
+				double priceKing = resultSet.getDouble("rmPriceKing");
+				float weekendDiff = resultSet.getFloat("wkndDiff");
+				
+				// Adds the new hotel to the result.
+				results.add(new Hotel(name, location, address, amenityList, roomsStandard, roomsQueen, roomsKing, priceStandard, priceQueen, priceKing, weekendDiff));
+			}
+			return results;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	/**

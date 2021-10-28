@@ -74,12 +74,32 @@ public class MainController  implements Initializable{
 		if(businessOffice.isSelected()) {
 			businessOfficeSelected = true;
 		}
-		/* send weather checkbox is selected to database*/	
 	}
 	
 	@FXML 
 	public void changeScreenResult(ActionEvent event) throws IOException {
 		checkboxSelected();
+		
+		ArrayList<Hotel> results;
+		boolean[] amenityChecks = new boolean[4];
+		amenityChecks[0] = gymSelected;
+		amenityChecks[1] = spaSelected;
+		amenityChecks[2] = poolSelected;
+		amenityChecks[3] = businessOfficeSelected;
+		
+		// Gets the results from the database.
+		HotelDBManager searcher = new HotelDBManager();
+		results = searcher.search("", amenityChecks, "", "", 0.0, 0.0);
+		
+		// FIXME: The below for loop is for testing purposes to test the results received from the database. Delete
+		// once the search is working.
+		System.out.println("hotels received:");
+		for (int i = 0; i < results.size(); i++) {
+			System.out.println("- " + results.get(i).getName());
+		}
+		searcher.closeManager();
+		
+		// TODO: Display the received results from the database that are stored in the results variable.
 		SwitchScenesController change = new SwitchScenesController();
 		change.changeScreenResult(event);
 	}
