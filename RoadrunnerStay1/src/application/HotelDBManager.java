@@ -148,6 +148,38 @@ public class HotelDBManager {
 	}
 	
 	/**
+	 * Retrieves the user data from the data given the unique username.
+	 * 
+	 * @param	userKey the username. This is the primary key to access a user's profile.
+	 * @return			a string array with 4 elements where element 0 is the name, 1 is the email, 2 is the company
+	 * 					name, and 3 is the position.
+	 */
+	public String[] getUserAttributes(String userKey) {
+		String[] userAttributes = new String[4];
+		
+		try {
+			// Executes the SQL query to get the user attributes for the application.
+			resultSet = statement.executeQuery("SELECT u.name, u.email, u.companyName, u.empPosition FROM User u" + 
+												" WHERE u.userId = \"" + userKey + "\";");
+			
+			// Stores each attribute into the array.
+			while (resultSet.next()) {
+				userAttributes[0] = resultSet.getString("name");
+				userAttributes[1] = resultSet.getString("email");
+				userAttributes[2] = resultSet.getString("companyName");
+				userAttributes[3] = resultSet.getString("empPosition");
+			}
+			
+			return userAttributes;
+		}
+		catch (SQLException e) {
+			// In case there was some kind of error accessing the database.
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
 	 * Edits a hotel reservation for the user.
 	 * 
 	 * @return RC_OK if changes to the reservation were saved successfully. Otherwise RC_MISC_ERR to indicate some

@@ -63,6 +63,8 @@ public class LoginController {
 
 
 ////////////////////////////////////////////////////////////
+		// This code is what will retrieve user data from the database. A new user object is created and they will
+		// be able to book, edit, and cancel reservations.
 		HotelDBManager connection = new HotelDBManager();
 		int rc = connection.login(username, passWord);
 		if (rc != ReturnCodes.RC_OK) {
@@ -73,9 +75,13 @@ public class LoginController {
 		else {
 			// Handle the case where the log-in is successful.
 			System.out.println("Authentication successful!");
+			String[] userAttributes = connection.getUserAttributes(username);
+			User user = new User(username, userAttributes[0], userAttributes[1]);
+			
+			// TODO: Work with obtained user data.
 		}
 		connection.closeManager();
 
-		}
+	}
 		////////////////////////////////////////////////////////////
 }
