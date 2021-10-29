@@ -38,7 +38,7 @@
             <Image url="@../sydney.png" />
          </image>
       </ImageView>
-      <TextField layoutX="14.0" layoutY="119.0" prefHeight="38.0" prefWidth="275.0" promptText="Hotel Name (optional)" />
+      <TextField fx:id="hotelNameInput" layoutX="14.0" layoutY="119.0" prefHeight="38.0" prefWidth="275.0" promptText="Hotel Name (optional)" />
       <Button fx:id="rules1" layoutX="813.0" layoutY="22.0" mnemonicParsing="false" onAction="#changeScreenCreateAccount" prefHeight="55.0" prefWidth="175.0" text="Create Account">
          <font>
             <Font size="36.0" />
@@ -53,9 +53,9 @@
       <CheckBox fx:id="gym" layoutX="71.0" layoutY="173.0" mnemonicParsing="false" text="Gym" />
       <CheckBox fx:id="spa" layoutX="131.0" layoutY="173.0" mnemonicParsing="false" text="Spa" />
       <CheckBox fx:id="businessOffice" layoutX="179.0" layoutY="173.0" mnemonicParsing="false" text="Business Office" />
-      <TextField layoutX="297.0" layoutY="115.0" prefHeight="38.0" prefWidth="84.0" promptText="From Date" />
-      <TextField layoutX="394.0" layoutY="115.0" prefHeight="38.0" prefWidth="84.0" promptText="To Date" />
-      <TextField layoutX="297.0" layoutY="154.0" prefHeight="38.0" prefWidth="84.0" promptText="Price (min)" />
-      <TextField layoutX="394.0" layoutY="154.0" prefHeight="38.0" prefWidth="84.0" promptText="Price (max)" />
+      <TextField fx:id="fromDateInput" layoutX="297.0" layoutY="115.0" prefHeight="38.0" prefWidth="84.0" promptText="From Date" />
+      <TextField fx:id="toDateInput" layoutX="394.0" layoutY="115.0" prefHeight="38.0" prefWidth="84.0" promptText="To Date" />
+      <TextField fx:id="minPriceInput" layoutX="297.0" layoutY="154.0" prefHeight="38.0" prefWidth="84.0" promptText="Price (min)" />
+      <TextField fx:id="maxPriceInput" layoutX="394.0" layoutY="154.0" prefHeight="38.0" prefWidth="84.0" promptText="Price (max)" />
    </children>
 </AnchorPane>

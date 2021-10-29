@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -24,8 +25,12 @@ import javafx.util.Duration;
 public class MainController  implements Initializable{
 	
 	@FXML private Button start, back;
+	@FXML private TextField hotelNameInput, fromDateInput, toDateInput, minPriceInput, maxPriceInput;
+	String hotelNameInputStr, fromDateInputStr, toDateInputStr, minPriceInputStr, maxPriceInputStr;
 	@FXML ImageView imageView, imageView2, imageView3;
 	@FXML CheckBox pool, gym, spa, businessOffice;
+	
+	
 	boolean isTheUserLoggedIn;
 	
 	boolean poolSelected = false, gymSelected = false, spaSelected = false, businessOfficeSelected = false; 
@@ -61,24 +66,35 @@ public class MainController  implements Initializable{
 	public void initialize(URL location, ResourceBundle resources ) {
 		slideshow();
 	}
-	public void checkboxSelected() {
-		if(pool.isSelected()) {
+	public void userInput() {
+		// check which and if checkboxes are selected
+		if(pool.isSelected())
 			poolSelected = true;
-		}
-		if(gym.isSelected()) {
+		if(gym.isSelected())
 			gymSelected = true;
-		} 
-		if(spa.isSelected()) {
+		if(spa.isSelected()) 
 			spaSelected = true;
-		} 
-		if(businessOffice.isSelected()) {
+		if(businessOffice.isSelected()) 
 			businessOfficeSelected = true;
-		}
+		
+		// get user input in TextFields
+		hotelNameInputStr = hotelNameInput.getText();
+		fromDateInputStr = fromDateInput.getText();
+		toDateInputStr = toDateInput.getText();
+		minPriceInputStr = minPriceInput.getText();
+		maxPriceInputStr = maxPriceInput.getText();	
 	}
 	
 	@FXML 
 	public void changeScreenResult(ActionEvent event) throws IOException {
-		checkboxSelected();
+		userInput();
+		// testing textfields
+		System.out.println(hotelNameInputStr);
+		System.out.println(fromDateInputStr);
+		System.out.println(toDateInputStr);
+		System.out.println(toDateInputStr);
+		System.out.println(maxPriceInputStr);
+		
 		
 		ArrayList<Hotel> results;
 		boolean[] amenityChecks = new boolean[4];
