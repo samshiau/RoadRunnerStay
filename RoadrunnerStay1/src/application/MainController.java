@@ -95,7 +95,7 @@ public class MainController  implements Initializable{
 		System.out.println(toDateInputStr);
 		System.out.println(maxPriceInputStr);
 		
-		
+		// Gets the user-checked amenities.
 		ArrayList<Hotel> results;
 		boolean[] amenityChecks = new boolean[4];
 		amenityChecks[0] = gymSelected;
@@ -103,9 +103,35 @@ public class MainController  implements Initializable{
 		amenityChecks[2] = poolSelected;
 		amenityChecks[3] = businessOfficeSelected;
 		
+		// Parses doubles from the min/max price text fields. In case there is an error in the format or there is no
+		// input for each of the prices, the minimum and maximum value of 0 is used and the search query will not use
+		// them.
+		double minPrice;
+		double maxPrice;
+		try {
+			minPrice = Double.parseDouble(minPriceInputStr);
+		}
+		catch (NumberFormatException e) {
+			minPrice = 0.0;
+		}
+		catch (NullPointerException e) {
+			minPrice = 0.0;
+		}
+		
+		try {
+			maxPrice = Double.parseDouble(maxPriceInputStr);
+		}
+		catch (NumberFormatException e) {
+			maxPrice = 0.0;
+		}
+		catch (NullPointerException e) {
+			maxPrice = 0.0;
+		}
+		
+		
 		// Gets the results from the database.
 		HotelDBManager searcher = new HotelDBManager();
-		results = searcher.search("", amenityChecks, "", "", 0.0, 0.0);
+		results = searcher.search(hotelNameInputStr, amenityChecks, fromDateInputStr, toDateInputStr, minPrice, maxPrice);
 		
 		// FIXME: The below for loop is for testing purposes to test the results received from the database. Delete
 		// once the search is working.
@@ -115,7 +141,7 @@ public class MainController  implements Initializable{
 		}
 		searcher.closeManager();
 		
-		// TODO: Display the received results from the database that are stored in the results variable.
+		// TODO: Display the received results from the database that are stored in the results variable. Sometimes the list may not have any results.
 		SwitchScenesController change = new SwitchScenesController();
 		change.changeScreenResult(event);
 	}
