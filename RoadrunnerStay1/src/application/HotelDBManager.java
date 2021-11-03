@@ -180,18 +180,31 @@ public class HotelDBManager {
 		return null;
 	}
 	
-	public void getCheckBoxes(boolean poolSelected, boolean gymSelected, boolean spaSelected, boolean bOSelected) {
-		
-	}
-	
 	/**
-	 * Edits a hotel reservation for the user.
+	 * Edits the employee's hotel attributes and sends the modified data to the database. For the {@code int} and {@code double} arrays
+	 * for the room types, index 0 is for a standard room, index 1 is for a queen room, and index 2 is for a king room.
 	 * 
-	 * @return RC_OK if changes to the reservation were saved successfully. Otherwise RC_MISC_ERR to indicate some
-	 * 			other error occurred.
+	 * @param name				the name of the hotel to update.
+	 * @param amenities			the hotel amenities.
+	 * @param numRoomsPerType	the array for the number of rooms for the hotel.
+	 * @param roomPricePerType	the array for the room prices.
+	 * @param weekendDiff		the hotel's weekend differential.
+	 * @return RC_OK 			if changes to the reservation were saved successfully. Otherwise RC_MISC_ERR to indicate if some
+	 * 							other error occurred.
 	 */
-	public int editReservation() {
-		// TODO: Write the code to get the user's reservations and make a change to one.
+	public int editHotel(String name, boolean[] amenities, int[] numRoomsPerType, double[] roomPricePerType, float weekendDiff) {
+		try {
+			// TODO: Write the code to update the hotel attributes based on the passed parameters.
+			preparedStatement = connect.prepareStatement("UPDATE Hotel h SET h.amenities = ?, h.numRoomsStandard = ?, h.numRoomsQueen = ?, h.numRoomsKing = ?, " +
+															"h.rmPriceStandard = ?, h.rmPriceQueen = ?, h.rmPriceKing = ?, h.wkndDiff = ? WHERE h.name = ?");
+			preparedStatement.setString(9, name);
+			
+			// TODO: Set the rest of the parameters for the prepared statement where index range is from 1 to 8 inclusively. Index 9 is already handled.
+			return ReturnCodes.RC_OK;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return ReturnCodes.RC_MISC_ERR;
 	}
 	
@@ -211,39 +224,56 @@ public class HotelDBManager {
 			ArrayList<Hotel> results = new ArrayList<>();
 			StringBuilder query = new StringBuilder("SELECT h.name, h.amenities, h.location, h.address, h.numRoomsStandard, h.numRoomsQueen, h.numRoomsKing, " +
 													"h.rmPriceStandard, h.rmPriceQueen, h.rmPriceKing, h.wkndDiff FROM Hotel h WHERE ");
+			boolean amenityIsSelected = (amenities[0] || amenities[1] || amenities[2] || amenities[3]);
+			boolean priceIsEntered = (minPrice > 0 || maxPrice > 0);
 			
-			// Build the query string from the parameters passed. First check for null values.
+			// Build the query string from the parameters passed. First check for null values and do not search for them.
 			
-			// TODO: Once the hotelName text field is binded, append a statement that will pick up results of
-			// hotels with that name.
+			// Checks for an entry to search for the hotel by name.
+			if (!hotelName.equals("")) {
+				query.append("h.name = \"" + hotelName + "\" ");
+			}
 			
-			// Builds the amenity set.
-			query.append("h.amenities = (\"");
-			if (amenities[0]) {
-				query.append("gym");
+			// Builds the amenity set if any of them are checked, otherwise amenities are not searched for in the query.
+			if (amenityIsSelected) {
+				if (!hotelName.equals("")) query.append("AND ");
+				
+				query.append("h.amenities = (\"");
+				if (amenities[0]) {
+					// Appends "gym".
+					query.append("gym");
+				}
+				if (amenities[1]) {
+					// Appends "spa".
+					if (amenities[0]) query.append(",");
+					query.append("spa");
+				}
+				if (amenities[2]) {
+					// Appends "pool".
+					if (amenities[1] || amenities[0]) query.append(",");
+					query.append("pool");
+				}
+				if (amenities[3]) {
+					// Appends "business office".
+					if (amenities[2] || amenities[1] || amenities[0]) query.append(",");
+					query.append("business office");
+				}
+				query.append("\") ");
 			}
-			if (amenities[1]) {
-				if (amenities[0]) query.append(",");
-				query.append("spa");
-			}
-			if (amenities[2]) {
-				if (amenities[1] || amenities[0]) query.append(",");
-				query.append("pool");
-			}
-			if (amenities[3]) {
-				if (amenities[2] || amenities[1] || amenities[0]) query.append(",");
-				query.append("business office");
-			}
-			query.append("\")");
+			
+			// Checks if any of the previous entries have obtained user input to place a logical AND for searching
+			// the hotels.
+			if ((!hotelName.equals("") || amenityIsSelected) && priceIsEntered) query.append("AND ");
 			
 			// Restricts the price range, if there is one.
 			if (minPrice > 0) {
 				// Uses the standard room price to check minimum price since it is the cheapest option.
-				query.append(" AND h.rmPriceStandard >= " + minPrice);
+				query.append("h.rmPriceStandard >= " + minPrice);
 			}
 			if (maxPrice > 0) {
 				// Uses the king room price to check the maximum price since it is the most expensive option.
-				query.append(" AND h.rmPriceKing <= " + maxPrice);
+				if (minPrice > 0) query.append("AND ");
+				query.append("h.rmPriceKing <= " + maxPrice);
 			}
 			
 			// TODO: Once dates are worked out, append a string that will search the dates.
@@ -277,6 +307,93 @@ public class HotelDBManager {
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * Books a new hotel reservation for the user with userId for hotel hotelId. Not only is the reservation added,
+	 * but the hotel number of rooms of the room type is also modified to protect the integrity of the database.
+	 * 
+	 * @param userId	the username.
+	 * @param hotelId	the hotel identification number.
+	 * @param roomType	the room type the user booked.
+	 * @param startDate	the start date of the reservation.
+	 * @param endDate	the end date of the user.
+	 * @return			{@code RC_OK} if the reservation is successful, {@code RC_DATE_SYN_WRONG} if the entered date
+	 * 					is not in a correct format, or {@code RC_MISC_ERR} if some other error occurred.
+	 */
+	public int bookReservation(String userId, int hotelId, String roomType, String startDate, String endDate) {
+		Pattern dateSyntax = Pattern.compile("([0-9]{2}/){2}[0-9]{4}");
+		Matcher startDateCorrect = dateSyntax.matcher(startDate), endDateCorrect = dateSyntax.matcher(endDate);
+		Date startSqlDate, endSqlDate;
+		StringBuilder query = new StringBuilder("SELECT ");
+		int rmPriceCol = 9;
+		double totalCost = 0.0;
+		
+		// Checks for date syntax (valid syntax: MM/DD/YYYY) before proceeding with the booking.
+		if (!startDateCorrect.find() || !endDateCorrect.find()) {
+			return ReturnCodes.RC_DATE_SYN_WRONG;
+		}
+		
+		// Converts the date format of the hotel into the format SQL can store it as.
+		startSqlDate = Date.valueOf(startDate);
+		endSqlDate = Date.valueOf(endDate);
+		
+		// Attempts to insert the book into the reservation table.
+		try {
+			preparedStatement = connect.prepareStatement("INSERT INTO `Reservation` (`userId`, `hotelId`, `startDate`, `endDate`, `totalCost`) "
+														+ "VALUES (?, ?, ?, ?, ?);");
+			preparedStatement.setString(1, userId);
+			preparedStatement.setInt(2, hotelId);
+			preparedStatement.setDate(3, startSqlDate);
+			preparedStatement.setDate(4, endSqlDate);
+			
+			// Calculates the total cost of the room.
+			int numDays = endSqlDate.compareTo(startSqlDate);
+			
+			// Appends the room type attribute based on the user's room type selection.
+			if (roomType.equals("standard")) {
+				// Gets the price of a standard room for one night. 
+				query.append("h.rmPriceStandard, ");
+				statement.executeUpdate("UPDATE Hotel h SET h.numRoomsStandard = h.numRoomsStandard - 1 " +
+										"WHERE h.hotelId = " + hotelId + ";");
+			}
+			else if (roomType.equals("queen")) {
+				// Gets the price of a queen room for one night. 
+				query.append("h.rmPriceQueen, ");
+				rmPriceCol += 1;
+				statement.executeUpdate("UPDATE Hotel h SET h.numRoomsQueen = h.numRoomsQueen - 1;" + 
+										"WHERE h.hotelId = " + hotelId + ";");
+			}
+			else {
+				// Gets the price of a king room for one night. 
+				query.append("h.rmPriceKing, ");
+				rmPriceCol += 2;
+				statement.executeUpdate("UPDATE Hotel h SET h.numRoomsKing = h.numRoomsKing - 1;" +
+										"WHERE h.hotelId = " + hotelId + ";");
+			}
+			
+			// Obtains the data of the hotel to book from the database.
+			query.append("h.wkndDiff FROM Hotel h WHERE h.hotelId = \"" + hotelId + "\";");
+			resultSet = statement.executeQuery(query.toString());
+			
+			while (resultSet.next()) {
+				double costPerRoom = resultSet.getDouble(rmPriceCol);
+				float weekendDiff = resultSet.getFloat("wkndDiff");
+				totalCost = numDays * costPerRoom * (1 * weekendDiff);
+			}
+			
+			// Sets the total cost and then adds the reservation to the database.
+			preparedStatement.setDouble(5, totalCost);
+			preparedStatement.executeUpdate();
+			preparedStatement.close();
+			
+			return ReturnCodes.RC_OK;
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return ReturnCodes.RC_MISC_ERR;
+		}
 	}
 	
 	/**

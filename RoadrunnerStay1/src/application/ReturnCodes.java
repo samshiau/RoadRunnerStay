@@ -14,6 +14,7 @@ public class ReturnCodes {
 	public static final int RC_INVALID_CRED = 2;
 	public static final int RC_DUP_USER = 3;
 	public static final int RC_EMAIL_SYN_WRONG = 4;
+	public static final int RC_DATE_SYN_WRONG = 5;
 	public static final int RC_MISC_ERR = 99;
 	
 	/**
@@ -36,6 +37,8 @@ public class ReturnCodes {
 				return "Account associated with this username already exists.";
 			case RC_EMAIL_SYN_WRONG:
 				return "Email syntax is incorrect.";
+			case RC_DATE_SYN_WRONG:
+				return "The date format is incorrect.";
 			default:
 				return "Unknown return code: " + rc + ".";
 		}
