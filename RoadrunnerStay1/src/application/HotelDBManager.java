@@ -21,8 +21,6 @@ public class HotelDBManager {
      */
 	public HotelDBManager() {
 		String url = "jdbc:mysql://174.138.182.12:3306/roadrunn_hotelbooksdb";
-		System.out.println("testing");
-		System.out.println("testing23");
 		
 		try {
 			// Establishes the connection.
@@ -62,6 +60,16 @@ public class HotelDBManager {
 			// Ensures the email syntax is correct.
 			return ReturnCodes.RC_EMAIL_SYN_WRONG;
 		}
+		
+		// Validates the entered name by checking to make sure only alphabetic and spaces are entered.
+		for (int i = 0; i < name.length(); i++) {
+			if (!Character.isAlphabetic(name.charAt(i)) && !Character.isWhitespace(name.charAt(i))) {
+				return ReturnCodes.RC_INVALID_CRED;
+			}
+		}
+		
+		// Trims leading and trailing whitespace from the username and names in place.
+		username = username.trim(); name = name.trim();
 		
 		String encryptPass = Encryption.encrypt(password, username);	// Encrypt the password for the database.
 		
@@ -185,7 +193,7 @@ public class HotelDBManager {
 	 * for the room types, index 0 is for a standard room, index 1 is for a queen room, and index 2 is for a king room.
 	 * 
 	 * @param name				the name of the hotel to update.
-	 * @param amenities			the hotel amenities.
+	 * @param amenities			the array for the hotel amenities.
 	 * @param numRoomsPerType	the array for the number of rooms for the hotel.
 	 * @param roomPricePerType	the array for the room prices.
 	 * @param weekendDiff		the hotel's weekend differential.
@@ -193,13 +201,54 @@ public class HotelDBManager {
 	 * 							other error occurred.
 	 */
 	public int editHotel(String name, boolean[] amenities, int[] numRoomsPerType, double[] roomPricePerType, float weekendDiff) {
+		String amenityStr = "h.amenities = (\"";
 		try {
 			// TODO: Write the code to update the hotel attributes based on the passed parameters.
 			preparedStatement = connect.prepareStatement("UPDATE Hotel h SET h.amenities = ?, h.numRoomsStandard = ?, h.numRoomsQueen = ?, h.numRoomsKing = ?, " +
-															"h.rmPriceStandard = ?, h.rmPriceQueen = ?, h.rmPriceKing = ?, h.wkndDiff = ? WHERE h.name = ?");
+															"h.rmPriceStandard = ?, h.rmPriceQueen = ?, h.rmPriceKing = ?, h.wkndDiff = ? WHERE h.name = ?;");
 			preparedStatement.setString(9, name);
 			
 			// TODO: Set the rest of the parameters for the prepared statement where index range is from 1 to 8 inclusively. Index 9 is already handled.
+			
+			// Builds the string to set the amenity set.
+			if (amenities[0]) {
+				// Appends "gym".
+				amenityStr += "gym";
+			}
+			if (amenities[1]) {
+				// Appends "spa".
+				if (amenities[0]) amenityStr += ",";
+				amenityStr += "spa";
+			}
+			if (amenities[2]) {
+				// Appends "pool".
+				if (amenities[1] || amenities[0]) amenityStr += ",";
+				amenityStr += "pool";
+			}
+			if (amenities[3]) {
+				// Appends "business office".
+				if (amenities[2] || amenities[1] || amenities[0]) amenityStr += ",";
+				amenityStr += "business office";
+			}
+			amenityStr += "\")";
+			preparedStatement.setString(1, amenityStr);
+			
+			// Sets the number of rooms for each type.
+			preparedStatement.setInt(2, numRoomsPerType[0]);
+			preparedStatement.setInt(3, numRoomsPerType[1]);
+			preparedStatement.setInt(4, numRoomsPerType[2]);
+			
+			// Sets the room prices.
+			preparedStatement.setDouble(5, roomPricePerType[0]);
+			preparedStatement.setDouble(6, roomPricePerType[1]);
+			preparedStatement.setDouble(7, roomPricePerType[2]);
+			
+			// Sets the weekend differential.
+			preparedStatement.setFloat(8, weekendDiff);
+			
+			// Executes the update.
+			preparedStatement.executeUpdate();
+			
 			return ReturnCodes.RC_OK;
 		}
 		catch (SQLException e) {
@@ -224,8 +273,13 @@ public class HotelDBManager {
 			ArrayList<Hotel> results = new ArrayList<>();
 			StringBuilder query = new StringBuilder("SELECT h.name, h.amenities, h.location, h.address, h.numRoomsStandard, h.numRoomsQueen, h.numRoomsKing, " +
 													"h.rmPriceStandard, h.rmPriceQueen, h.rmPriceKing, h.wkndDiff FROM Hotel h WHERE ");
-			boolean amenityIsSelected = (amenities[0] || amenities[1] || amenities[2] || amenities[3]);
+			boolean amenityIsSelected = amenities[0] || amenities[1] || amenities[2] || amenities[3];
 			boolean priceIsEntered = (minPrice > 0 || maxPrice > 0);
+			
+			// Check for invalid character input such as a semicolon in the hotel name to prevent an SQL injection attack.
+			if (hotelName.indexOf(';') != -1) {
+				throw new SQLException("Invalid character entry in hotel name.");
+			}
 			
 			// Build the query string from the parameters passed. First check for null values and do not search for them.
 			
@@ -394,6 +448,33 @@ public class HotelDBManager {
 			e.printStackTrace();
 			return ReturnCodes.RC_MISC_ERR;
 		}
+	}
+	
+	/**
+	 * Modifies a booked reservation in the database.
+	 * 
+	 * @param userId	the username.
+	 * @param hotelName	the hotel ID.
+	 * @param totalCost	the total cost.
+	 * @return			RC_OK if the reservation was successfully changed, otherwise RC_MISC_ERR if some other error
+	 * 					occurred.
+	 */
+	public int editReservation(String userId, String hotelName, double totalCost) {
+		try {
+			preparedStatement = connect.prepareStatement("UPDATE Reservation r SET r.totalCost = ? WHERE " +
+														"r.hotelId = ? AND r.userId = ?;");
+			
+			int hotelId = getHotelId(hotelName);
+			
+			preparedStatement.setDouble(1, totalCost);
+			preparedStatement.setInt(2, hotelId);
+			preparedStatement.setString(3, userId);
+			preparedStatement.close();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ReturnCodes.RC_MISC_ERR;
 	}
 	
 	/**
