@@ -376,7 +376,7 @@ public class HotelDBManager {
 	 * 					is not in a correct format, or {@code RC_MISC_ERR} if some other error occurred.
 	 */
 	public int bookReservation(String userId, int hotelId, String roomType, String startDate, String endDate) {
-		Pattern dateSyntax = Pattern.compile("([0-9]{2}/){2}[0-9]{4}");
+		Pattern dateSyntax = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");
 		Matcher startDateCorrect = dateSyntax.matcher(startDate), endDateCorrect = dateSyntax.matcher(endDate);
 		Date startSqlDate, endSqlDate;
 		StringBuilder query = new StringBuilder("SELECT ");
@@ -385,6 +385,7 @@ public class HotelDBManager {
 		
 		// Checks for date syntax (valid syntax: MM/DD/YYYY) before proceeding with the booking.
 		if (!startDateCorrect.find() || !endDateCorrect.find()) {
+			System.out.println("Date syntax incorrect");
 			return ReturnCodes.RC_DATE_SYN_WRONG;
 		}
 		
@@ -415,22 +416,27 @@ public class HotelDBManager {
 				// Gets the price of a queen room for one night. 
 				query.append("h.rmPriceQueen, ");
 				rmPriceCol += 1;
-				statement.executeUpdate("UPDATE Hotel h SET h.numRoomsQueen = h.numRoomsQueen - 1;" + 
+				System.out.println("UPDATE Hotel h SET h.numRoomsQueen = h.numRoomsQueen - 1 " + 
+										"WHERE h.hotelId = " + hotelId + ";");
+				statement.executeUpdate("UPDATE Hotel h SET h.numRoomsQueen = h.numRoomsQueen - 1 " + 
 										"WHERE h.hotelId = " + hotelId + ";");
 			}
 			else {
 				// Gets the price of a king room for one night. 
 				query.append("h.rmPriceKing, ");
 				rmPriceCol += 2;
-				statement.executeUpdate("UPDATE Hotel h SET h.numRoomsKing = h.numRoomsKing - 1;" +
+				statement.executeUpdate("UPDATE Hotel h SET h.numRoomsKing = h.numRoomsKing - 1 " +
 										"WHERE h.hotelId = " + hotelId + ";");
 			}
 			
 			// Obtains the data of the hotel to book from the database.
 			query.append("h.wkndDiff FROM Hotel h WHERE h.hotelId = \"" + hotelId + "\";");
+			
+			//System.out.println(query.toString());
 			resultSet = statement.executeQuery(query.toString());
 			
 			while (resultSet.next()) {
+				System.out.println("Column index = " + rmPriceCol);
 				double costPerRoom = resultSet.getDouble(rmPriceCol);
 				float weekendDiff = resultSet.getFloat("wkndDiff");
 				totalCost = numDays * costPerRoom * (1 * weekendDiff);

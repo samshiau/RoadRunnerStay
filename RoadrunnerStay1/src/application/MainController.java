@@ -159,7 +159,10 @@ public class MainController  implements Initializable{
 		String roomType = "queen"; 
 		String startDate = "2021-04-04"; 
 		String endDate = "2021-04-05";
-		test.bookReservation(userId, hotelId, roomType, startDate, endDate);
+		int rc = test.bookReservation(userId, hotelId, roomType, startDate, endDate);
+		if (rc != 0) {
+			System.out.println("Booking failed.");
+		}
 		test.closeManager();
 		//HotelDBManager.bookReservation(userId, hotelId, roomType, startDate, endDate);
 	}
