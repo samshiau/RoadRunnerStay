@@ -379,7 +379,7 @@ public class HotelDBManager {
 	 * 					is not in a correct format, or {@code RC_MISC_ERR} if some other error occurred.
 	 */
 	public int bookReservation(String userId, int hotelId, String roomType, String startDate, String endDate) {
-		Pattern dateSyntax = Pattern.compile("([0-9]{2}/){2}[0-9]{4}");
+		Pattern dateSyntax = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");	// Format in YYYY-MM-DD.
 		Matcher startDateCorrect = dateSyntax.matcher(startDate), endDateCorrect = dateSyntax.matcher(endDate);
 		Date startSqlDate, endSqlDate;
 		StringBuilder query = new StringBuilder("SELECT ");
@@ -474,11 +474,12 @@ public class HotelDBManager {
 			
 			while (resultSet.next()) {
 				int hotelId = resultSet.getInt("hotelId");
-				Date startDate = resultSet.getDate("startDate");
-				Date endDate = resultSet.getDate("endDate");
+				String startDate = resultSet.getDate("startDate").toString();
+				String endDate = resultSet.getDate("endDate").toString();
 				double totalCost = resultSet.getDouble("totalCost");
 				
 				// TODO: Store the collected data into the ArrayList.
+				results.add(new Reservation(username, hotelId, startDate, endDate, totalCost));
 			}
 			return results;
 		}
