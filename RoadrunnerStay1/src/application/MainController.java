@@ -25,6 +25,8 @@ import javafx.util.Duration;
 public class MainController  implements Initializable{
 	
 	@FXML private Button start, back;
+	// just for testing
+	@FXML private Button booking;
 	@FXML private TextField hotelNameInput, fromDateInput, toDateInput, minPriceInput, maxPriceInput;
 	String hotelNameInputStr, fromDateInputStr, toDateInputStr, minPriceInputStr, maxPriceInputStr;
 	@FXML ImageView imageView, imageView2, imageView3;
@@ -144,6 +146,22 @@ public class MainController  implements Initializable{
 		// TODO: Display the received results from the database that are stored in the results variable. Sometimes the list may not have any results.
 		SwitchScenesController change = new SwitchScenesController();
 		change.changeScreenResult(event);
+	}
+	
+	@FXML 
+	public void changeScreenBook(ActionEvent event) throws IOException {
+		System.out.println("this is just a test");
+		//userInput();
+		HotelDBManager test = new HotelDBManager();
+		
+		String userId = "user";
+		int hotelId = 1;
+		String roomType = "queen"; 
+		String startDate = "2021-04-04"; 
+		String endDate = "2021-04-05";
+		test.bookReservation(userId, hotelId, roomType, startDate, endDate);
+		test.closeManager();
+		//HotelDBManager.bookReservation(userId, hotelId, roomType, startDate, endDate);
 	}
 	
 	@FXML 

@@ -91,6 +91,8 @@ public class HotelDBManager {
 													+ name + "\", \""
 													+ email + "\");");
 			}
+			// FIXME: Delete this line once account creation is successful (i.e., credentials must be on database).
+			System.out.println("Account creation successful!");
 			
 			return ReturnCodes.RC_OK;
 		}
@@ -201,11 +203,12 @@ public class HotelDBManager {
 	public int editHotel(String name, boolean[] amenities, int[] numRoomsPerType, double[] roomPricePerType, float weekendDiff) {
 		String amenityStr = "h.amenities = (\"";
 		try {
-			preparedStatement = connect.prepareStatement("UPDATE Hotel h SET h.amenities = ?, " +
-														"h.numRoomsStandard = ?, h.numRoomsQueen = ?, h.numRoomsKing = ?, " +
-														"h.rmPriceStandard = ?, h.rmPriceQueen = ?, h.rmPriceKing = ?, " +
-														"h.wkndDiff = ? WHERE h.name = ?;");
+			// TODO: Write the code to update the hotel attributes based on the passed parameters.
+			preparedStatement = connect.prepareStatement("UPDATE Hotel h SET h.amenities = ?, h.numRoomsStandard = ?, h.numRoomsQueen = ?, h.numRoomsKing = ?, " +
+															"h.rmPriceStandard = ?, h.rmPriceQueen = ?, h.rmPriceKing = ?, h.wkndDiff = ? WHERE h.name = ?;");
 			preparedStatement.setString(9, name);
+			
+			// TODO: Set the rest of the parameters for the prepared statement where index range is from 1 to 8 inclusively. Index 9 is already handled.
 			
 			// Builds the string to set the amenity set.
 			if (amenities[0]) {
@@ -268,10 +271,8 @@ public class HotelDBManager {
 	public ArrayList<Hotel> search(String hotelName, boolean[] amenities, String fromDate, String toDate, double minPrice, double maxPrice) {
 		try {
 			ArrayList<Hotel> results = new ArrayList<>();
-			StringBuilder query = new StringBuilder("SELECT h.name, h.amenities, h.location, h.address, " +
-													"h.numRoomsStandard, h.numRoomsQueen, h.numRoomsKing, " +
-													"h.rmPriceStandard, h.rmPriceQueen, h.rmPriceKing, " +
-													"h.wkndDiff FROM Hotel h WHERE ");
+			StringBuilder query = new StringBuilder("SELECT h.name, h.amenities, h.location, h.address, h.numRoomsStandard, h.numRoomsQueen, h.numRoomsKing, " +
+													"h.rmPriceStandard, h.rmPriceQueen, h.rmPriceKing, h.wkndDiff FROM Hotel h WHERE ");
 			boolean amenityIsSelected = amenities[0] || amenities[1] || amenities[2] || amenities[3];
 			boolean priceIsEntered = (minPrice > 0 || maxPrice > 0);
 			
@@ -330,7 +331,6 @@ public class HotelDBManager {
 			}
 			
 			// TODO: Once dates are worked out, append a string that will search the dates.
-			// A date picker will be used to get the dates.
 			
 			// Concludes the query string.
 			query.append(";");
@@ -352,10 +352,7 @@ public class HotelDBManager {
 				float weekendDiff = resultSet.getFloat("wkndDiff");
 				
 				// Adds the new hotel to the result.
-				results.add(new Hotel(name, location, address, amenityList,
-										roomsStandard, roomsQueen, roomsKing,
-										priceStandard, priceQueen, priceKing,
-										weekendDiff));
+				results.add(new Hotel(name, location, address, amenityList, roomsStandard, roomsQueen, roomsKing, priceStandard, priceQueen, priceKing, weekendDiff));
 			}
 			return results;
 		}
@@ -379,7 +376,7 @@ public class HotelDBManager {
 	 * 					is not in a correct format, or {@code RC_MISC_ERR} if some other error occurred.
 	 */
 	public int bookReservation(String userId, int hotelId, String roomType, String startDate, String endDate) {
-		Pattern dateSyntax = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");	// Format in YYYY-MM-DD.
+		Pattern dateSyntax = Pattern.compile("([0-9]{2}/){2}[0-9]{4}");
 		Matcher startDateCorrect = dateSyntax.matcher(startDate), endDateCorrect = dateSyntax.matcher(endDate);
 		Date startSqlDate, endSqlDate;
 		StringBuilder query = new StringBuilder("SELECT ");
@@ -431,8 +428,6 @@ public class HotelDBManager {
 			
 			// Obtains the data of the hotel to book from the database.
 			query.append("h.wkndDiff FROM Hotel h WHERE h.hotelId = \"" + hotelId + "\";");
-			
-			System.out.println(query.toString());
 			resultSet = statement.executeQuery(query.toString());
 			
 			while (resultSet.next()) {
@@ -456,40 +451,6 @@ public class HotelDBManager {
 	}
 	
 	/**
-	 * Loads all the reservations of the user passed to the parameter and stores them into an ArrayList of type
-	 * Reservation.
-	 * 
-	 * @param username 	the user name.
-	 * @return			the ArrayList of booked reservations by the user.
-	 */
-	public ArrayList<Reservation> getReservationsByUser(String username) {
-		ArrayList<Reservation> results = new ArrayList<>();
-		
-		try {
-			preparedStatement = connect.prepareStatement("SELECT r.hotelId, r.startDate, r.endDate, r.totalCost " + 
-															"FROM Hotel h WHERE r.userId = ?;");
-			
-			preparedStatement.setString(1, username);
-			resultSet = preparedStatement.executeQuery();
-			
-			while (resultSet.next()) {
-				int hotelId = resultSet.getInt("hotelId");
-				String startDate = resultSet.getDate("startDate").toString();
-				String endDate = resultSet.getDate("endDate").toString();
-				double totalCost = resultSet.getDouble("totalCost");
-				
-				// TODO: Store the collected data into the ArrayList.
-				results.add(new Reservation(username, hotelId, startDate, endDate, totalCost));
-			}
-			return results;
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	/**
 	 * Modifies a booked reservation in the database.
 	 * 
 	 * @param userId	the username.
@@ -503,10 +464,8 @@ public class HotelDBManager {
 			preparedStatement = connect.prepareStatement("UPDATE Reservation r SET r.totalCost = ? WHERE " +
 														"r.hotelId = ? AND r.userId = ?;");
 			
-			// Gets the ID of the hotel by the name passed.
 			int hotelId = getHotelId(hotelName);
 			
-			// Sets the parameters for the SQL statement.
 			preparedStatement.setDouble(1, totalCost);
 			preparedStatement.setInt(2, hotelId);
 			preparedStatement.setString(3, userId);

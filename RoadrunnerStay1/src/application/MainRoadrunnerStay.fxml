@@ -57,5 +57,10 @@
       <TextField fx:id="toDateInput" layoutX="394.0" layoutY="115.0" prefHeight="38.0" prefWidth="84.0" promptText="To Date" />
       <TextField fx:id="minPriceInput" layoutX="297.0" layoutY="154.0" prefHeight="38.0" prefWidth="84.0" promptText="Price (min)" />
       <TextField fx:id="maxPriceInput" layoutX="394.0" layoutY="154.0" prefHeight="38.0" prefWidth="84.0" promptText="Price (max)" />
+      <Button fx:id="booking" layoutX="282.0" layoutY="208.0" mnemonicParsing="false" onAction="#changeScreenBook" prefHeight="67.0" prefWidth="150.0" text="book">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
