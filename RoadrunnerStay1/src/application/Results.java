@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -28,33 +29,27 @@ public class Results implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		Scanner inFile1 = null;
-		String token1 = "";
-		try {
-			inFile1 = new Scanner(new File("resutls.txt")).useDelimiter(",\\s*");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		// replace code with getters
+		ArrayList<String> temps = new ArrayList<String>();
+		String token = "";
+		
+		for (int i = 0; i < MainController.results.size(); i++) {
+			//System.out.println("- " + MainController.results.get(i).getName());
+			token = MainController.results.get(i).getName();
+			temps.add(token);
+			System.out.println(token);
+			System.out.println(temps.get(i));
 		}
-		List<String> temps = new ArrayList<String>();
-		while (inFile1.hasNext()) {
-		      // find next line
-		      token1 = inFile1.next();
-		      temps.add(token1);
-		    }
-		    inFile1.close();
-
-		    String[] tempsArray = temps.toArray(new String[0]);
-
-		    for (String s : tempsArray) {
-		    	resultsList.getItems().add(s);
-		    }
+		String[] tempsArray = temps.toArray(new String[0]);
+		
+		for (String s : tempsArray) {
+			resultsList.getItems().add(s);
+		}
+				    
 	}
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
 		SwitchScenesController change = new SwitchScenesController();
 		change.changeScreenonHome(event);
 	}
-		
-	
-	
 }

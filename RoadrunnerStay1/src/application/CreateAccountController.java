@@ -62,6 +62,6 @@ public class CreateAccountController {
 			System.out.println(rcStr);
 		}
 		connection.closeManager();
-
+		changeScreenCreateAccount(event);
 	}
 }

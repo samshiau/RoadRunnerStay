@@ -15,7 +15,9 @@ public class LoginController {
 	@FXML private PasswordField passwordInput;
 	@FXML private Label loginLabel;
 	static boolean admin;
-	static boolean isLoggedIn = false;
+	//static boolean isLoggedIn = false;
+	// use for testing (so you don't have to login to test editreservations and profile)
+	static boolean isLoggedIn = true;
 	
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
@@ -42,27 +44,7 @@ public class LoginController {
 		// clear textfields
 		userNameInput.clear();
 		passwordInput.clear();
-		
-		if(username.equals("user") && passWord.equals("pass")) {
-			loginLabel.setText("Login Success");
-			admin = false;
-			isLoggedIn = true;
-			changeScreenLogin(event);	
-		}
-		
-		if(username.equals("admin") && passWord.equals("pass")) {
-			loginLabel.setText("Login Success");
-			admin = true;
-			isLoggedIn = true;
-			
-			changeScreenLogin(event);
-		} else {
-			loginLabel.setText("Login Failed");
-		}
-		
 
-
-////////////////////////////////////////////////////////////
 		// This code is what will retrieve user data from the database. A new user object is created and they will
 		// be able to book, edit, and cancel reservations.
 		HotelDBManager connection = new HotelDBManager();
@@ -77,11 +59,10 @@ public class LoginController {
 			System.out.println("Authentication successful!");
 			String[] userAttributes = connection.getUserAttributes(username);
 			User user = new User(username, userAttributes[0], userAttributes[1]);
-			
+			isLoggedIn = true;
 			// TODO: Work with obtained user data.
 		}
 		connection.closeManager();
 
 	}
-		////////////////////////////////////////////////////////////
 }

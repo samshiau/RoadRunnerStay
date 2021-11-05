@@ -85,18 +85,13 @@ public class MainController  implements Initializable{
 		maxPriceInputStr = maxPriceInput.getText();	
 	}
 	
+	static ArrayList<Hotel> results;
 	@FXML 
 	public void changeScreenResult(ActionEvent event) throws IOException {
 		userInput();
 		// testing textfields
-		System.out.println(hotelNameInputStr);
-		System.out.println(fromDateInputStr);
-		System.out.println(toDateInputStr);
-		System.out.println(toDateInputStr);
-		System.out.println(maxPriceInputStr);
 		
 		// Gets the user-checked amenities.
-		ArrayList<Hotel> results;
 		boolean[] amenityChecks = new boolean[4];
 		amenityChecks[0] = gymSelected;
 		amenityChecks[1] = spaSelected;
@@ -128,7 +123,7 @@ public class MainController  implements Initializable{
 			maxPrice = 0.0;
 		}
 		
-		
+		//ArrayList<Hotel> results;
 		// Gets the results from the database.
 		HotelDBManager searcher = new HotelDBManager();
 		results = searcher.search(hotelNameInputStr, amenityChecks, fromDateInputStr, toDateInputStr, minPrice, maxPrice);

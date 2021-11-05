@@ -15,7 +15,7 @@
             <Label fx:id="title" alignment="CENTER" layoutX="104.0" layoutY="14.0" text="Create Account" textAlignment="CENTER" />
          </children>
       </Pane>
-      <Button fx:id="create" layoutX="291.0" layoutY="578.0" mnemonicParsing="false" onAction="#changeScreenCreateAccount" prefHeight="124.0" prefWidth="340.0" text="Create Account">
+      <Button fx:id="create" layoutX="291.0" layoutY="578.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="124.0" prefWidth="340.0" text="Create Account">
          <font>
             <Font size="36.0" />
          </font>
@@ -34,11 +34,6 @@
       <Text layoutX="445.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
       <Text layoutX="447.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
       <Text layoutX="558.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Position" wrappingWidth="49.951171875" />
-      <Button fx:id="create11" layoutX="728.0" layoutY="203.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="87.0" prefWidth="149.0" text="Temp Create">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Button>
       <TextField fx:id="companyNameInput" layoutX="298.0" layoutY="451.0" />
       <Text layoutX="330.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company Name" />
       <PasswordField fx:id="passwordInput" layoutX="384.0" layoutY="234.0" />

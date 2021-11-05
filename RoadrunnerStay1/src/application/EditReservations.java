@@ -1,8 +1,13 @@
 package application;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 public class EditReservations implements Initializable{
@@ -19,21 +25,59 @@ public class EditReservations implements Initializable{
 	@FXML private TextField numRooms;
 	@FXML private TextField pricePerNight;
 	
-	@FXML public ComboBox<String> comboBox;
-	String percent; 
+	@FXML public ComboBox<String> comboBoxWeekendDifferential;
+	@FXML public ComboBox<String> comboBoxRoomType;
 	
-	ObservableList<String> options = 
+	@FXML private ListView<String> resultList;
+	
+	String percent; 
+	String roomType;
+	
+	ObservableList<String> WeekendDifferentialoptions = 
 		    FXCollections.observableArrayList(
 		        "15%","20%","25%","35%");
 	
+	ObservableList<String> roomTypeOptions = 
+		    FXCollections.observableArrayList(
+		        "Standard","Queen","King");
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources ) {
-		comboBox.setItems(options);
+		comboBoxWeekendDifferential.setItems(WeekendDifferentialoptions);
+		comboBoxRoomType.setItems(roomTypeOptions);
+		Scanner inFile1 = null;
+		String token1 = "";
+		try {
+			inFile1 = new Scanner(new File("resutls.txt")).useDelimiter(",\\s*");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		List<String> temps = new ArrayList<String>();
+		
+		//MainController results = 
+		while (inFile1.hasNext()) {
+		      // find next line
+		      token1 = inFile1.next();
+		      temps.add(token1);
+		    }
+		    inFile1.close();
+
+		    String[] tempsArray = temps.toArray(new String[0]);
+
+		    for (String s : tempsArray) {
+		    	resultList.getItems().add(s);
+		    }
+
+
 	}
 	
 	@FXML
 	public void weekendDifferential(ActionEvent event) {
-		percent =comboBox.getValue();
+		percent =comboBoxWeekendDifferential.getValue();
+	}
+	@FXML
+	public void roomType(ActionEvent event) {
+		roomType =comboBoxRoomType.getValue();
 	}
 	
 	@FXML 
@@ -59,8 +103,6 @@ public class EditReservations implements Initializable{
 		System.out.println(roomPricePerNight);
 		System.out.println(percent);
 		
-		
-		////////////////////////////////////////////////////////////
 		/* send data to database */
 		HotelDBManager connection = new HotelDBManager();
 		// TODO: Call editReservation to modify the reservation.
@@ -69,6 +111,7 @@ public class EditReservations implements Initializable{
 		// clear textfields
 		numRooms.clear();
 		pricePerNight.clear();
-		comboBox.valueProperty().set(null);
+		comboBoxWeekendDifferential.valueProperty().set(null);
+		comboBoxRoomType.valueProperty().set(null);
 	}
 }

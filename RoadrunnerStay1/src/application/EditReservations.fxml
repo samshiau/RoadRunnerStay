@@ -9,44 +9,52 @@
 
 <AnchorPane prefHeight="752.0" prefWidth="921.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EditReservations">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="442.0" layoutX="240.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" width="423.0" />
-      <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css">
+      <Pane layoutX="198.0" layoutY="14.0" stylesheets="@application.css">
          <children>
             <Label fx:id="title" alignment="CENTER" layoutX="104.0" text="Edit Reservations" textAlignment="CENTER" />
          </children>
       </Pane>
-      <Button fx:id="create" layoutX="390.0" layoutY="434.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="57.0" prefWidth="149.0" text="Save Changes">
+      <Button fx:id="create1" layoutX="765.0" layoutY="76.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="66.0" prefWidth="125.0" text="Home">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <TextField fx:id="pricePerNight" layoutX="466.0" layoutY="222.0" prefHeight="25.0" prefWidth="73.0" />
-      <Button fx:id="create1" layoutX="719.0" layoutY="73.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="87.0" prefWidth="149.0" text="Home">
+      <Button fx:id="create11" layoutX="765.0" layoutY="163.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="66.0" prefWidth="125.0" text="Profile">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Text layoutX="292.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Name of Hotel&gt;">
-         <font>
-            <Font size="36.0" />
-         </font></Text>
-      <Text layoutX="295.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Rooms" />
-      <Text layoutX="464.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price per night" />
-      <Text layoutX="295.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weekend Differential">
-         <font>
-            <Font size="24.0" />
-         </font></Text>
-      <CheckBox layoutX="295.0" layoutY="163.0" mnemonicParsing="false" text="Pool" />
-      <CheckBox layoutX="344.0" layoutY="163.0" mnemonicParsing="false" text="Gym" />
-      <CheckBox layoutX="400.0" layoutY="163.0" mnemonicParsing="false" text="Spa" />
-      <CheckBox layoutX="452.0" layoutY="163.0" mnemonicParsing="false" text="Business Office" />
-      <ComboBox fx:id="comboBox" layoutX="302.0" layoutY="343.0" onAction="#weekendDifferential" prefWidth="150.0" promptText="Percent surcharge" />
-      <Label layoutX="302.0" layoutY="328.0" text="Percent of nightly rate surcharge" />
-      <TextField fx:id="numRooms" layoutX="295.0" layoutY="222.0" prefHeight="25.0" prefWidth="73.0" />
-      <Button fx:id="create11" layoutX="719.0" layoutY="179.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="87.0" prefWidth="149.0" text="Profile">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Button>
+      <Pane layoutX="261.0" layoutY="99.0" prefHeight="333.0" prefWidth="423.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="333.0" stroke="BLACK" strokeType="INSIDE" width="423.0" />
+            <TextField fx:id="pricePerNight" layoutX="308.0" layoutY="127.0" prefHeight="25.0" prefWidth="73.0" />
+            <CheckBox layoutX="51.0" layoutY="71.0" mnemonicParsing="false" text="Pool" />
+            <CheckBox layoutX="121.0" layoutY="71.0" mnemonicParsing="false" text="Gym" />
+            <CheckBox layoutX="191.0" layoutY="71.0" mnemonicParsing="false" text="Spa" />
+            <CheckBox layoutX="256.0" layoutY="71.0" mnemonicParsing="false" text="Business Office" />
+            <ComboBox fx:id="comboBoxRoomType" layoutX="24.0" layoutY="127.0" onAction="#weekendDifferential" prefHeight="25.0" prefWidth="98.0" promptText="Type" />
+            <TextField fx:id="numRooms" layoutX="167.0" layoutY="127.0" prefHeight="25.0" prefWidth="73.0" />
+            <Text layoutX="43.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Type" />
+            <Text layoutX="62.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;Name of Hotel&gt;">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Text>
+            <Text layoutX="306.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price per night" />
+            <Text layoutX="155.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Rooms" />
+            <Text layoutX="168.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weekend Differential">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Button fx:id="create" layoutX="137.0" layoutY="249.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="57.0" prefWidth="149.0" text="Save Changes">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+            <ComboBox fx:id="comboBoxWeekendDifferential" layoutX="204.0" layoutY="197.0" onAction="#weekendDifferential" prefWidth="150.0" promptText="Percent surcharge" />
+         </children>
+      </Pane>
+      <ListView fx:id="resultList" layoutX="261.0" layoutY="432.0" prefHeight="244.0" prefWidth="423.0" />
    </children>
 </AnchorPane>
