@@ -380,7 +380,7 @@ public class HotelDBManager {
 		Matcher startDateCorrect = dateSyntax.matcher(startDate), endDateCorrect = dateSyntax.matcher(endDate);
 		Date startSqlDate, endSqlDate;
 		StringBuilder query = new StringBuilder("SELECT ");
-		int rmPriceCol = 9;
+		int rmPriceCol = 8;
 		double totalCost = 0.0;
 		
 		// Checks for date syntax (valid syntax: MM/DD/YYYY) before proceeding with the booking.
@@ -432,12 +432,12 @@ public class HotelDBManager {
 			// Obtains the data of the hotel to book from the database.
 			query.append("h.wkndDiff FROM Hotel h WHERE h.hotelId = \"" + hotelId + "\";");
 			
-			//System.out.println(query.toString());
+			System.out.println(query.toString());
 			resultSet = statement.executeQuery(query.toString());
 			
 			while (resultSet.next()) {
 				System.out.println("Column index = " + rmPriceCol);
-				double costPerRoom = resultSet.getDouble(rmPriceCol);
+				double costPerRoom = resultSet.getDouble(1);
 				float weekendDiff = resultSet.getFloat("wkndDiff");
 				totalCost = numDays * costPerRoom * (1 * weekendDiff);
 			}
@@ -461,8 +461,6 @@ public class HotelDBManager {
 	}
 	
 	/**
-<<<<<<< HEAD
-=======
 	 * Loads all the reservations of the user passed to the parameter and stores them into an ArrayList of type
 	 * Reservation.
 	 * 
