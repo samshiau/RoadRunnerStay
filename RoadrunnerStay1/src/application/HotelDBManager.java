@@ -443,6 +443,8 @@ public class HotelDBManager {
 			
 			// Sets the total cost and then adds the reservation to the database.
 			preparedStatement.setDouble(5, totalCost);
+			// FIXME: Delete the below line once debugged.
+			System.out.println(preparedStatement.toString());
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
 			
@@ -469,6 +471,7 @@ public class HotelDBManager {
 			preparedStatement = connect.prepareStatement("SELECT r.hotelId, r.startDate, r.endDate, r.totalCost " + 
 															"FROM Hotel h WHERE r.userId = ?;");
 			
+			// Sets the username to search for.
 			preparedStatement.setString(1, username);
 			resultSet = preparedStatement.executeQuery();
 			
@@ -478,9 +481,10 @@ public class HotelDBManager {
 				String endDate = resultSet.getDate("endDate").toString();
 				double totalCost = resultSet.getDouble("totalCost");
 				
-				// TODO: Store the collected data into the ArrayList.
 				results.add(new Reservation(username, hotelId, startDate, endDate, totalCost));
 			}
+			preparedStatement.close();
+			
 			return results;
 		}
 		catch (SQLException e) {
@@ -545,6 +549,16 @@ public class HotelDBManager {
 			e.printStackTrace();
 			return 0;
 		}
+	}
+	
+	/**
+	 * Returns a hotel object given the hotel name, which is the company name for the employee.
+	 * 
+	 * @param empCompany
+	 * @return
+	 */
+	public Hotel getHotelByEmpCompany(String empCompany) {
+		return null;
 	}
 	
 	/**
