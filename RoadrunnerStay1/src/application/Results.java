@@ -33,18 +33,18 @@ public class Results implements Initializable{
 		ArrayList<String> temps = new ArrayList<String>();
 		String token = "";
 		
-		for (int i = 0; i < MainController.results.size(); i++) {
-			//System.out.println("- " + MainController.results.get(i).getName());
-			token = MainController.results.get(i).getName();
-			temps.add(token);
-			System.out.println(token);
-			System.out.println(temps.get(i));
-		}
-		String[] tempsArray = temps.toArray(new String[0]);
-		
-		for (String s : tempsArray) {
-			resultsList.getItems().add(s);
-		}
+//		for (int i = 0; i < MainController.results.size(); i++) {
+//			//System.out.println("- " + MainController.results.get(i).getName());
+//			token = MainController.results.get(i).getName();
+//			temps.add(token);
+//			System.out.println(token);
+//			System.out.println(temps.get(i));
+//		}
+//		String[] tempsArray = temps.toArray(new String[0]);
+//		
+//		for (String s : tempsArray) {
+//			resultsList.getItems().add(s);
+//		}
 				    
 	}
 	@FXML 

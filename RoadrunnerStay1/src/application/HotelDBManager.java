@@ -448,6 +448,8 @@ public class HotelDBManager {
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
 			
+			System.out.println("Book successful!");
+			
 			return ReturnCodes.RC_OK;
 			
 		}
