@@ -438,8 +438,12 @@ public class HotelDBManager {
 			
 			// Sets the total cost and then adds the reservation to the database.
 			preparedStatement.setDouble(5, totalCost);
+			// FIXME: Delete the below line once debugged.
+			System.out.println(preparedStatement.toString());
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
+			
+			System.out.println("Book successful!");
 			
 			return ReturnCodes.RC_OK;
 			
@@ -451,6 +455,45 @@ public class HotelDBManager {
 	}
 	
 	/**
+<<<<<<< HEAD
+=======
+	 * Loads all the reservations of the user passed to the parameter and stores them into an ArrayList of type
+	 * Reservation.
+	 * 
+	 * @param username 	the user name.
+	 * @return			the ArrayList of booked reservations by the user.
+	 */
+	public ArrayList<Reservation> getReservationsByUser(String username) {
+		ArrayList<Reservation> results = new ArrayList<>();
+		
+		try {
+			preparedStatement = connect.prepareStatement("SELECT r.hotelId, r.startDate, r.endDate, r.totalCost " + 
+															"FROM Hotel h WHERE r.userId = ?;");
+			
+			// Sets the username to search for.
+			preparedStatement.setString(1, username);
+			resultSet = preparedStatement.executeQuery();
+			
+			while (resultSet.next()) {
+				int hotelId = resultSet.getInt("hotelId");
+				String startDate = resultSet.getDate("startDate").toString();
+				String endDate = resultSet.getDate("endDate").toString();
+				double totalCost = resultSet.getDouble("totalCost");
+				
+				results.add(new Reservation(username, hotelId, startDate, endDate, totalCost));
+			}
+			preparedStatement.close();
+			
+			return results;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+>>>>>>> branch 'main' of https://github.com/samshiau/RoadRunnerStay.git
 	 * Modifies a booked reservation in the database.
 	 * 
 	 * @param userId	the username.
@@ -504,6 +547,16 @@ public class HotelDBManager {
 			e.printStackTrace();
 			return 0;
 		}
+	}
+	
+	/**
+	 * Returns a hotel object given the hotel name, which is the company name for the employee.
+	 * 
+	 * @param empCompany
+	 * @return
+	 */
+	public Hotel getHotelByEmpCompany(String empCompany) {
+		return null;
 	}
 	
 	/**
