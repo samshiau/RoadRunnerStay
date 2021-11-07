@@ -63,7 +63,6 @@ public class Results implements Initializable{
 			System.out.println("Booking failed.");
 		}
 		test.closeManager();
-		//HotelDBManager.bookReservation(userId, hotelId, roomType, startDate, endDate);
 	}
 	
 	@FXML 

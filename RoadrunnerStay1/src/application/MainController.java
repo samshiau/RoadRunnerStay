@@ -1,5 +1,7 @@
 package application;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -9,24 +11,18 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import javafx.util.Duration;
+
 
 public class MainController  implements Initializable{
 	
 	@FXML private Button start, back;
-	// just for testing
-	@FXML private Button booking;
 	@FXML private TextField hotelNameInput, fromDateInput, toDateInput, minPriceInput, maxPriceInput;
 	String hotelNameInputStr, fromDateInputStr, toDateInputStr, minPriceInputStr, maxPriceInputStr;
 	@FXML ImageView imageView, imageView2, imageView3;
@@ -34,40 +30,56 @@ public class MainController  implements Initializable{
 	
 	
 	boolean isTheUserLoggedIn;
-	
 	boolean poolSelected = false, gymSelected = false, spaSelected = false, businessOfficeSelected = false; 
-	int count = 0;
-	int count2 = 1;
-	int count3 = 2;
+	private static ArrayList<Hotel> results;
+	private ArrayList<Image> images = new ArrayList<Image>();
+	int count = 0, count2 = 1, count3 = 2;
 	
+	@Override
+	public void initialize(URL location, ResourceBundle resources ) {
+		addJPGs();
+		slideshow();
+	}
+	
+	// addes all ".jpg"s to images arraylist
+	public void addJPGs() {
+		//Creating a File object for directory
+		File directoryPath = new File("./src");
+		//Creating filter for jpg files
+		FilenameFilter jpgFilefilter = new FilenameFilter(){
+			public boolean accept(File dir, String name) {
+				String lowercaseName = name.toLowerCase();
+				if (lowercaseName.endsWith(".jpg")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		};
+		String imageFilesList[] = directoryPath.list(jpgFilefilter);  
+		for(String fileName : imageFilesList) {
+			images.add(new Image(fileName));
+		}			
+	}
+	
+	// controls the three picture slideshow
 	public void slideshow() {
-		ArrayList<Image> images = new ArrayList<Image>();
-		images.add(new Image("/SA_river.jpg"));
-		images.add(new Image("/NY.png"));
-		images.add(new Image("/sydney.png"));
-		
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
 			imageView.setImage(images.get(count));
 			imageView2.setImage(images.get(count2));
 			imageView3.setImage(images.get(count3));
-			count++;
-			count2++;
-			count3++;
-			if(count == 3)
+			count++; count2++; count3++;
+			if(count == images.size())
 				count = 0;
-			if(count2 == 3)
+			if(count2 == images.size())
 				count2 = 0;
-			if(count3 == 3)
+			if(count3 == images.size())
 				count3 = 0;
 		}));
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.play();
 	}
 	
-	@Override
-	public void initialize(URL location, ResourceBundle resources ) {
-		slideshow();
-	}
 	public void userInput() {
 		// check which and if checkboxes are selected
 		if(pool.isSelected())
@@ -86,20 +98,13 @@ public class MainController  implements Initializable{
 		minPriceInputStr = minPriceInput.getText();
 		maxPriceInputStr = maxPriceInput.getText();	
 	}
-//	static ArrayList<Hotel> results;
-	private static ArrayList<Hotel> results;
+
+
 	@FXML 
 	public void changeScreenResult(ActionEvent event) throws IOException {
 		userInput();
-		// testing textfields
-		System.out.println(hotelNameInputStr);
-		System.out.println(fromDateInputStr);
-		System.out.println(toDateInputStr);
-		System.out.println(toDateInputStr);
-		System.out.println(maxPriceInputStr);
 		
 		// Gets the user-checked amenities.
-		//ArrayList<Hotel> results;
 		boolean[] amenityChecks = new boolean[4];
 		amenityChecks[0] = gymSelected;
 		amenityChecks[1] = spaSelected;
