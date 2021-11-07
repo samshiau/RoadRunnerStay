@@ -86,7 +86,8 @@ public class MainController  implements Initializable{
 		minPriceInputStr = minPriceInput.getText();
 		maxPriceInputStr = maxPriceInput.getText();	
 	}
-	
+//	static ArrayList<Hotel> results;
+	private static ArrayList<Hotel> results;
 	@FXML 
 	public void changeScreenResult(ActionEvent event) throws IOException {
 		userInput();
@@ -98,7 +99,7 @@ public class MainController  implements Initializable{
 		System.out.println(maxPriceInputStr);
 		
 		// Gets the user-checked amenities.
-		ArrayList<Hotel> results;
+		//ArrayList<Hotel> results;
 		boolean[] amenityChecks = new boolean[4];
 		amenityChecks[0] = gymSelected;
 		amenityChecks[1] = spaSelected;
@@ -134,13 +135,7 @@ public class MainController  implements Initializable{
 		// Gets the results from the database.
 		HotelDBManager searcher = new HotelDBManager();
 		results = searcher.search(hotelNameInputStr, amenityChecks, fromDateInputStr, toDateInputStr, minPrice, maxPrice);
-		
-		// FIXME: The below for loop is for testing purposes to test the results received from the database. Delete
-		// once the search is working.
-		System.out.println("hotels received:");
-		for (int i = 0; i < results.size(); i++) {
-			System.out.println("- " + results.get(i).getName() + " - " + results.get(i).getLocation() + " - " + results.get(i).getPriceStandard());
-		}
+		getResultsArray().addAll(results);
 		searcher.closeManager();
 		
 		// TODO: Display the received results from the database that are stored in the results variable. Sometimes the list may not have any results.
@@ -148,23 +143,8 @@ public class MainController  implements Initializable{
 		change.changeScreenResult(event);
 	}
 	
-	@FXML 
-	public void changeScreenBook(ActionEvent event) throws IOException {
-		System.out.println("this is just a test");
-		//userInput();
-		HotelDBManager test = new HotelDBManager();
-		
-		String userId = "user";
-		int hotelId = 1;
-		String roomType = "queen"; 
-		String startDate = "2021-04-04"; 
-		String endDate = "2021-04-05";
-		int rc = test.bookReservation(userId, hotelId, roomType, startDate, endDate);
-		if (rc != 0) {
-			System.out.println("Booking failed.");
-		}
-		test.closeManager();
-		//HotelDBManager.bookReservation(userId, hotelId, roomType, startDate, endDate);
+	public static ArrayList<Hotel> getResultsArray(){
+		return results;
 	}
 	
 	@FXML 

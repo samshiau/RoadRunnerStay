@@ -17,37 +17,55 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Results implements Initializable{
-			
+	
+	@FXML private Button bookIt;
+	@FXML ImageView imageViewResults;
 	@FXML private ListView<String> resultsList;
-	
-	
+	MainController mainController = new MainController();
+	String whichHotel;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
-		// replace code with getters
-		ArrayList<String> temps = new ArrayList<String>();
-		String token = "";
-
-		
-//		for (int i = 0; i < MainController.results.size(); i++) {
-//			//System.out.println("- " + MainController.results.get(i).getName());
-//			token = MainController.results.get(i).getName();
-//			temps.add(token);
-//			System.out.println(token);
-//			System.out.println(temps.get(i));
-//		}
-//		String[] tempsArray = temps.toArray(new String[0]);
-//		
-//		for (String s : tempsArray) {
-//			resultsList.getItems().add(s);
-//		}
-				    
+		for (int i = 0; i < MainController.getResultsArray().size()/2; i++) {
+			whichHotel =   MainController.getResultsArray().get(i).getName();
+			resultsList.getItems().addAll(whichHotel);
+		}   
 	}
+	
+	public void resultsListSelected() {
+		whichHotel = resultsList.getSelectionModel().getSelectedItem();
+		showIamge(whichHotel);
+	}
+	
+	public void showIamge(String hotelName) {
+		Image hotelimage = new Image("/"+hotelName+".jpg", true);
+		imageViewResults.setImage(hotelimage);
+	}
+	@FXML 
+	public void bookItButton(ActionEvent event) throws IOException {
+		//userInput();
+		HotelDBManager test = new HotelDBManager();
+		String userId = "user";
+		int hotelId = 1;
+		String roomType = "queen"; 
+		String startDate = "2021-04-04"; 
+		String endDate = "2021-04-05";
+		int rc = test.bookReservation(userId, hotelId, roomType, startDate, endDate);
+		if (rc != 0) {
+			System.out.println("Booking failed.");
+		}
+		test.closeManager();
+		//HotelDBManager.bookReservation(userId, hotelId, roomType, startDate, endDate);
+	}
+	
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
 		SwitchScenesController change = new SwitchScenesController();
