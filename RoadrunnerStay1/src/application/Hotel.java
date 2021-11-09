@@ -1,5 +1,7 @@
 package application;
 
+import java.io.InputStream;
+
 /**
  * Package: application
  * The class to represent a hotel object from the database.
@@ -11,6 +13,7 @@ public class Hotel {
 	private String location;
 	private String address;
 	private String[] amenities;
+	private InputStream imageStream;
 	private int numRoomsStandard;
 	private int numRoomsQueen;
 	private int numRoomsKing;
@@ -34,7 +37,7 @@ public class Hotel {
 	 * @param pk	price for king room.
 	 * @param wd	weekend differential.
 	 */
-	public Hotel(String n, String l, String a, String[] amn, int nrs, int nrq, int nrk, double ps, double pq, double pk, float wd) {
+	public Hotel(String n, String l, String a, String[] amn, int nrs, int nrq, int nrk, double ps, double pq, double pk, float wd, InputStream i) {
 		this.name = n;
 		this.location = l;
 		this.address = a;
@@ -46,6 +49,7 @@ public class Hotel {
 		this.priceQueen = pq;
 		this.priceKing = pk;
 		this.weekendDiff = wd;
+		this.imageStream = i;
 	}
 	
 	/**
@@ -91,6 +95,15 @@ public class Hotel {
 	 */
 	public String[] getAmenities() {
 		return amenities;
+	}
+	
+	/**
+	 * Gets the image object as an InputStream to set for the JavaFX image.
+	 * 
+	 * @return the InputStream object representing the image file.
+	 */
+	public InputStream getImageStream() {
+		return imageStream;
 	}
 	
 	/**

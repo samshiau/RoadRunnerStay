@@ -1,5 +1,7 @@
 package application;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.regex.*;
 import java.util.ArrayList;
@@ -272,7 +274,7 @@ public class HotelDBManager {
 		try {
 			ArrayList<Hotel> results = new ArrayList<>();
 			StringBuilder query = new StringBuilder("SELECT h.name, h.amenities, h.location, h.address, h.numRoomsStandard, h.numRoomsQueen, h.numRoomsKing, " +
-													"h.rmPriceStandard, h.rmPriceQueen, h.rmPriceKing, h.wkndDiff FROM Hotel h WHERE ");
+													"h.rmPriceStandard, h.rmPriceQueen, h.rmPriceKing, h.wkndDiff, h.image FROM Hotel h WHERE ");
 			boolean amenityIsSelected = amenities[0] || amenities[1] || amenities[2] || amenities[3];
 			boolean priceIsEntered = (minPrice > 0 || maxPrice > 0);
 			
@@ -343,6 +345,7 @@ public class HotelDBManager {
 				String[] amenityList = availableAmenities.split(",");
 				String location = resultSet.getString("location");
 				String address = resultSet.getString("address");
+				Blob imageBlob = resultSet.getBlob("image");
 				int roomsStandard = resultSet.getInt("numRoomsStandard");
 				int roomsQueen = resultSet.getInt("numRoomsQueen");
 				int roomsKing = resultSet.getInt("numRoomsKing");
@@ -351,12 +354,31 @@ public class HotelDBManager {
 				double priceKing = resultSet.getDouble("rmPriceKing");
 				float weekendDiff = resultSet.getFloat("wkndDiff");
 				
-				// Adds the new hotel to the result.
-				results.add(new Hotel(name, location, address, amenityList, roomsStandard, roomsQueen, roomsKing, priceStandard, priceQueen, priceKing, weekendDiff));
+				try {
+					// Converts the image blob into an InputStream so JavaFX can be able to load it.
+					InputStream image = imageBlob.getBinaryStream();
+					
+					// Adds the new hotel to the result.
+					results.add(new Hotel(name, location, address, amenityList,
+											roomsStandard, roomsQueen, roomsKing,
+											priceStandard, priceQueen, priceKing,
+											weekendDiff, image));
+					image.close();
+				}
+				catch (NullPointerException e) {
+					// Adds a hotel to the results if it does not contain an image.
+					results.add(new Hotel(name, location, address, amenityList,
+											roomsStandard, roomsQueen, roomsKing,
+											priceStandard, priceQueen, priceKing,
+											weekendDiff, null));
+				}
 			}
 			return results;
 		}
 		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 		
