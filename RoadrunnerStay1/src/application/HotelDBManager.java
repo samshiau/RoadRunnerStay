@@ -586,6 +586,72 @@ public class HotelDBManager {
 	}
 	
 	/**
+	 * Sends the user updated attributes to the database.
+	 * @param user	the user to update
+	 * @return		{@code RC_OK} if the update is successful, otherwise RC_MISC_ERR if some other error
+	 * 				occurs.
+	 */
+	public int updateUser(User user) {
+		Pattern emailSyntax = Pattern.compile("[A-Za-z0-9]@[A-Za-z]+\\.[a-z]");
+		Matcher matcher = emailSyntax.matcher(user.getEmail());
+		String encPass;
+		String userType;
+		
+		try {
+			preparedStatement = connect.prepareStatement("UPDATE User u SET " +
+															"u.password = ?, " +
+															"u.name = ?, " +
+															"u.userType = ?, " +
+															"u.emailAddress = ?, " +
+															"u.companyName = ?, " +
+															"u.empPosition = ? " +
+															"WHERE u.userId = ?;");
+			
+			// Validates all user input that needs to be validated.
+			
+			// Checks email syntax.
+			if (!matcher.find()) {
+				return ReturnCodes.RC_EMAIL_SYN_WRONG;
+			}
+			
+			// Checks name syntax.
+			for (int i = 0; i < user.getName().length(); i++) {
+				if (!Character.isAlphabetic(user.getName().charAt(i)) && !Character.isWhitespace(user.getName().charAt(i))) {
+					return ReturnCodes.RC_INVALID_CRED;
+				}
+			}
+			
+			encPass = Encryption.encrypt(user.getPassword(), user.getUserId());
+			
+			// Determines if the user is a customer or an employee.
+			if (user.getCompanyName().equals("") || user.getPosition().equals("")) {
+				userType = "CUSTOMER";
+			}
+			else {
+				userType = "EMPLOYEE";
+			}
+			
+			// Fills in the data to update.
+			preparedStatement.setString(1, encPass);
+			preparedStatement.setString(2, user.getName());
+			preparedStatement.setString(3, userType);
+			preparedStatement.setString(4, user.getEmail());
+			preparedStatement.setString(5, user.getCompanyName());
+			preparedStatement.setString(6, user.getPosition());
+			preparedStatement.setString(7, user.getUserId());
+			
+			// Executes the update.
+			preparedStatement.executeUpdate();
+			
+			return ReturnCodes.RC_OK;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return ReturnCodes.RC_MISC_ERR;
+		}
+	}
+	
+	/**
 	 * Closes the statement and connection. Call this to close the connection to the database.
 	 */
 	public void closeManager() {

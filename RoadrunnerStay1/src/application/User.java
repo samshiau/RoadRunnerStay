@@ -10,6 +10,7 @@ package application;
  */
 public class User {
 	private String userId;
+	private String password;
 	private String name;
 	private String email;
 	private String companyName;
@@ -71,6 +72,15 @@ public class User {
 	 */
 	public void setUserId(String uid) {
 		userId = uid;
+	}
+	
+	/**
+	 * Returns the decrypted user password.
+	 * 
+	 * @return user-entered password.
+	 */
+	public String getPassword() {
+		return password;
 	}
 	
 	/**
