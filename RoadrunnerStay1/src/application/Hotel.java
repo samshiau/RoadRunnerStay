@@ -1,6 +1,7 @@
 package application;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * Package: application
@@ -50,6 +51,24 @@ public class Hotel {
 		this.priceKing = pk;
 		this.weekendDiff = wd;
 		this.imageStream = i;
+	}
+	
+	/**
+	 * Finds the hotel object within the passed array list to return the hotel object with the given
+	 * name.
+	 * 
+	 * @param hotels	the hotel list, this should be the list of hotels returned from the results query.
+	 * @param name		the hotel name to search for.
+	 * @return			the found hotel object if found, or {@code null} if no such hotel exists.
+	 */
+	public static Hotel getHotelByName(ArrayList<Hotel> hotels, String name) {
+		for (int i = 0; i < hotels.size(); i++) {
+			if (hotels.get(i).getName().equals(name)) {
+				return hotels.get(i);
+			}
+		}
+		
+		return null;
 	}
 	
 	/**

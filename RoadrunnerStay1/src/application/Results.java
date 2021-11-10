@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,19 +36,30 @@ public class Results implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		for (int i = 0; i < MainController.getResultsArray().size()/2; i++) {
-			whichHotel =   MainController.getResultsArray().get(i).getName();
+			whichHotel = MainController.getResultsArray().get(i).getName();
 			resultsList.getItems().addAll(whichHotel);
-		}   
+		}
 	}
 	
 	public void resultsListSelected() {
-		whichHotel = resultsList.getSelectionModel().getSelectedItem();
-		showIamge(whichHotel);
+		/*whichHotel = resultsList.getSelectionModel().getSelectedItem();
+		showImage(whichHotel);*/
+		
+		Hotel hotel = Hotel.getHotelByName(MainController.getResultsArray(), whichHotel);
+		showImage(hotel.getImageStream());
 	}
 	
-	public void showIamge(String hotelName) {
-		Image hotelimage = new Image("/"+hotelName+".jpg", true);
-		imageViewResults.setImage(hotelimage);
+	public void showImage(InputStream image) {
+		try {
+			Image hotelimage = new Image(image);
+			imageViewResults.setImage(hotelimage);
+		}
+		catch (NullPointerException e) {
+			// handles the case where the hotel object does not have an image.
+			e.printStackTrace();
+			Image hotelImage = new Image("./NoImageAvailable.jpg");
+			imageViewResults.setImage(hotelImage);
+		}
 	}
 	@FXML 
 	public void bookItButton(ActionEvent event) throws IOException {
@@ -68,6 +80,20 @@ public class Results implements Initializable{
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
 		SwitchScenesController change = new SwitchScenesController();
+		closeImages(MainController.getResultsArray());
 		change.changeScreenonHome(event);
+	}
+	
+	public void closeImages(ArrayList<Hotel> hotels) {
+		// Releases the InputStream references for the results images. Call this when switching scenes from
+		// this page.
+		for (int i = 0; i < hotels.size(); i++) {
+			try {
+				hotels.get(i).getImageStream().close();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
