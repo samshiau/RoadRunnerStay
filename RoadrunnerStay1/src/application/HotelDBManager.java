@@ -342,7 +342,13 @@ public class HotelDBManager {
 			while (resultSet.next()) {
 				String name = resultSet.getString("name");
 				String availableAmenities = resultSet.getString("amenities");
-				String[] amenityList = availableAmenities.split(",");
+				String[] amenityList;
+				if (availableAmenities != null) {
+					amenityList = availableAmenities.split(",");
+				}
+				else {
+					amenityList = new String[1];
+				}
 				String location = resultSet.getString("location");
 				String address = resultSet.getString("address");
 				Blob imageBlob = resultSet.getBlob("image");
