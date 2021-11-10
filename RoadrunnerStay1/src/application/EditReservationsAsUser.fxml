@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="800.0" minWidth="600.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EditReservationsAsUserController">
+   <children>
+      <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
+      <Button fx:id="start" layoutX="692.0" layoutY="118.0" mnemonicParsing="false" onAction="#changeScreenResult" prefHeight="113.0" prefWidth="150.0" text="Search">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <Label fx:id="title" alignment="CENTER" layoutX="209.0" layoutY="22.0" prefHeight="73.0" prefWidth="535.0" text="Enter New Information" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Button fx:id="rules11" layoutX="778.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="55.0" prefWidth="175.0" text="Profile">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <ListView fx:id="resultsList" layoutX="517.0" layoutY="301.0" onMouseClicked="#resultsListSelected" prefHeight="371.0" prefWidth="349.0" />
+      <Label fx:id="title1" alignment="CENTER" layoutX="615.0" layoutY="248.0" text="Results" textAlignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Button fx:id="bookIt" layoutX="380.0" layoutY="681.0" mnemonicParsing="false" onAction="#bookItButton" prefHeight="92.0" prefWidth="194.0" text="Book It">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Pane layoutX="193.0" layoutY="118.0" prefHeight="113.0" prefWidth="478.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d9ff2169" height="113.0" stroke="BLACK" strokeType="INSIDE" width="484.0" />
+            <CheckBox fx:id="businessOffice" layoutX="178.0" layoutY="68.0" mnemonicParsing="false" text="Business Office" />
+            <CheckBox fx:id="pool" layoutX="14.0" layoutY="68.0" mnemonicParsing="false" text="Pool" />
+            <CheckBox fx:id="gym" layoutX="69.0" layoutY="68.0" mnemonicParsing="false" text="Gym" />
+            <CheckBox fx:id="spa" layoutX="123.0" layoutY="68.0" mnemonicParsing="false" text="Spa" />
+            <TextField fx:id="fromDateInput" layoutX="300.0" layoutY="14.0" prefHeight="38.0" prefWidth="84.0" promptText="From Date" />
+            <TextField fx:id="toDateInput" layoutX="394.0" layoutY="14.0" prefHeight="38.0" prefWidth="84.0" promptText="To Date" />
+            <TextField fx:id="minPriceInput" layoutX="300.0" layoutY="58.0" prefHeight="38.0" prefWidth="84.0" promptText="Price (min)" />
+            <TextField fx:id="maxPriceInput" layoutX="394.0" layoutY="58.0" prefHeight="38.0" prefWidth="84.0" promptText="Price (max)" />
+            <TextField fx:id="hotelNameInput" layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="275.0" promptText="Hotel Name (optional)" />
+         </children>
+      </Pane>
+      <ListView fx:id="reservationsList" layoutX="105.0" layoutY="301.0" prefHeight="371.0" prefWidth="349.0" />
+      <Label fx:id="title11" alignment="CENTER" layoutX="133.0" layoutY="248.0" text="Current Booking" textAlignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

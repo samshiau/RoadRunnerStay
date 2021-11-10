@@ -11,7 +11,7 @@
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="601.0" layoutX="54.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" width="815.0" />
       <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
-      <Button fx:id="create" layoutX="330.0" layoutY="606.0" mnemonicParsing="false" onAction="#changeScreenEditReservations" prefHeight="63.0" prefWidth="283.0" text="Edit Reservations">
+      <Button fx:id="create" layoutX="131.0" layoutY="604.0" mnemonicParsing="false" onAction="#changeScreenEditReservations" prefHeight="63.0" prefWidth="283.0" text="Edit Reservations">
          <font>
             <Font size="36.0" />
          </font>
@@ -33,5 +33,10 @@
             <Font size="30.0" />
          </font>
       </Label>
+      <Button fx:id="create2" layoutX="462.0" layoutY="604.0" mnemonicParsing="false" onAction="#changeScreenEditReservationsAsUser" prefHeight="63.0" prefWidth="283.0" text="Edit Reservations (user)">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -47,15 +47,6 @@ public class EditReservations implements Initializable{
 		comboBoxWeekendDifferential.setItems(WeekendDifferentialoptions);
 		comboBoxRoomType.setItems(roomTypeOptions);
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		// using as temporay holder for listview will replace with getters
 		////////////////////////////////////////
 		Scanner inFile1 = null;
