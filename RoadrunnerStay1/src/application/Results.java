@@ -56,8 +56,7 @@ public class Results implements Initializable{
 		}
 		catch (NullPointerException e) {
 			// handles the case where the hotel object does not have an image.
-			e.printStackTrace();
-			Image hotelImage = new Image("./NoImageAvailable.jpg");
+			Image hotelImage = new Image("./NoImageAvailable.png");
 			imageViewResults.setImage(hotelImage);
 		}
 	}
@@ -93,6 +92,10 @@ public class Results implements Initializable{
 			}
 			catch (IOException e) {
 				e.printStackTrace();
+				continue;
+			}
+			catch (NullPointerException e) {
+				continue;
 			}
 		}
 	}

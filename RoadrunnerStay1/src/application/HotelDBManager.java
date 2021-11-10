@@ -519,7 +519,6 @@ public class HotelDBManager {
 	}
 	
 	/**
->>>>>>> branch 'main' of https://github.com/samshiau/RoadRunnerStay.git
 	 * Modifies a booked reservation in the database.
 	 * 
 	 * @param userId	the username.
