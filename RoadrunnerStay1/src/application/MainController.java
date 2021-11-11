@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -46,12 +47,14 @@ public class MainController  implements Initializable{
 			loginButton.setVisible(false);
 			createAccountButton.setVisible(false);
 			
+			
 		} else {
 			profileButton.setVisible(false);
 			logOutButton.setVisible(false);
 		}
 	}
-	public void logoutButtton() {
+	public void logoutButtton() throws InterruptedException {
+		TimeUnit.SECONDS.sleep(2);
 		loginButton.setVisible(true);
 		createAccountButton.setVisible(true);
 		profileButton.setVisible(false);
