@@ -12,12 +12,12 @@
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d9ff2169" height="113.0" layoutX="6.0" layoutY="91.0" stroke="BLACK" strokeType="INSIDE" width="484.0" />
       <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
-      <Button fx:id="start" layoutX="498.0" layoutY="95.0" mnemonicParsing="false" onAction="#changeScreenResult" prefHeight="113.0" prefWidth="150.0" text="Search">
+      <Button fx:id="searchButton" layoutX="498.0" layoutY="95.0" mnemonicParsing="false" onAction="#changeScreenResult" prefHeight="113.0" prefWidth="150.0" text="Search">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <Button fx:id="rules" layoutX="813.0" layoutY="87.0" mnemonicParsing="false" onAction="#changeScreenLogin" prefHeight="55.0" prefWidth="175.0" text="Login">
+      <Button fx:id="loginButton" layoutX="813.0" layoutY="87.0" mnemonicParsing="false" onAction="#changeScreenLogin" prefHeight="55.0" prefWidth="175.0" text="Login">
          <font>
             <Font size="36.0" />
          </font>
@@ -39,12 +39,12 @@
          </image>
       </ImageView>
       <TextField fx:id="hotelNameInput" layoutX="14.0" layoutY="119.0" prefHeight="38.0" prefWidth="275.0" promptText="Hotel Name (optional)" />
-      <Button fx:id="rules1" layoutX="813.0" layoutY="22.0" mnemonicParsing="false" onAction="#changeScreenCreateAccount" prefHeight="55.0" prefWidth="175.0" text="Create Account">
+      <Button fx:id="createAccountButton" layoutX="813.0" layoutY="22.0" mnemonicParsing="false" onAction="#changeScreenCreateAccount" prefHeight="55.0" prefWidth="175.0" text="Create Account">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Button fx:id="rules11" layoutX="813.0" layoutY="147.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="55.0" prefWidth="175.0" text="Profile">
+      <Button fx:id="profileButton" layoutX="813.0" layoutY="147.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="55.0" prefWidth="175.0" text="Profile">
          <font>
             <Font size="36.0" />
          </font>

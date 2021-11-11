@@ -1,13 +1,17 @@
 package application;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class LoginController {
+public class LoginController implements Initializable{
 	
 	
 	
@@ -17,18 +21,13 @@ public class LoginController {
 	static boolean admin;
 	//static boolean isLoggedIn = false;
 	// use for testing (so you don't have to login to test editreservations and profile)
-	static boolean isLoggedIn = true;
+	static boolean isLoggedIn = false;
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources ) {
+		loginLabel.setVisible(false);
+	}
 	
-	@FXML 
-	public void changeScreenHome(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenonHome(event);
-	}
-	@FXML 
-	public void changeScreenLogin(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenonHome(event);
-	}
 	
 	@FXML 
 	public void Login(ActionEvent event) throws IOException, InterruptedException {
@@ -53,6 +52,8 @@ public class LoginController {
 			String rcStr = ReturnCodes.getRcAsString(rc);
 			// TODO: Delete the below line and display the error to the status.
 			System.out.println(rcStr);
+			loginLabel.setVisible(true);
+			loginLabel.setText("Incorrect Credentials");
 		}
 		else {
 			// Handle the case where the log-in is successful.
@@ -64,5 +65,16 @@ public class LoginController {
 		}
 		connection.closeManager();
 
+	}
+	
+	@FXML 
+	public void changeScreenHome(ActionEvent event) throws IOException {
+		SwitchScenesController change = new SwitchScenesController();
+		change.changeScreenonHome(event);
+	}
+	@FXML 
+	public void changeScreenLogin(ActionEvent event) throws IOException {
+		SwitchScenesController change = new SwitchScenesController();
+		change.changeScreenonHome(event);
 	}
 }
