@@ -44,7 +44,7 @@
             <Font size="36.0" />
          </font>
       </Button>
-      <Button fx:id="profileButton" layoutX="813.0" layoutY="147.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="55.0" prefWidth="175.0" text="Profile">
+      <Button fx:id="profileButton" layoutX="813.0" layoutY="87.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="55.0" prefWidth="175.0" text="Profile">
          <font>
             <Font size="36.0" />
          </font>
@@ -57,5 +57,10 @@
       <TextField fx:id="toDateInput" layoutX="394.0" layoutY="115.0" prefHeight="38.0" prefWidth="84.0" promptText="To Date" />
       <TextField fx:id="minPriceInput" layoutX="297.0" layoutY="154.0" prefHeight="38.0" prefWidth="84.0" promptText="Price (min)" />
       <TextField fx:id="maxPriceInput" layoutX="394.0" layoutY="154.0" prefHeight="38.0" prefWidth="84.0" promptText="Price (max)" />
+      <Button fx:id="logOutButton" layoutX="813.0" layoutY="154.0" mnemonicParsing="false" onAction="#logoutButtton" prefHeight="55.0" prefWidth="175.0" text="Logout">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

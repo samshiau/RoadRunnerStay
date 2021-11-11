@@ -22,8 +22,7 @@ import javafx.util.Duration;
 
 public class MainController  implements Initializable{
 	
-	@FXML private Button start, back;
-	@FXML private Button profileButton, loginButton, createAccountButton, searchButton;
+	@FXML private Button profileButton, loginButton, logOutButton, createAccountButton, searchButton;
 	@FXML private TextField hotelNameInput, fromDateInput, toDateInput, minPriceInput, maxPriceInput;
 	String hotelNameInputStr, fromDateInputStr, toDateInputStr, minPriceInputStr, maxPriceInputStr;
 	@FXML ImageView imageView, imageView2, imageView3;
@@ -48,8 +47,15 @@ public class MainController  implements Initializable{
 			createAccountButton.setVisible(false);
 			
 		} else {
-			profileButton.setVisible(false);			
+			profileButton.setVisible(false);
+			logOutButton.setVisible(false);
 		}
+	}
+	public void logoutButtton() {
+		loginButton.setVisible(true);
+		createAccountButton.setVisible(true);
+		profileButton.setVisible(false);
+		logOutButton.setVisible(false);
 	}
 	
 	// addes all ".jpg"s to images arraylist
