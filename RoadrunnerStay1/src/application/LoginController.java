@@ -61,6 +61,7 @@ public class LoginController implements Initializable{
 			String[] userAttributes = connection.getUserAttributes(username);
 			User user = new User(username, userAttributes[0], userAttributes[1]);
 			isLoggedIn = true;
+			changeScreenHome(event);
 			// TODO: Work with obtained user data.
 		}
 		connection.closeManager();
