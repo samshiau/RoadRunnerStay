@@ -11,18 +11,18 @@
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="601.0" layoutX="54.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" width="815.0" />
       <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
-      <Button fx:id="create" layoutX="131.0" layoutY="604.0" mnemonicParsing="false" onAction="#changeScreenEditReservations" prefHeight="63.0" prefWidth="283.0" text="Edit Reservations">
+      <Button fx:id="create" layoutX="67.0" layoutY="197.0" mnemonicParsing="false" onAction="#changeScreenEditReservations" prefHeight="63.0" prefWidth="283.0" text="Edit Reservations">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Button fx:id="create1" layoutX="767.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="63.0" prefWidth="120.0" text="Home">
+      <Button fx:id="create1" layoutX="133.0" layoutY="433.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="63.0" prefWidth="120.0" text="Home">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
       <Label fx:id="title" alignment="CENTER" layoutX="375.0" layoutY="-1.0" text="Profile" textAlignment="CENTER" />
-      <ListView fx:id="reservationsList" layoutX="116.0" layoutY="185.0" prefHeight="408.0" prefWidth="690.0" />
+      <ListView fx:id="reservationsList" layoutX="467.0" layoutY="184.0" prefHeight="318.0" prefWidth="300.0" />
       <Text layoutX="374.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Reservations">
          <font>
             <Font size="18.0" />
@@ -33,7 +33,12 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <Button fx:id="create2" layoutX="462.0" layoutY="604.0" mnemonicParsing="false" onAction="#changeScreenEditReservationsAsUser" prefHeight="63.0" prefWidth="283.0" text="Edit Reservations (user)">
+      <Button fx:id="create2" layoutX="67.0" layoutY="269.0" mnemonicParsing="false" onAction="#changeScreenEditReservationsAsUser" prefHeight="63.0" prefWidth="283.0" text="Edit Reservations (user)">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Button fx:id="create21" layoutX="67.0" layoutY="345.0" mnemonicParsing="false" onAction="#changeScreenEditUserProfile" prefHeight="63.0" prefWidth="283.0" text="Edit Profile">
          <font>
             <Font size="36.0" />
          </font>

@@ -73,6 +73,11 @@ public class ProfileController implements Initializable{
 		SwitchScenesController change = new SwitchScenesController();
 		change.changeScreenEditReservationsAsUser(event);	
 	}
+	@FXML
+	public void changeScreenEditUserProfile(ActionEvent event) throws IOException {
+		SwitchScenesController change = new SwitchScenesController();
+		change.changeScreenEditUserProfile(event);	
+	}
 	
 	
 }

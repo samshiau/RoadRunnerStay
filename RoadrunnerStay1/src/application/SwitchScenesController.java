@@ -110,6 +110,24 @@ public class SwitchScenesController{
 		stage.show();
 	}
 	@FXML
+	public void changeScreenEditUserProfile(ActionEvent event) throws IOException {
+		FXMLLoader viewDifficulty = new FXMLLoader(getClass().getResource("EditUserProfile.fxml"));
+		Parent root = (Parent) viewDifficulty.load();
+	
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		
+		Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+		
+		stage.centerOnScreen();
+		
+		stage.setScene(scene);
+		stage.setTitle("Edit Profile");
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("roadrunnerIcon.png")));
+		stage.show();
+	}
+	
+	@FXML
 	public void changeScreenResult(ActionEvent event) throws IOException {
 		FXMLLoader viewDifficulty = new FXMLLoader(getClass().getResource("Results.fxml"));
 		Parent root = (Parent) viewDifficulty.load();
