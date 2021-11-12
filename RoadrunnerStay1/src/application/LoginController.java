@@ -64,7 +64,12 @@ public class LoginController implements Initializable{
 			String[] userAttributes = connection.getUserAttributes(username);
 			
 			CreateAccountController tempToGetCompanyAndPos = new CreateAccountController(); 
-			user = new User(username, userAttributes[0], userAttributes[1]);
+			if (userAttributes[2].isEmpty() && userAttributes[3].isEmpty()) {
+				user = new User(username, userAttributes[0], userAttributes[1]);
+			}
+			else {
+				user = new User(username, userAttributes[0], userAttributes[1], userAttributes[2], userAttributes[3]);
+			}
 			//		tempToGetCompanyAndPos.companyName,tempToGetCompanyAndPos.position);
 
 			System.out.println(userAttributes[0]);
@@ -74,7 +79,6 @@ public class LoginController implements Initializable{
 			//returnUserThatIsLoggedIn(user);
 			isLoggedIn = true;
 			changeScreenHome(event);
-			// TODO: Work with obtained user data.
 		}
 		connection.closeManager();
 	}
