@@ -76,14 +76,14 @@ public class HotelDBManager {
 		String encryptPass = Encryption.encrypt(password, username);	// Encrypt the password for the database.
 		
 		try {
-			//if (company.equals("") || position.equals("")) {
-			if (company.isEmpty() || position.isEmpty()) {
+			if (company.equals("") || position.equals("")) {
 				// Inserts a new customer with the passed credentials into the User table of the database.
 				statement.executeUpdate("INSERT INTO `User` (`userId`, `password`, `name`, `emailAddress`)" +
 													"VALUES (\"" + username + "\", \""
 																+ encryptPass + "\", \""
 																+ name + "\", \""
 																+ email + "\");");
+				System.out.println("Added customer");
 			}
 			else {
 				// Adds a new employee given the credentials which includes the company and position.
@@ -93,6 +93,8 @@ public class HotelDBManager {
 													+ "EMPLOYEE\", \""
 													+ name + "\", \""
 													+ email + "\");");
+				
+				System.out.println("Added employee");
 			}
 			// FIXME: Delete this line once account creation is successful (i.e., credentials must be on database).
 			System.out.println("Account creation successful!");
@@ -191,7 +193,6 @@ public class HotelDBManager {
 		return null;
 	}
 	
-	//*****************************************************************
 	/**
 	 * Edits the employee's hotel attributes and sends the modified data to the database. For the {@code int} and {@code double} arrays
 	 * for the room types, index 0 is for a standard room, index 1 is for a queen room, and index 2 is for a king room.
