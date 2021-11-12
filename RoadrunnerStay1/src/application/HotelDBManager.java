@@ -76,7 +76,8 @@ public class HotelDBManager {
 		String encryptPass = Encryption.encrypt(password, username);	// Encrypt the password for the database.
 		
 		try {
-			if (company.equals("") || position.equals("")) {
+			//if (company.equals("") || position.equals("")) {
+			if (company.isEmpty() || position.isEmpty()) {
 				// Inserts a new customer with the passed credentials into the User table of the database.
 				statement.executeUpdate("INSERT INTO `User` (`userId`, `password`, `name`, `emailAddress`)" +
 													"VALUES (\"" + username + "\", \""
@@ -190,6 +191,7 @@ public class HotelDBManager {
 		return null;
 	}
 	
+	//*****************************************************************
 	/**
 	 * Edits the employee's hotel attributes and sends the modified data to the database. For the {@code int} and {@code double} arrays
 	 * for the room types, index 0 is for a standard room, index 1 is for a queen room, and index 2 is for a king room.

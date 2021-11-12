@@ -54,5 +54,6 @@
             <Font size="24.0" />
          </font>
       </Label>
+      <Label fx:id="passwordLabel" layoutX="266.0" layoutY="210.0" text="Password" />
    </children>
 </AnchorPane>

@@ -19,22 +19,37 @@ public class EditUserProfileController implements Initializable{
 	@FXML private TextField emailInput;
 	@FXML private TextField companyNameInput;
 	@FXML private TextField positionInput;
+	@FXML private Label passwordLabel;
 	@FXML private Label nameLabel;
 	@FXML private Label emailLabel;
 	@FXML private Label companyNameLabel;
 	@FXML private Label empPositionLabel;
 
+	HotelDBManager connection = new HotelDBManager();
+	LoginController whoIsLogin = new LoginController();
+	User user = whoIsLogin.returnUserThatIsLoggedIn();
+	String OldPassword = whoIsLogin.passWord ;
+	
+	
 	@Override
-	public void initialize(URL location, ResourceBundle resources ) {
-		HotelDBManager connection = new HotelDBManager();
-		String username = "username"; // using for testing 
-		String[] userAttributes = connection.getUserAttributes(username);
-		
+	public void initialize(URL location, ResourceBundle resources ) {		
 		// show current user information
-		nameLabel.setText(userAttributes[0]);		
-		emailLabel.setText(userAttributes[1]);
-		companyNameLabel.setText(userAttributes[2]);
-		empPositionLabel.setText(userAttributes[3]);
+		nameLabel.setText(user.getName());
+		passwordLabel.setText(OldPassword);
+		emailLabel.setText(user.getEmail());
+		if(user.isEmployee()) {
+			companyNameLabel.setText(user.getCompanyName());
+			empPositionLabel.setText(user.getPosition());
+		}
+	}
+	void showNewInfo() {
+		nameLabel.setText(user.getName());
+		passwordLabel.setText(user.getPassword());
+		emailLabel.setText(user.getEmail());
+		if(user.isEmployee()) {
+			companyNameLabel.setText(user.getCompanyName());
+			empPositionLabel.setText(user.getPosition());
+		}
 	}
 	@FXML 
 	public void saveChanges(ActionEvent event) throws IOException {
@@ -51,7 +66,27 @@ public class EditUserProfileController implements Initializable{
 		companyNameInput.clear();
 		positionInput.clear();
 		
-		// add code to send to DB
+		if(passWord.isEmpty()) {
+			user.setPassword(OldPassword);
+		} else {
+			user.setPassword(passWord);			
+		}
+		if(!name.isEmpty())
+			user.setName(name);
+
+		if(!email.isEmpty())
+			user.setEmail(email);
+	
+		if(!companyName.isEmpty())
+			user.setCompanyName(companyName);
+
+		if(!position.isEmpty())
+			user.setPosition(position);
+		
+		HotelDBManager connection = new HotelDBManager();
+		connection.updateUser(user);
+		showNewInfo();
+
 	}
 	
 	@FXML 

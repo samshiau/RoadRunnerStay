@@ -24,6 +24,7 @@ public class User {
 	 * @param e	the email of the employee.
 	 * @param c the user's company name.
 	 * @param p	the user's position.
+	 * @param pass	the user's password.
 	 */
 	public User(String u, String n, String e, String c, String p) {
 		this.userId = u;
@@ -53,7 +54,13 @@ public class User {
 	 * @return {@code true} if both company and position fields are not empty, {@code false} otherwise. 
 	 */
 	public boolean isEmployee() {
-		return !companyName.equals("") || !empPosition.equals("");
+		//return !companyName.equals("") || !empPosition.equals("");
+		if(!companyName.isEmpty() || !empPosition.isEmpty()) {
+			return true;
+		}
+		return false;
+		//return !companyName.isEmpty() || !empPosition.isEmpty();
+		
 	}
 	
 	/**
@@ -81,6 +88,15 @@ public class User {
 	 */
 	public String getPassword() {
 		return password;
+	}
+	
+	/**
+	 * Updates the user's password.
+	 * 
+	 * @param pass
+	 */
+	public void setPassword(String pass) {
+		password = pass;
 	}
 	
 	/**

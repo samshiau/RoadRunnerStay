@@ -16,6 +16,9 @@ public class CreateAccountController {
 	@FXML private TextField companyNameInput;
 	@FXML private TextField positionInput;
 	
+	//static String companyName;
+	//static String position;
+	
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
 		SwitchScenesController change = new SwitchScenesController();

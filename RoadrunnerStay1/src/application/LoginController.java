@@ -15,13 +15,15 @@ public class LoginController implements Initializable{
 	
 	
 	
+	//public static final String user = null;
 	@FXML private TextField userNameInput;
 	@FXML private PasswordField passwordInput;
 	@FXML private Label loginLabel;
 	static boolean admin;
-	//static boolean isLoggedIn = false;
-	// use for testing (so you don't have to login to test editreservations and profile)
 	static boolean isLoggedIn = false;
+	static String passWord;
+
+	static User user;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources ) {
@@ -34,7 +36,8 @@ public class LoginController implements Initializable{
 		// get user input store in string
 		String username = userNameInput.getText();
 		//String passWord = passwordInput.getText();
-		String passWord = passwordInput.getText();
+		//String 
+		passWord = passwordInput.getText();
 				
 		// print user input
 		System.out.println("username is: "+ username + "\n");
@@ -59,13 +62,24 @@ public class LoginController implements Initializable{
 			// Handle the case where the log-in is successful.
 			System.out.println("Authentication successful!");
 			String[] userAttributes = connection.getUserAttributes(username);
-			User user = new User(username, userAttributes[0], userAttributes[1]);
+			
+			CreateAccountController tempToGetCompanyAndPos = new CreateAccountController(); 
+			user = new User(username, userAttributes[0], userAttributes[1]);
+			//		tempToGetCompanyAndPos.companyName,tempToGetCompanyAndPos.position);
+
+			System.out.println(userAttributes[0]);
+			System.out.println(userAttributes[1]);
+			System.out.println(userAttributes[2]);
+			System.out.println(userAttributes[3]);
+			//returnUserThatIsLoggedIn(user);
 			isLoggedIn = true;
 			changeScreenHome(event);
 			// TODO: Work with obtained user data.
 		}
 		connection.closeManager();
-
+	}
+	public User returnUserThatIsLoggedIn() {
+		return user;
 	}
 	
 	@FXML 
