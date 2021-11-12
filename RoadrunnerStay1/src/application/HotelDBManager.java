@@ -54,6 +54,8 @@ public class HotelDBManager {
 		Matcher matcher = emailSyntax.matcher(email);
 		boolean syntaxIsCorrect = matcher.find();
 		
+		System.out.println(company);
+		
 		// Checks to make sure required entries are entered.
 		if (username.equals("") || password.equals("") || name.equals("") || email.equals("")) {
 			return ReturnCodes.RC_MISSING_ENTRY;
@@ -87,12 +89,15 @@ public class HotelDBManager {
 			}
 			else {
 				// Adds a new employee given the credentials which includes the company and position.
-				statement.executeUpdate("INSERT INTO `User` (`userId`, `password`, `userType`, `name`, `emailAddress`)" +
+				statement.executeUpdate("INSERT INTO `User` (`userId`, `password`, `userType`, `name`, `emailAddress`, " +
+										"`companyName`, `empPosition`) " +
 										"VALUES (\"" + username + "\", \""
 													+ encryptPass + "\", \""
 													+ "EMPLOYEE\", \""
 													+ name + "\", \""
-													+ email + "\");");
+													+ email + "\", \""
+													+ company + "\", \""
+													+ position + "\");");
 				
 				System.out.println("Added employee");
 			}

@@ -38,9 +38,11 @@ public class EditUserProfileController implements Initializable{
 		passwordLabel.setText(OldPassword);
 		emailLabel.setText(user.getEmail());
 		if(user.isEmployee()) {
-			companyNameLabel.setText(user.getCompanyName());
-			empPositionLabel.setText(user.getPosition());
+			
 		}
+		
+		companyNameLabel.setText(user.getCompanyName());
+		empPositionLabel.setText(user.getPosition());
 	}
 	void showNewInfo() {
 		nameLabel.setText(user.getName());
