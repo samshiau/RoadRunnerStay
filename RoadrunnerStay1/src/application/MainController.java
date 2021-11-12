@@ -30,7 +30,6 @@ public class MainController  implements Initializable{
 	@FXML CheckBox pool, gym, spa, businessOffice;
 	
 	
-	boolean isTheUserLoggedIn;
 	boolean poolSelected = false, gymSelected = false, spaSelected = false, businessOfficeSelected = false; 
 	private static ArrayList<Hotel> results;
 	private ArrayList<Image> images = new ArrayList<Image>();
@@ -54,6 +53,7 @@ public class MainController  implements Initializable{
 		}
 	}
 	public void logoutButtton() throws InterruptedException {
+		LoginController.isLoggedIn = false;
 		TimeUnit.SECONDS.sleep(2);
 		loginButton.setVisible(true);
 		createAccountButton.setVisible(true);
@@ -186,8 +186,7 @@ public class MainController  implements Initializable{
 	
 	@FXML 
 	public void changeScreenProfile(ActionEvent event) throws IOException {
-		isTheUserLoggedIn = LoginController.isLoggedIn;
-		if(isTheUserLoggedIn) {
+		if(LoginController.isLoggedIn) {
 			SwitchScenesController change = new SwitchScenesController();
 			change.changeScreenProfile(event);
 		}
