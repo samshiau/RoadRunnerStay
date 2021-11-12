@@ -189,6 +189,15 @@ public class HotelDBManager {
 				userAttributes[3] = resultSet.getString("empPosition");
 			}
 			
+			// Fills the user company name and position with empty strings if the returned value was null
+			// when they were retrieved. 
+			if (userAttributes[2] == null) {
+				userAttributes[2] = "";
+			}
+			if (userAttributes[3] == null) {
+				userAttributes[3] = "";
+			}
+			
 			return userAttributes;
 		}
 		catch (SQLException e) {
@@ -634,6 +643,7 @@ public class HotelDBManager {
 				}
 			}
 			
+			// Encrypts the password before it can be sent to the database. 
 			encPass = Encryption.encrypt(user.getPassword(), user.getUserId());
 			
 			// Determines if the user is a customer or an employee.
