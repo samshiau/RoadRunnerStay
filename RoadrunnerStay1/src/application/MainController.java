@@ -172,10 +172,15 @@ public class MainController  implements Initializable{
 		return results;
 	}
 	
+//	@FXML 
+//	public void changeScreenCreateAccount(ActionEvent event) throws IOException {
+//		SwitchScenesController change = new SwitchScenesController();
+//		change.changeScreenCreateAccount(event);
+//	}
 	@FXML 
-	public void changeScreenCreateAccount(ActionEvent event) throws IOException {
+	public void changeScreenAccountType(ActionEvent event) throws IOException {
 		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenCreateAccount(event);
+		change.changeScreenAccountType(event);
 	}
 	
 	@FXML 

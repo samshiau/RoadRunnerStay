@@ -52,6 +52,32 @@
 	-fx-border-radius: 20;
 	-fx-border-width: 3;
 }
+#customerButton{
+	-fx-background-image:url("./grey_customerImage.png");
+	-fx-background-size: 100% 100%;
+	-fx-background-color: none ;
+}
+#customerButton:hover{
+	-fx-background-image:url("./customerImage.png");
+	-fx-background-size: 100% 100%;
+	-fx-scale-x: 1.15;
+    -fx-scale-y: 1.15;
+    -fx-scale-z: 1.15;
+    -fx-border-color: none ;
+}
+#employeeButton{
+	-fx-background-image:url("./grey_employeeImage.png");
+	-fx-background-size: 100% 100%;
+	-fx-background-color: none ;
+}
+#employeeButton:hover{
+	-fx-background-image:url("./employeeImage.png");
+	-fx-background-size: 100% 100%;
+	-fx-scale-x: 1.15;
+    -fx-scale-y: 1.15;
+    -fx-scale-z: 1.15;
+    -fx-border-color: none ;
+}
 #title{
 	-fx-font-family: 'Karmatic Arcade';
 	-fx-text-fill: #1f1f1f;

@@ -39,7 +39,7 @@
          </image>
       </ImageView>
       <TextField fx:id="hotelNameInput" layoutX="14.0" layoutY="119.0" prefHeight="38.0" prefWidth="275.0" promptText="Hotel Name (optional)" />
-      <Button fx:id="createAccountButton" layoutX="813.0" layoutY="22.0" mnemonicParsing="false" onAction="#changeScreenCreateAccount" prefHeight="55.0" prefWidth="175.0" text="Create Account">
+      <Button fx:id="createAccountButton" layoutX="813.0" layoutY="22.0" mnemonicParsing="false" onAction="#changeScreenAccountType" prefHeight="55.0" prefWidth="175.0" text="Create Account">
          <font>
             <Font size="36.0" />
          </font>

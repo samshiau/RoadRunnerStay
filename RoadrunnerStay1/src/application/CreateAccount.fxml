@@ -33,9 +33,9 @@
       <Text layoutX="434.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
       <Text layoutX="445.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
       <Text layoutX="447.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-      <Text layoutX="558.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Position" wrappingWidth="49.951171875" />
       <TextField fx:id="companyNameInput" layoutX="298.0" layoutY="451.0" />
-      <Text layoutX="330.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company Name" />
       <PasswordField fx:id="passwordInput" layoutX="384.0" layoutY="234.0" />
+      <Label fx:id="companyNameLabel" layoutX="328.0" layoutY="434.0" text="Company Name" />
+      <Label fx:id="positionLabel" layoutX="561.0" layoutY="434.0" text="Position" />
    </children>
 </AnchorPane>

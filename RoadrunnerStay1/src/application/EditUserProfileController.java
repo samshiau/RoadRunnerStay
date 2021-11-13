@@ -38,6 +38,7 @@ public class EditUserProfileController implements Initializable{
 		passwordLabel.setText(OldPassword);
 		emailLabel.setText(user.getEmail());
 		if(user.isEmployee()) {
+			System.out.println("worked");
 			
 		}
 		

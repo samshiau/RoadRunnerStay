@@ -1,37 +1,45 @@
 package application;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
-public class CreateAccountController {
+public class CreateAccountController implements Initializable{
 	@FXML private TextField userNameInput;
 	@FXML private PasswordField passwordInput;
 	@FXML private TextField nameInput;
 	@FXML private TextField emailInput;
 	@FXML private TextField companyNameInput;
 	@FXML private TextField positionInput;
+	@FXML private Label companyNameLabel;
+	@FXML private Label positionLabel;
 	
 	//static String companyName;
 	//static String position;
 	
-	@FXML 
-	public void changeScreenHome(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenonHome(event);
-	}
-	@FXML 
-	public void changeScreenCreateAccount(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenonHome(event);
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources ) {
+	if(!AccountTypeController.isEmployee) {
+		companyNameInput.setVisible(false);
+		companyNameLabel.setVisible(false);
+		positionInput.setVisible(false);
+		positionLabel.setVisible(false);
+		}
 	}
 	
 	@FXML 
 	public void createAccount(ActionEvent event) throws IOException {
+	
 		// get user input store in string
 		String username = userNameInput.getText();
 		//String passWord = passwordInput.getText();
@@ -66,5 +74,16 @@ public class CreateAccountController {
 		}
 		connection.closeManager();
 		changeScreenCreateAccount(event);
+	}
+	
+	@FXML 
+	public void changeScreenHome(ActionEvent event) throws IOException {
+		SwitchScenesController change = new SwitchScenesController();
+		change.changeScreenonHome(event);
+	}
+	@FXML 
+	public void changeScreenCreateAccount(ActionEvent event) throws IOException {
+		SwitchScenesController change = new SwitchScenesController();
+		change.changeScreenonHome(event);
 	}
 }
