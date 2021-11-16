@@ -13,9 +13,11 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -124,6 +126,16 @@ public class MainController  implements Initializable{
 	@FXML 
 	public void changeScreenResult(ActionEvent event) throws IOException {
 		userInput();
+		// if nothing is selected or entered show error message
+		if(!poolSelected && !gymSelected && !spaSelected && !businessOfficeSelected  
+				&& hotelNameInputStr.isEmpty() && minPriceInputStr.isEmpty()
+				&& maxPriceInputStr.isEmpty()) {
+			Alert noInput = new Alert(AlertType.ERROR);
+			noInput.setTitle("Enter information");
+			noInput.setHeaderText("Please enter some information so we can help you");
+			noInput.setContentText("Hurry limited space available!");
+			noInput.showAndWait();
+		} else {
 		
 		// Gets the user-checked amenities.
 		boolean[] amenityChecks = new boolean[4];
@@ -167,6 +179,7 @@ public class MainController  implements Initializable{
 		// TODO: Display the received results from the database that are stored in the results variable. Sometimes the list may not have any results.
 		SwitchScenesController change = new SwitchScenesController();
 		change.changeScreenResult(event);
+		}
 	}
 	
 	public static ArrayList<Hotel> getResultsArray(){
