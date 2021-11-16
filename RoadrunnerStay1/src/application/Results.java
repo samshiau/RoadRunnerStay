@@ -18,10 +18,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -31,6 +33,9 @@ public class Results implements Initializable{
 	@FXML ImageView imageViewResults;
 	@FXML private ListView<String> resultsList;
 	MainController mainController = new MainController();
+	LoginController whoIsLogin = new LoginController();
+	User user = whoIsLogin.returnUserThatIsLoggedIn();
+	HotelDBManager connection = new HotelDBManager();
 	String whichHotel;
 
 	@Override
@@ -42,8 +47,8 @@ public class Results implements Initializable{
 	}
 	
 	public void resultsListSelected() {
-		/*whichHotel = resultsList.getSelectionModel().getSelectedItem();
-		showImage(whichHotel);*/
+		whichHotel = resultsList.getSelectionModel().getSelectedItem();
+		//showImage(whichHotel);
 		
 		Hotel hotel = Hotel.getHotelByName(MainController.getResultsArray(), whichHotel);
 		showImage(hotel.getImageStream());
@@ -62,18 +67,34 @@ public class Results implements Initializable{
 	}
 	@FXML 
 	public void bookItButton(ActionEvent event) throws IOException {
-		//userInput();
-		HotelDBManager test = new HotelDBManager();
-		String userId = "user";
-		int hotelId = 1;
-		String roomType = "queen"; 
-		String startDate = "2021-04-04"; 
-		String endDate = "2021-04-05";
-		int rc = test.bookReservation(userId, hotelId, roomType, startDate, endDate);
-		if (rc != 0) {
-			System.out.println("Booking failed.");
-		}
-		test.closeManager();
+		// if user is not logged in show error message
+		if(!LoginController.isLoggedIn) {
+			Alert textFieldisEmpty = new Alert(AlertType.ERROR);
+			textFieldisEmpty.setTitle("Please Login");
+			textFieldisEmpty.setHeaderText("Plesae login to book hotel");
+			textFieldisEmpty.setContentText("Hurry limited space available!");
+			textFieldisEmpty.showAndWait();
+		} else {
+			// gather user's information and send for booking
+			String userID = user.getUserId();
+			int hotelId = connection.getHotelId(whichHotel);
+		
+			String roomType = "queen";
+		
+			String startDate = mainController.getStartDate();
+			String endDate = mainController.getEndDate();
+		
+			int rc = connection.bookReservation(userID,
+												hotelId,
+												roomType,
+												startDate, 
+												endDate);
+		
+			if (rc != 0) {
+				System.out.println("Booking failed.");
+			}
+			connection.closeManager();
+			}
 	}
 	
 	@FXML 

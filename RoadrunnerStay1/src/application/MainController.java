@@ -25,7 +25,8 @@ public class MainController  implements Initializable{
 	
 	@FXML private Button profileButton, loginButton, logOutButton, createAccountButton, searchButton;
 	@FXML private TextField hotelNameInput, fromDateInput, toDateInput, minPriceInput, maxPriceInput;
-	String hotelNameInputStr, fromDateInputStr, toDateInputStr, minPriceInputStr, maxPriceInputStr;
+	String hotelNameInputStr, minPriceInputStr, maxPriceInputStr;
+	static String fromDateInputStr, toDateInputStr;
 	@FXML ImageView imageView, imageView2, imageView3;
 	@FXML CheckBox pool, gym, spa, businessOffice;
 	
@@ -170,6 +171,12 @@ public class MainController  implements Initializable{
 	
 	public static ArrayList<Hotel> getResultsArray(){
 		return results;
+	}
+	public String getStartDate(){
+		return fromDateInputStr;
+	}
+	public String getEndDate(){
+		return toDateInputStr;
 	}
 	
 	@FXML 
