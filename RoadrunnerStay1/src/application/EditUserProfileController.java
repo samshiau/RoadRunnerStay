@@ -22,8 +22,9 @@ public class EditUserProfileController implements Initializable{
 	@FXML private Label passwordLabel;
 	@FXML private Label nameLabel;
 	@FXML private Label emailLabel;
-	@FXML private Label companyNameLabel;
-	@FXML private Label empPositionLabel;
+	@FXML private Label companyNameLabel, companyNameLabel2;
+	@FXML private Label empPositionLabel, empPositionLabel2;
+
 
 	HotelDBManager connection = new HotelDBManager();
 	LoginController whoIsLogin = new LoginController();
@@ -38,12 +39,23 @@ public class EditUserProfileController implements Initializable{
 		passwordLabel.setText(OldPassword);
 		emailLabel.setText(user.getEmail());
 		if(user.isEmployee()) {
-			System.out.println("worked");
-			
+			companyNameLabel.setText(user.getCompanyName());
+			empPositionLabel.setText(user.getPosition());
+			companyNameLabel.setVisible(true);
+			companyNameLabel2.setVisible(true);
+			empPositionLabel.setVisible(true);
+			empPositionLabel2.setVisible(true);
+			companyNameInput.setVisible(true);
+			positionInput.setVisible(true);
+		} else {
+			companyNameLabel.setVisible(false);
+			companyNameLabel2.setVisible(false);
+			empPositionLabel.setVisible(false);
+			empPositionLabel2.setVisible(false);
+			companyNameInput.setVisible(false);
+			positionInput.setVisible(false);
 		}
 		
-		companyNameLabel.setText(user.getCompanyName());
-		empPositionLabel.setText(user.getPosition());
 	}
 	void showNewInfo() {
 		nameLabel.setText(user.getName());
@@ -96,5 +108,10 @@ public class EditUserProfileController implements Initializable{
 	public void changeScreenHome(ActionEvent event) throws IOException {
 		SwitchScenesController change = new SwitchScenesController();
 		change.changeScreenonHome(event);
+	}
+	@FXML 
+	public void changeScreenProfile(ActionEvent event) throws IOException {
+		SwitchScenesController change = new SwitchScenesController();
+		change.changeScreenProfile(event);
 	}
 }

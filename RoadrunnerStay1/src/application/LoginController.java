@@ -19,7 +19,6 @@ public class LoginController implements Initializable{
 	@FXML private TextField userNameInput;
 	@FXML private PasswordField passwordInput;
 	@FXML private Label loginLabel;
-	static boolean admin;
 	static boolean isLoggedIn = false;
 	static String passWord;
 
