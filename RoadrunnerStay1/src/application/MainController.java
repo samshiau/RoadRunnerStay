@@ -128,8 +128,10 @@ public class MainController  implements Initializable{
 		userInput();
 		// if nothing is selected or entered show error message
 		if(!poolSelected && !gymSelected && !spaSelected && !businessOfficeSelected  
-				&& hotelNameInputStr.isEmpty() && minPriceInputStr.isEmpty()
-				&& maxPriceInputStr.isEmpty()) {
+				&& hotelNameInputStr.isEmpty() && (minPriceInputStr.isEmpty() || 
+				minPriceInputStr.equals("0") || minPriceInputStr.equals("0.0")) &&
+				(maxPriceInputStr.isEmpty() || maxPriceInputStr.equals("0") ||
+				maxPriceInputStr.equals("0.0")) ) {
 			Alert noInput = new Alert(AlertType.ERROR);
 			noInput.setTitle("Enter information");
 			noInput.setHeaderText("Please enter some information so we can help you");
