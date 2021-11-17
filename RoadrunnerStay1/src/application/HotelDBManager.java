@@ -417,10 +417,11 @@ public class HotelDBManager {
 	 * @param roomType	the room type the user booked.
 	 * @param startDate	the start date of the reservation.
 	 * @param endDate	the end date of the user.
+	 * @param numRooms	the number of rooms the user booked.
 	 * @return			{@code RC_OK} if the reservation is successful, {@code RC_DATE_SYN_WRONG} if the entered date
 	 * 					is not in a correct format, or {@code RC_MISC_ERR} if some other error occurred.
 	 */
-	public int bookReservation(String userId, int hotelId, String roomType, String startDate, String endDate) {
+	public int bookReservation(String userId, int hotelId, String roomType, String startDate, String endDate, int numRooms) {
 		Pattern dateSyntax = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");
 		Matcher startDateCorrect = dateSyntax.matcher(startDate), endDateCorrect = dateSyntax.matcher(endDate);
 		Date startSqlDate, endSqlDate;
@@ -440,12 +441,15 @@ public class HotelDBManager {
 		
 		// Attempts to insert the book into the reservation table.
 		try {
-			preparedStatement = connect.prepareStatement("INSERT INTO `Reservation` (`userId`, `hotelId`, `startDate`, `endDate`, `totalCost`) "
-														+ "VALUES (?, ?, ?, ?, ?);");
+			preparedStatement = connect.prepareStatement("INSERT INTO `Reservation` (`userId`, `hotelId`, `startDate`, `endDate`, "
+														+ "`totalCost`, 'roomType`, `numRooms`) "
+														+ "VALUES (?, ?, ?, ?, ?, ?, ?);");
 			preparedStatement.setString(1, userId);
 			preparedStatement.setInt(2, hotelId);
 			preparedStatement.setDate(3, startSqlDate);
 			preparedStatement.setDate(4, endSqlDate);
+			preparedStatement.setString(5, roomType);
+			preparedStatement.setInt(6, numRooms);
 			
 			// Calculates the total cost of the room.
 			int numDays = endSqlDate.compareTo(startSqlDate);
@@ -454,24 +458,22 @@ public class HotelDBManager {
 			if (roomType.equals("standard")) {
 				// Gets the price of a standard room for one night. 
 				query.append("h.rmPriceStandard, ");
-				statement.executeUpdate("UPDATE Hotel h SET h.numRoomsStandard = h.numRoomsStandard - 1 " +
-										"WHERE h.hotelId = " + hotelId + ";");
+				statement.executeUpdate("UPDATE Hotel h SET h.numRoomsStandard = h.numRoomsStandard - " + numRooms +
+										" WHERE h.hotelId = " + hotelId + ";");
 			}
 			else if (roomType.equals("queen")) {
 				// Gets the price of a queen room for one night. 
 				query.append("h.rmPriceQueen, ");
 				rmPriceCol += 1;
-				System.out.println("UPDATE Hotel h SET h.numRoomsQueen = h.numRoomsQueen - 1 " + 
-										"WHERE h.hotelId = " + hotelId + ";");
-				statement.executeUpdate("UPDATE Hotel h SET h.numRoomsQueen = h.numRoomsQueen - 1 " + 
-										"WHERE h.hotelId = " + hotelId + ";");
+				statement.executeUpdate("UPDATE Hotel h SET h.numRoomsQueen = h.numRoomsQueen - " + numRooms + 
+										" WHERE h.hotelId = " + hotelId + ";");
 			}
 			else {
 				// Gets the price of a king room for one night. 
 				query.append("h.rmPriceKing, ");
 				rmPriceCol += 2;
-				statement.executeUpdate("UPDATE Hotel h SET h.numRoomsKing = h.numRoomsKing - 1 " +
-										"WHERE h.hotelId = " + hotelId + ";");
+				statement.executeUpdate("UPDATE Hotel h SET h.numRoomsKing = h.numRoomsKing - " + numRooms +
+										" WHERE h.hotelId = " + hotelId + ";");
 			}
 			
 			// Obtains the data of the hotel to book from the database.
@@ -610,18 +612,47 @@ public class HotelDBManager {
 	 */
 	public int cancelReservation(String username, String hotelName) {
 		try {
-			String updateRoomsStatement = "UPDATE Hotel h SET ";
+			String updateRoomsStatement = "UPDATE Hotel h SET h.";
+			String userRoomsQuery = "SELECT r.roomType, r.numRooms FROM Reservation r WHERE r.hotelId = ";
+			String roomType = "";
+			int numRooms = 0;
+			
 			preparedStatement = connect.prepareStatement("DELETE FROM Reservation r WHERE " +
 															"r.userId = ? AND r.hotelId = ?;");
 			
 			// gets the ID of the hotel to be able to access it in the Reservation table.
 			int hotelId = getHotelId(hotelName);
 			
+			// Adds the rest of the query with the user's username.
+			userRoomsQuery += hotelId + " AND r.userId = " + username + ";";
+			
+			// Gets the data from the user reservation query.
+			resultSet = statement.executeQuery(userRoomsQuery);
+			while (resultSet.next()) {
+				roomType = resultSet.getString("roomType");
+				numRooms = resultSet.getInt(numRooms);
+			}
+			
+			// Adds the number of rooms of the particular room from the reservation back to the Hotel table.
+			switch (roomType) {
+				case "standard":
+					updateRoomsStatement += "numRoomsStandard = h.numRoomsStandard + ";
+					break;
+				case "queen":
+					updateRoomsStatement += "numRoomsQueen = h.numRoomsQueen + ";
+					break;
+				case "king":
+					updateRoomsStatement += "numRoomsKing = h.numRoomsKing + ";
+					break;
+			}
+			updateRoomsStatement += numRooms + ";";
+			statement.executeUpdate(updateRoomsStatement);
+			
 			// Set the values of the parameters of the prepared statement.
 			preparedStatement.setString(1, username);
 			preparedStatement.setInt(2, hotelId);
 			
-			// Executes the update.
+			// Executes the deletion.
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
 			
