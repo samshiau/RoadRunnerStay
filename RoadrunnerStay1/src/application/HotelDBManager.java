@@ -610,6 +610,7 @@ public class HotelDBManager {
 	 */
 	public int cancelReservation(String username, String hotelName) {
 		try {
+			String updateRoomsStatement = "UPDATE Hotel h SET ";
 			preparedStatement = connect.prepareStatement("DELETE FROM Reservation r WHERE " +
 															"r.userId = ? AND r.hotelId = ?;");
 			
@@ -658,6 +659,30 @@ public class HotelDBManager {
 			// This clause executes if there was an error processing the SQL query.
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	
+	/**
+	 * Gets and returns the hotel name given the hotel's ID.
+	 * 
+	 * @param hotelId 	the key ID.
+	 * @return			the name of the hotel with the corresponding ID.
+	 */
+	public String getHotelName(int hotelId) {
+		String hotelName = "";
+		
+		try {
+			resultSet = statement.executeQuery("SELECT h.name FROM Hotel h WHERE h.hotelId = " + hotelId + ";");
+			
+			while (resultSet.next()) {
+				hotelName = resultSet.getString("name");
+			}
+			
+			return hotelName;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return "";
 		}
 	}
 	
