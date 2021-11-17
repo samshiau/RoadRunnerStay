@@ -25,7 +25,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <ListView fx:id="reservationsList" layoutX="106.0" layoutY="227.0" prefHeight="371.0" prefWidth="319.0" />
+      <ListView fx:id="reservationsList" layoutX="106.0" layoutY="227.0" onMouseClicked="#resultsListSelected" prefHeight="371.0" prefWidth="319.0" />
       <Label fx:id="title11" alignment="CENTER" layoutX="144.0" layoutY="168.0" text="Current Booking" textAlignment="CENTER">
          <font>
             <Font size="36.0" />

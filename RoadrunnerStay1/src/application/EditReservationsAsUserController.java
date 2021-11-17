@@ -39,19 +39,25 @@ public class EditReservationsAsUserController implements Initializable{
 
 	String roomsInputStr, fromDateInputStr, toDateInputStr;
 	String whichReservation;
+	static String reservationInfo;
  
 	
-	// fill the arraylist with current reservation the user has
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		getReservation = connection.getReservationsByUser(user.getUserId());
-		
-		for (int i = 0; i < getReservation.size(); i++) {
-			String reservationInfo = getReservation.get(i).toString();
-			reservationsList.getItems().addAll(reservationInfo);
-		}
+		updateArrayList();
 	}
 	
+	public void updateArrayList(){
+		// clear arraylist in case updated
+		reservationsList.getItems().clear();
+		// fill the arraylist with current reservation the user has
+		getReservation = connection.getReservationsByUser(user.getUserId());		
+		for (int i = 0; i < getReservation.size(); i++) {
+			reservationInfo = getReservation.get(i).toString();
+			reservationsList.getItems().addAll(reservationInfo);
+		}
+		
+	}
 	// get which is selected
 	public void resultsListSelected() {
 		whichReservation = reservationsList.getSelectionModel().getSelectedItem();
@@ -74,13 +80,14 @@ public class EditReservationsAsUserController implements Initializable{
 		System.out.println(fromDateInputStr);
 		System.out.println(toDateInputStr);
 		// Gets the results from the database.
-		connection.editReservation("user101", "Rio Inn", "queen", 2);
-		connection.closeManager();
+		connection.editReservation(user.getUserId(), "Rio Inn", "queen", 4);
+		updateArrayList();
 
 	}
 	
 	@FXML 
 	public void changeScreenProfile(ActionEvent event) throws IOException {
+		connection.closeManager();
 		SwitchScenesController change = new SwitchScenesController();
 		change.changeScreenProfile(event);
 	}
