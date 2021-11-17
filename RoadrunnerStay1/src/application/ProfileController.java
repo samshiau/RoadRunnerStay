@@ -18,25 +18,41 @@ import javafx.scene.control.ListView;
 
 public class ProfileController implements Initializable{
 	
-	//@FXML private ListView<String> reservationsList;
+	@FXML private ListView<String> reservationsList;
 	@FXML private Button userEditReservation;
 	@FXML private Button employeeEditReservation;
 	@FXML private Label wecomeUser;
-	LoginController whoIsLogin = new LoginController();
-	User user = whoIsLogin.returnUserThatIsLoggedIn();
+	HotelDBManager connection = new HotelDBManager();
 	
-
+	LoginController whoIsLogin = new LoginController();	
+	User user = whoIsLogin.returnUserThatIsLoggedIn();
+	public ArrayList<Reservation> getReservation;
+	String reservationInfo;
+	boolean hasReservation = false;
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		wecomeUser.setText("Wecome: " + user.getUserId());
+		
+		getReservation = connection.getReservationsByUser(user.getUserId());
+		// show message if user does not have reservation else show reservation  
+		if(getReservation.size() == 0) {
+			hasReservation = false;
+			reservationsList.getItems().addAll("Sorry but it looks like you don't have any reservations");
+		} else {
+			hasReservation = true;
+			for (int i = 0; i < getReservation.size(); i++) {
+				reservationInfo = getReservation.get(i).toString();
+				reservationsList.getItems().addAll(reservationInfo);
+			}	
+		}
+		
 		if(user.isEmployee()) {
-			System.out.println("As Emmloyee");
 			employeeEditReservation.setVisible(true);
 			userEditReservation.setVisible(false);
 			
 		} else {
-			System.out.println("As user");
 			employeeEditReservation.setVisible(false);
 			userEditReservation.setVisible(true);
 			
@@ -44,31 +60,6 @@ public class ProfileController implements Initializable{
 		 
 
 	}
-	
-	//@Override
-	//public void initialize(URL location, ResourceBundle resources) {
-//		Scanner inFile1 = null;
-//		String token1 = "";
-//		try {
-//			inFile1 = new Scanner(new File("resutls.txt")).useDelimiter(",\\s*");
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//		List<String> temps = new ArrayList<String>();
-//		while (inFile1.hasNext()) {
-//		      // find next line
-//		      token1 = inFile1.next();
-//		      temps.add(token1);
-//		    }
-//		    inFile1.close();
-//
-//		    String[] tempsArray = temps.toArray(new String[0]);
-//
-//		    for (String s : tempsArray) {
-//		    	reservationsList.getItems().add(s);
-//		    }
-//		checkType();
-//	}
 
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
@@ -83,8 +74,13 @@ public class ProfileController implements Initializable{
 	}
 	@FXML
 	public void changeScreenEditReservationsAsUser(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenEditReservationsAsUser(event);	
+		if(hasReservation) {
+			SwitchScenesController change = new SwitchScenesController();
+			change.changeScreenEditReservationsAsUser(event);				
+		}
+		/* TODO show error message telling user they cannot edit because they do not have a 
+		 * Reservation to edit
+		 */
 	}
 	@FXML
 	public void changeScreenEditUserProfile(ActionEvent event) throws IOException {

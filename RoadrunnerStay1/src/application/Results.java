@@ -61,6 +61,7 @@ public class Results implements Initializable{
 		//showImage(whichHotel);
 		
 		Hotel hotel = Hotel.getHotelByName(MainController.getResultsArray(), whichHotel);
+		System.out.println(hotel.getNumberOfRooms());
 		showImage(hotel.getImageStream());
 	}
 	

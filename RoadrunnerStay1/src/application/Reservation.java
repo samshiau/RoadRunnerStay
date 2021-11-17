@@ -1,5 +1,7 @@
 package application;
 
+import javafx.fxml.Initializable;
+
 /**
  * Package: application
  * The class to represent a hotel reservation booked by the end user.
@@ -28,6 +30,14 @@ public class Reservation {
 		this.startDate = s;
 		this.endDate = e;
 		this.totalCost = t;
+	}
+	
+	@Override
+	public String toString() {
+	    return ("Hotel Id: "+this.getHotelId()+
+	    		"\nStart date is: "+ this.getStartDate() +
+	    		"\nEnd date is: "+ this.getEndDate() +
+	    		"\nTotal Cost is : " + this.getTotalCost());
 	}
 	
 	/**

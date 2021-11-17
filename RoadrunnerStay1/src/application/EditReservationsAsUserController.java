@@ -30,47 +30,34 @@ public class EditReservationsAsUserController implements Initializable{
 	@FXML private Button bookIt;
 	@FXML ImageView imageViewResults;
 	@FXML private ListView<String> resultsList;
-	MainController mainController = new MainController();
-	String whichHotel;
 	@FXML private ListView<String> reservationsList;
-	
-	
 	@FXML private Button start, back;
 	@FXML private TextField hotelNameInput, fromDateInput, toDateInput, minPriceInput, maxPriceInput;
-	String hotelNameInputStr, fromDateInputStr, toDateInputStr, minPriceInputStr, maxPriceInputStr;
 	@FXML ImageView imageView, imageView2, imageView3;
 	@FXML CheckBox pool, gym, spa, businessOffice;
+	MainController mainController = new MainController();
+	HotelDBManager connection = new HotelDBManager();
+	LoginController whoIsLogin = new LoginController();	
+	User user = whoIsLogin.returnUserThatIsLoggedIn();
+
+	String whichHotel;
+	String hotelNameInputStr, fromDateInputStr, toDateInputStr, minPriceInputStr, maxPriceInputStr;
 	
 	
 	boolean isTheUserLoggedIn;
 	boolean poolSelected = false, gymSelected = false, spaSelected = false, businessOfficeSelected = false; 
 	private static ArrayList<Hotel> results;
-	private ArrayList<Image> images = new ArrayList<Image>();
-	int count = 0, count2 = 1, count3 = 2;
+	public ArrayList<Reservation> getReservation;
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		Scanner inFile1 = null;
-		String token1 = "";
-		try {
-			inFile1 = new Scanner(new File("resutls.txt")).useDelimiter(",\\s*");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		getReservation = connection.getReservationsByUser(user.getUserId());
+		
+		for (int i = 0; i < getReservation.size(); i++) {
+			String reservationInfo = getReservation.get(i).toString();
+			reservationsList.getItems().addAll(reservationInfo);
 		}
-		List<String> temps = new ArrayList<String>();
-		while (inFile1.hasNext()) {
-		      // find next line
-		      token1 = inFile1.next();
-		      temps.add(token1);
-		    }
-		    inFile1.close();
-
-		    String[] tempsArray = temps.toArray(new String[0]);
-
-		    for (String s : tempsArray) {
-		    	reservationsList.getItems().add(s);
-		    }
 	}
 	
 	public void resultsListSelected() {
@@ -138,7 +125,9 @@ public class EditReservationsAsUserController implements Initializable{
 		results = searcher.search(hotelNameInputStr, amenityChecks, fromDateInputStr, toDateInputStr, minPrice, maxPrice);
 		//getResultsArray().addAll(results);
 		searcher.closeManager();
-		for (int i = 0; i < results.size()/2; i++) {
+		
+		
+		for (int i = 0; i < results.size(); i++) {
 			whichHotel =   results.get(i).getName();
 			resultsList.getItems().addAll(whichHotel);
 		}   
@@ -168,6 +157,4 @@ public class EditReservationsAsUserController implements Initializable{
 		SwitchScenesController change = new SwitchScenesController();
 		change.changeScreenProfile(event);
 	}
-	
-
 }
