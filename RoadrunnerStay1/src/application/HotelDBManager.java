@@ -546,16 +546,43 @@ public class HotelDBManager {
 	 * 
 	 * @param userId	the username.
 	 * @param hotelName	the hotel ID.
-	 * @param totalCost	the total cost.
+	 * @param roomType	the type of room to book.
+	 * @param numNights	the number of nights for the reservation.
 	 * @return			RC_OK if the reservation was successfully changed, otherwise RC_MISC_ERR if some other error
 	 * 					occurred.
 	 */
-	public int editReservation(String userId, String hotelName, double totalCost) {
+	public int editReservation(String userId, String hotelName, String roomType, int numNights) {
+		String getHotelQuery = "SELECT h.hotelId, ";
+		double totalCost;
+		float roomCost = (float) 0.0;
+		int hotelId = 0;
+		
 		try {
 			preparedStatement = connect.prepareStatement("UPDATE Reservation r SET r.totalCost = ? WHERE " +
 														"r.hotelId = ? AND r.userId = ?;");
 			
-			int hotelId = getHotelId(hotelName);
+			// Gets the hotel attributes.
+			switch (roomType) {
+				case "standard":
+					getHotelQuery += "h.rmPriceStandard ";
+					break;
+				case "queen":
+					getHotelQuery += "h.rmPriceQueen ";
+					break;
+				case "king":
+					getHotelQuery += "h.rmPriceKing ";
+					break;
+			}
+			
+			getHotelQuery += "FROM Hotel h WHERE h.hotelId = " + getHotelId(hotelName) + ";";
+			resultSet = statement.executeQuery(getHotelQuery);
+			while (resultSet.next()) {
+				hotelId = resultSet.getInt("hotelId");
+				roomCost = resultSet.getFloat(2);
+			}
+			
+			// Calculates the new total cost after the edit.
+			totalCost = numNights * roomCost;
 			
 			// Sets the values for each parameter in the prepared statement.
 			preparedStatement.setDouble(1, totalCost);
@@ -563,6 +590,37 @@ public class HotelDBManager {
 			preparedStatement.setString(3, userId);
 			
 			// Execute the statement.
+			preparedStatement.executeUpdate();
+			preparedStatement.close();
+			
+			return ReturnCodes.RC_OK;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return ReturnCodes.RC_MISC_ERR;
+		}
+	}
+	
+	/**
+	 * Removes a Reservation record with the matching username and hotel name from the database.
+	 * 
+	 * @param username	the user name to search for.
+	 * @param hotelName	the hotel name to search for.
+	 * @return			{@code RC_OK} if the deletion was successful, otherwise returns {@code RC_MISC_ERR}.
+	 */
+	public int cancelReservation(String username, String hotelName) {
+		try {
+			preparedStatement = connect.prepareStatement("DELETE FROM Reservation r WHERE " +
+															"r.userId = ? AND r.hotelId = ?;");
+			
+			// gets the ID of the hotel to be able to access it in the Reservation table.
+			int hotelId = getHotelId(hotelName);
+			
+			// Set the values of the parameters of the prepared statement.
+			preparedStatement.setString(1, username);
+			preparedStatement.setInt(2, hotelId);
+			
+			// Executes the update.
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
 			
