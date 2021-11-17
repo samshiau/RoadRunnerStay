@@ -116,7 +116,8 @@ public class Results implements Initializable{
 												hotelId,
 												roomType,
 												startDate, 
-												endDate);
+												endDate,
+												1);
 		
 			if (rc != 0) {
 				System.out.println("Booking failed.");
