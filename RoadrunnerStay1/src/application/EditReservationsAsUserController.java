@@ -39,7 +39,7 @@ public class EditReservationsAsUserController implements Initializable{
 
 	String roomsInputStr, fromDateInputStr, toDateInputStr;
 	String whichReservation;
-	static String reservationInfo;
+	String reservationInfo;
  
 	
 	@Override
@@ -47,10 +47,10 @@ public class EditReservationsAsUserController implements Initializable{
 		updateArrayList();
 	}
 	
+	// fill the arraylist with current reservation the user has
 	public void updateArrayList(){
 		// clear arraylist in case updated
 		reservationsList.getItems().clear();
-		// fill the arraylist with current reservation the user has
 		getReservation = connection.getReservationsByUser(user.getUserId());		
 		for (int i = 0; i < getReservation.size(); i++) {
 			reservationInfo = getReservation.get(i).toString();
@@ -75,12 +75,14 @@ public class EditReservationsAsUserController implements Initializable{
 	@FXML 
 	public void updateButton(ActionEvent event) throws IOException {
 		userInput();
-		// printing for testing
-		System.out.println(roomsInputStr);
-		System.out.println(fromDateInputStr);
-		System.out.println(toDateInputStr);
 		// Gets the results from the database.
 		connection.editReservation(user.getUserId(), "Rio Inn", "queen", 4);
+		
+		// clear textfields
+		roomsInput.clear();
+		fromDateInput.clear();
+		toDateInput.clear();
+		
 		updateArrayList();
 
 	}
