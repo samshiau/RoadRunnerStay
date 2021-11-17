@@ -557,15 +557,21 @@ public class HotelDBManager {
 			
 			int hotelId = getHotelId(hotelName);
 			
+			// Sets the values for each parameter in the prepared statement.
 			preparedStatement.setDouble(1, totalCost);
 			preparedStatement.setInt(2, hotelId);
 			preparedStatement.setString(3, userId);
+			
+			// Execute the statement.
+			preparedStatement.executeUpdate();
 			preparedStatement.close();
+			
+			return ReturnCodes.RC_OK;
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
+			return ReturnCodes.RC_MISC_ERR;
 		}
-		return ReturnCodes.RC_MISC_ERR;
 	}
 	
 	/**
