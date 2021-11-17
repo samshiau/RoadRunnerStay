@@ -517,7 +517,7 @@ public class HotelDBManager {
 		
 		try {
 			preparedStatement = connect.prepareStatement("SELECT r.hotelId, r.startDate, r.endDate, r.totalCost " + 
-															"FROM Hotel h WHERE r.userId = ?;");
+															"FROM Reservation r WHERE r.userId = ?;");
 			
 			// Sets the username to search for.
 			preparedStatement.setString(1, username);
