@@ -69,6 +69,7 @@ public class EditReservationsAsUserController implements Initializable{
 		roomsInputStr = roomsInput.getText();
 		fromDateInputStr = fromDateInput.getText();
 		toDateInputStr = toDateInput.getText();
+		System.out.println("test");
 	}
 
 	// when updatebutton is pressed update change on DB	
