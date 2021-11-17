@@ -12,50 +12,63 @@ import java.util.Scanner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 public class ProfileController implements Initializable{
 	
-	@FXML private ListView<String> reservationsList;
+	//@FXML private ListView<String> reservationsList;
+	@FXML private Button userEditReservation;
+	@FXML private Button employeeEditReservation;
 	@FXML private Label wecomeUser;
+	LoginController whoIsLogin = new LoginController();
+	User user = whoIsLogin.returnUserThatIsLoggedIn();
 	
-	boolean userActType;
 
-	public void checkType() {
-		userActType = LoginController.admin; 
-		System.out.println(userActType); 
-		if (userActType) {
-			wecomeUser.setText("Wecome Admin");
-		} else {
-			wecomeUser.setText("Wecome User");
-		}
-	}
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		Scanner inFile1 = null;
-		String token1 = "";
-		try {
-			inFile1 = new Scanner(new File("resutls.txt")).useDelimiter(",\\s*");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		wecomeUser.setText("Wecome: " + user.getUserId());
+		if(user.isEmployee()) {
+			System.out.println("As Emmloyee");
+			employeeEditReservation.setVisible(true);
+			userEditReservation.setVisible(false);
+			
+		} else {
+			System.out.println("As user");
+			employeeEditReservation.setVisible(false);
+			userEditReservation.setVisible(true);
+			
 		}
-		List<String> temps = new ArrayList<String>();
-		while (inFile1.hasNext()) {
-		      // find next line
-		      token1 = inFile1.next();
-		      temps.add(token1);
-		    }
-		    inFile1.close();
+		 
 
-		    String[] tempsArray = temps.toArray(new String[0]);
-
-		    for (String s : tempsArray) {
-		    	reservationsList.getItems().add(s);
-		    }
-		checkType();
 	}
+	
+	//@Override
+	//public void initialize(URL location, ResourceBundle resources) {
+//		Scanner inFile1 = null;
+//		String token1 = "";
+//		try {
+//			inFile1 = new Scanner(new File("resutls.txt")).useDelimiter(",\\s*");
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		List<String> temps = new ArrayList<String>();
+//		while (inFile1.hasNext()) {
+//		      // find next line
+//		      token1 = inFile1.next();
+//		      temps.add(token1);
+//		    }
+//		    inFile1.close();
+//
+//		    String[] tempsArray = temps.toArray(new String[0]);
+//
+//		    for (String s : tempsArray) {
+//		    	reservationsList.getItems().add(s);
+//		    }
+//		checkType();
+//	}
 
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {

@@ -13,9 +13,11 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -25,7 +27,8 @@ public class MainController  implements Initializable{
 	
 	@FXML private Button profileButton, loginButton, logOutButton, createAccountButton, searchButton;
 	@FXML private TextField hotelNameInput, fromDateInput, toDateInput, minPriceInput, maxPriceInput;
-	String hotelNameInputStr, fromDateInputStr, toDateInputStr, minPriceInputStr, maxPriceInputStr;
+	String hotelNameInputStr, minPriceInputStr, maxPriceInputStr;
+	static String fromDateInputStr, toDateInputStr;
 	@FXML ImageView imageView, imageView2, imageView3;
 	@FXML CheckBox pool, gym, spa, businessOffice;
 	
@@ -123,6 +126,18 @@ public class MainController  implements Initializable{
 	@FXML 
 	public void changeScreenResult(ActionEvent event) throws IOException {
 		userInput();
+		// if nothing is selected or entered show error message
+		if(!poolSelected && !gymSelected && !spaSelected && !businessOfficeSelected  
+				&& hotelNameInputStr.isEmpty() && (minPriceInputStr.isEmpty() || 
+				minPriceInputStr.equals("0") || minPriceInputStr.equals("0.0")) &&
+				(maxPriceInputStr.isEmpty() || maxPriceInputStr.equals("0") ||
+				maxPriceInputStr.equals("0.0")) ) {
+			Alert noInput = new Alert(AlertType.ERROR);
+			noInput.setTitle("Enter information");
+			noInput.setHeaderText("Please enter some information so we can help you");
+			noInput.setContentText("Hurry limited space available!");
+			noInput.showAndWait();
+		} else {
 		
 		// Gets the user-checked amenities.
 		boolean[] amenityChecks = new boolean[4];
@@ -166,17 +181,19 @@ public class MainController  implements Initializable{
 		// TODO: Display the received results from the database that are stored in the results variable. Sometimes the list may not have any results.
 		SwitchScenesController change = new SwitchScenesController();
 		change.changeScreenResult(event);
+		}
 	}
 	
 	public static ArrayList<Hotel> getResultsArray(){
 		return results;
 	}
+	public String getStartDate(){
+		return fromDateInputStr;
+	}
+	public String getEndDate(){
+		return toDateInputStr;
+	}
 	
-//	@FXML 
-//	public void changeScreenCreateAccount(ActionEvent event) throws IOException {
-//		SwitchScenesController change = new SwitchScenesController();
-//		change.changeScreenCreateAccount(event);
-//	}
 	@FXML 
 	public void changeScreenAccountType(ActionEvent event) throws IOException {
 		SwitchScenesController change = new SwitchScenesController();
