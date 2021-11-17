@@ -9,33 +9,34 @@
 
 <AnchorPane prefHeight="752.0" prefWidth="921.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreateAccountController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="442.0" layoutX="239.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" width="444.0" />
-      <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css">
-         <children>
-            <Label fx:id="title" alignment="CENTER" layoutX="104.0" layoutY="14.0" text="Create Account" textAlignment="CENTER" />
-         </children>
-      </Pane>
-      <Button fx:id="create" layoutX="291.0" layoutY="578.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="124.0" prefWidth="340.0" text="Create Account">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="517.0" layoutX="162.0" layoutY="101.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="603.0" />
+      <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
+      <Button fx:id="create" layoutX="285.0" layoutY="639.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="57.0" prefWidth="340.0" text="Create Account">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <TextField fx:id="userNameInput" layoutX="386.0" layoutY="150.0" />
-      <TextField fx:id="nameInput" layoutX="386.0" layoutY="298.0" />
-      <TextField fx:id="emailInput" layoutX="386.0" layoutY="364.0" />
-      <TextField fx:id="positionInput" layoutX="508.0" layoutY="451.0" />
-      <Button fx:id="create1" layoutX="721.0" layoutY="90.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="87.0" prefWidth="149.0" text="Home">
+      <TextField fx:id="userNameInput" layoutX="205.0" layoutY="218.0" prefHeight="27.0" prefWidth="510.0" />
+      <TextField fx:id="nameInput" layoutX="199.0" layoutY="346.0" prefHeight="27.0" prefWidth="522.0" />
+      <TextField fx:id="emailInput" layoutX="208.0" layoutY="403.0" prefHeight="27.0" prefWidth="516.0" />
+      <TextField fx:id="positionInput" layoutX="205.0" layoutY="527.0" prefHeight="27.0" prefWidth="516.0" />
+      <Button fx:id="create1" layoutX="46.0" layoutY="16.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="56.0" prefWidth="189.0" text="Home">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Text layoutX="434.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
-      <Text layoutX="434.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
-      <Text layoutX="445.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-      <Text layoutX="447.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-      <Text layoutX="558.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Position" wrappingWidth="49.951171875" />
-      <TextField fx:id="companyNameInput" layoutX="298.0" layoutY="451.0" />
-      <Text layoutX="330.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company Name" />
-      <PasswordField fx:id="passwordInput" layoutX="384.0" layoutY="234.0" />
+      <Text layoutX="217.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+      <Text layoutX="206.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+      <Text layoutX="209.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+      <Text layoutX="211.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+      <Text layoutX="203.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Position" wrappingWidth="49.951171875" />
+      <TextField fx:id="companyNameInput" layoutX="203.0" layoutY="454.0" prefHeight="27.0" prefWidth="522.0" />
+      <Text layoutX="199.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company Name" />
+      <PasswordField fx:id="passwordInput" layoutX="201.0" layoutY="281.0" prefHeight="27.0" prefWidth="517.0" />
+      <Label alignment="CENTER" layoutX="184.0" layoutY="114.0" text="Create an account" textAlignment="CENTER">
+         <font>
+            <Font name="Avenir Heavy" size="35.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

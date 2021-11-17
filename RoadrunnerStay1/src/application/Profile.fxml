@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
@@ -9,39 +10,48 @@
 
 <AnchorPane prefHeight="752.0" prefWidth="921.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ProfileController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="601.0" layoutX="54.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" width="815.0" />
+      <ImageView fitHeight="751.0" fitWidth="921.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../../../Downloads/606d902dc0af8f15b722e332_origin-destination-leg-segment-inventory.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="601.0" layoutX="54.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="815.0" />
       <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
-      <Button fx:id="create" layoutX="67.0" layoutY="197.0" mnemonicParsing="false" onAction="#changeScreenEditReservations" prefHeight="63.0" prefWidth="283.0" text="Edit Reservations">
+      <Button fx:id="create" layoutX="74.0" layoutY="377.0" mnemonicParsing="false" onAction="#changeScreenEditReservations" prefHeight="63.0" prefWidth="283.0" text="Edit Reservations">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Button fx:id="create1" layoutX="133.0" layoutY="433.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="63.0" prefWidth="120.0" text="Home">
+      <Button fx:id="create1" layoutX="93.0" layoutY="105.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="48.0" prefWidth="216.0" text="Home">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Label fx:id="title" alignment="CENTER" layoutX="375.0" layoutY="-1.0" text="Profile" textAlignment="CENTER" />
-      <ListView fx:id="reservationsList" layoutX="467.0" layoutY="184.0" prefHeight="318.0" prefWidth="300.0" />
-      <Text layoutX="374.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Reservations">
+      <ListView fx:id="reservationsList" layoutX="521.0" layoutY="279.0" prefHeight="318.0" prefWidth="300.0" />
+      <Text layoutX="603.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Reservations">
          <font>
-            <Font size="18.0" />
+            <Font name="Avenir Heavy" size="18.0" />
          </font>
       </Text>
-      <Label fx:id="wecomeUser" layoutX="308.0" layoutY="107.0" text="Wecome: &lt;Username&gt;">
+      <Label fx:id="wecomeUser" layoutX="80.0" layoutY="320.0" text="Wecome: &lt;Username&gt;">
          <font>
-            <Font size="30.0" />
+            <Font name="Avenir Black" size="30.0" />
          </font>
       </Label>
-      <Button fx:id="create2" layoutX="67.0" layoutY="269.0" mnemonicParsing="false" onAction="#changeScreenEditReservationsAsUser" prefHeight="63.0" prefWidth="283.0" text="Edit Reservations (user)">
+      <Button fx:id="create2" layoutX="75.0" layoutY="455.0" mnemonicParsing="false" onAction="#changeScreenEditReservationsAsUser" prefHeight="63.0" prefWidth="283.0" text="Edit Reservations (user)">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Button fx:id="create21" layoutX="67.0" layoutY="345.0" mnemonicParsing="false" onAction="#changeScreenEditUserProfile" prefHeight="63.0" prefWidth="283.0" text="Edit Profile">
+      <Button fx:id="create21" layoutX="73.0" layoutY="529.0" mnemonicParsing="false" onAction="#changeScreenEditUserProfile" prefHeight="63.0" prefWidth="283.0" text="Edit Profile">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
+      <ImageView fitHeight="128.0" fitWidth="235.0" layoutX="136.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Downloads/kisspng-user-profile-computer-icons-user-interface-mystique-5aceb02483a7d5.1624122115234949485393.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

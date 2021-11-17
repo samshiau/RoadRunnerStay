@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
@@ -9,26 +10,41 @@
 
 <AnchorPane prefHeight="752.0" prefWidth="921.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="280.0" layoutX="329.0" layoutY="170.0" stroke="BLACK" strokeType="INSIDE" width="261.0" />
+      <ImageView fitHeight="750.0" fitWidth="920.0" pickOnBounds="true" preserveRatio="true" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="410.0" layoutX="307.0" layoutY="170.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="340.0" />
       <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
-      <Button fx:id="create" layoutX="388.0" layoutY="343.0" mnemonicParsing="false" onAction="#Login" prefHeight="67.0" prefWidth="141.0" text="Login">
+      <Button fx:id="create" layoutX="339.0" layoutY="471.0" mnemonicParsing="false" onAction="#Login" prefHeight="39.0" prefWidth="289.0" text="Login">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <TextField fx:id="userNameInput" layoutX="386.0" layoutY="212.0" />
-      <Button fx:id="create1" layoutX="720.0" layoutY="90.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="87.0" prefWidth="149.0" text="Home">
+      <TextField fx:id="userNameInput" layoutX="331.0" layoutY="291.0" prefHeight="27.0" prefWidth="283.0" />
+      <Button fx:id="create1" layoutX="28.0" layoutY="23.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="37.0" prefWidth="153.0" text="Home">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Text layoutX="434.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
-      <Text layoutX="434.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
-      <PasswordField fx:id="passwordInput" layoutX="384.0" layoutY="278.0" />
-      <Label fx:id="title" alignment="CENTER" layoutX="399.0" layoutY="70.0" text="Login" textAlignment="CENTER" />
-      <Label fx:id="loginLabel" layoutX="399.0" layoutY="310.0" prefHeight="20.0" prefWidth="134.0" text="Status: " textFill="#d70d0d">
+      <Text layoutX="330.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="97.06121826171875">
          <font>
-            <Font size="14.0" />
+            <Font size="20.0" />
+         </font></Text>
+      <Text layoutX="331.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
+      <PasswordField fx:id="passwordInput" layoutX="331.0" layoutY="362.0" prefHeight="27.0" prefWidth="285.0" />
+      <Label fx:id="title1" alignment="CENTER" layoutX="302.0" layoutY="176.0" prefHeight="63.0" prefWidth="160.0" text="Login" textAlignment="CENTER">
+         <font>
+            <Font name="Avenir Heavy" size="31.0" />
+         </font></Label>
+      <Label fx:id="loginLabel" layoutX="386.0" layoutY="412.0" prefHeight="20.0" prefWidth="134.0" text="Status: " textFill="#d70d0d">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="223.0" layoutY="82.0" prefHeight="43.0" prefWidth="487.0" text="Your Destination Awaits You">
+         <font>
+            <Font name="Avenir Black" size="35.0" />
          </font>
       </Label>
    </children>
