@@ -42,7 +42,9 @@ public class Reservation {
 	    return ("Hotel: "+this.getHotelName()+
 	    		"\nStart date is: "+ this.getStartDate() +
 	    		"\nEnd date is: "+ this.getEndDate() +
-	    		"\nTotal Cost is : " + this.getTotalCost());
+	    		"\nTotal Cost is: " + this.getTotalCost() + 
+	    		"\nRoom type is: " + this.getRoomType() + 
+	    		"\nNumber of rooms is: " + this.getNumRooms());
 	}
 	
 	/**
