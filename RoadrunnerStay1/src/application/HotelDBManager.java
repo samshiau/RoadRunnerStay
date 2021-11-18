@@ -661,7 +661,7 @@ public class HotelDBManager {
 			resultSet = statement.executeQuery(userRoomsQuery);
 			while (resultSet.next()) {
 				roomType = resultSet.getString("roomType");
-				numRooms = resultSet.getInt(numRooms);
+				numRooms = resultSet.getInt("numRooms");
 			}
 			
 			// Adds the number of rooms of the particular room from the reservation back to the Hotel table.
