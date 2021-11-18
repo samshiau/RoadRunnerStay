@@ -648,8 +648,8 @@ public class HotelDBManager {
 			String roomType = "";
 			int numRooms = 0;
 			
-			preparedStatement = connect.prepareStatement("DELETE FROM Reservation r WHERE " +
-															"r.userId = ? AND r.hotelId = ?;");
+			preparedStatement = connect.prepareStatement("DELETE FROM Reservation WHERE " +
+															"userId = ? AND hotelId = ?;");
 			
 			// gets the ID of the hotel to be able to access it in the Reservation table.
 			int hotelId = getHotelId(hotelName);
