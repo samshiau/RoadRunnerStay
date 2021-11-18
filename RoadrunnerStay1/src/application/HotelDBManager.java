@@ -518,7 +518,8 @@ public class HotelDBManager {
 		ArrayList<Reservation> results = new ArrayList<>();
 		
 		try {
-			preparedStatement = connect.prepareStatement("SELECT r.hotelId, r.startDate, r.endDate, r.totalCost " + 
+			preparedStatement = connect.prepareStatement("SELECT r.hotelId, r.startDate, r.endDate, r.totalCost, " + 
+															"r.roomType, r.numRooms " +
 															"FROM Reservation r WHERE r.userId = ?;");
 			
 			// Sets the username to search for.
@@ -530,8 +531,10 @@ public class HotelDBManager {
 				String startDate = resultSet.getDate("startDate").toString();
 				String endDate = resultSet.getDate("endDate").toString();
 				double totalCost = resultSet.getDouble("totalCost");
+				String roomType = resultSet.getString("roomType");
+				int numRooms = resultSet.getInt("numRooms");
 				
-				results.add(new Reservation(username, hotelId, startDate, endDate, totalCost));
+				results.add(new Reservation(username, hotelId, startDate, endDate, totalCost, roomType, numRooms));
 			}
 			preparedStatement.close();
 			
@@ -546,22 +549,41 @@ public class HotelDBManager {
 	/**
 	 * Modifies a booked reservation in the database.
 	 * 
-	 * @param userId	the username.
-	 * @param hotelName	the hotel ID.
-	 * @param roomType	the type of room to book.
-	 * @param numNights	the number of nights for the reservation.
-	 * @return			RC_OK if the reservation was successfully changed, otherwise RC_MISC_ERR if some other error
-	 * 					occurred.
+	 * @param userId		the username.
+	 * @param hotelName		the hotel ID.
+	 * @param roomType		the type of room to book.
+	 * @param newNumRooms	the number of rooms for the reservation.
+	 * @param startDate		the start date.
+	 * @param endDate		the end date.
+	 * @return				{@code RC_OK} if the reservation was successfully changed, or {@code RC_DATE_SYN_WRONG} if the user entered
+	 * 						an invalid date, otherwise {@code RC_MISC_ERR} if some other error occurred.
 	 */
-	public int editReservation(String userId, String hotelName, String roomType, int numNights) {
+	public int editReservation(String userId, String hotelName, String roomType, int newNumRooms, String startDate, String endDate) {
+		Pattern dateSyntax = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+		Matcher startDateCorrect = dateSyntax.matcher(startDate), endDateCorrect = dateSyntax.matcher(endDate);
+		Date startSqlDate, endSqlDate;
 		String getHotelQuery = "SELECT h.hotelId, ";
+		String pNumRoomsQuery = "SELECT r.numRooms FROM Reservation r where r.userId = \"" + userId + "\" AND r.hotelId = ";
 		double totalCost;
 		float roomCost = (float) 0.0;
 		int hotelId = 0;
+		int pNumRooms = 0;
+		
+		// Checks the input date syntax.
+		if (!startDateCorrect.find() || !endDateCorrect.find()) {
+			return ReturnCodes.RC_DATE_SYN_WRONG;
+		}
+		
+		// Gets the SQL date values of the start and end dates as strings.
+		startSqlDate = Date.valueOf(startDate);
+		endSqlDate = Date.valueOf(endDate);
 		
 		try {
-			preparedStatement = connect.prepareStatement("UPDATE Reservation r SET r.totalCost = ? WHERE " +
-														"r.hotelId = ? AND r.userId = ?;");
+			preparedStatement = connect.prepareStatement("UPDATE Reservation r SET r.totalCost = ?, r.roomType = ?, r.numRooms = ?" +
+															"WHERE r.hotelId = ? AND r.userId = ?;");
+			
+			hotelId = getHotelId(hotelName);
+			pNumRoomsQuery += hotelId + ";";
 			
 			// Gets the hotel attributes.
 			switch (roomType) {
@@ -576,7 +598,14 @@ public class HotelDBManager {
 					break;
 			}
 			
-			getHotelQuery += "FROM Hotel h WHERE h.hotelId = " + getHotelId(hotelName) + ";";
+			// Get the previous number of rooms from the user's current reservation.
+			resultSet = statement.executeQuery(pNumRoomsQuery);
+			while (resultSet.next()) {
+				pNumRooms = resultSet.getInt("numRooms");
+			}
+			
+			// Gets the hotel ID and cost for the room type based on the above switch-case to change the number of rooms.
+			getHotelQuery += "FROM Hotel h WHERE h.hotelId = " + hotelId + ";";
 			resultSet = statement.executeQuery(getHotelQuery);
 			while (resultSet.next()) {
 				hotelId = resultSet.getInt("hotelId");
@@ -584,12 +613,14 @@ public class HotelDBManager {
 			}
 			
 			// Calculates the new total cost after the edit.
-			totalCost = numNights * roomCost;
+			totalCost = Math.abs(pNumRooms - newNumRooms) * roomCost * endSqlDate.compareTo(startSqlDate);
 			
 			// Sets the values for each parameter in the prepared statement.
 			preparedStatement.setDouble(1, totalCost);
-			preparedStatement.setInt(2, hotelId);
-			preparedStatement.setString(3, userId);
+			preparedStatement.setString(2, roomType);
+			preparedStatement.setInt(3, newNumRooms);
+			preparedStatement.setInt(4, hotelId);
+			preparedStatement.setString(5, userId);
 			
 			// Execute the statement.
 			preparedStatement.executeUpdate();
@@ -624,7 +655,7 @@ public class HotelDBManager {
 			int hotelId = getHotelId(hotelName);
 			
 			// Adds the rest of the query with the user's username.
-			userRoomsQuery += hotelId + " AND r.userId = " + username + ";";
+			userRoomsQuery += hotelId + " AND r.userId = \"" + username + "\";";
 			
 			// Gets the data from the user reservation query.
 			resultSet = statement.executeQuery(userRoomsQuery);

@@ -111,13 +111,15 @@ public class Results implements Initializable{
 		
 			String startDate = mainController.getStartDate();
 			String endDate = mainController.getEndDate();
+			
+			int numRooms = 1;
 		
 			int rc = connection.bookReservation(userID,
 												hotelId,
 												roomType,
 												startDate, 
 												endDate,
-												1);
+												numRooms);
 		
 			if (rc != 0) {
 				System.out.println("Booking failed.");

@@ -15,6 +15,8 @@ public class Reservation {
 	private String endDate;
 	private double totalCost;
 	private String hotelName;
+	private String roomType;
+	private int numRooms;
 	
 	/**
 	 * Constructor: Creates and initializes a new Reservation object.
@@ -25,12 +27,14 @@ public class Reservation {
 	 * @param e	the end date.
 	 * @param t	the total cost.
 	 */
-	public Reservation(String u, int h, String s, String e, double t) {
+	public Reservation(String u, int h, String s, String e, double t, String r, int n) {
 		this.userId = u;
 		this.hotelId = h;
 		this.startDate = s;
 		this.endDate = e;
 		this.totalCost = t;
+		this.roomType = r;
+		this.numRooms = n;
 	}
 	
 	@Override
@@ -94,5 +98,23 @@ public class Reservation {
 	 */
 	public double getTotalCost() {
 		return totalCost;
+	}
+	
+	/**
+	 * Gets the type of room.
+	 * 
+	 * @return room type.
+	 */
+	public String getRoomType() {
+		return roomType;
+	}
+	
+	/**
+	 * Gets the number of rooms.
+	 * 
+	 * @return the number of rooms.
+	 */
+	public int getNumRooms() {
+		return numRooms;
 	}
 }

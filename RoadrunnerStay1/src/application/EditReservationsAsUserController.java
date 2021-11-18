@@ -93,7 +93,7 @@ public class EditReservationsAsUserController implements Initializable{
 			noInput.showAndWait();
 		} else {
 			// updates the results in the database
-			connection.editReservation(user.getUserId(), hotelName, "queen", 4);
+			connection.editReservation(user.getUserId(), hotelName, "queen", 4, fromDateInputStr, toDateInputStr);
 			// clear textfields
 			roomsInput.clear();
 			fromDateInput.clear();
