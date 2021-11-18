@@ -14,6 +14,7 @@ public class Reservation {
 	private String startDate;
 	private String endDate;
 	private double totalCost;
+	private String hotelName;
 	
 	/**
 	 * Constructor: Creates and initializes a new Reservation object.
@@ -34,7 +35,7 @@ public class Reservation {
 	
 	@Override
 	public String toString() {
-	    return ("Hotel Id: "+this.getHotelId()+
+	    return ("Hotel: "+this.getHotelName()+
 	    		"\nStart date is: "+ this.getStartDate() +
 	    		"\nEnd date is: "+ this.getEndDate() +
 	    		"\nTotal Cost is : " + this.getTotalCost());
@@ -47,6 +48,16 @@ public class Reservation {
 	 */
 	public String getUserId() {
 		return userId;
+	}
+	/**
+	 * Gets the hotel name.
+	 * 
+	 * @return the hotel name.
+	 */
+	public String getHotelName() {
+		HotelDBManager connection = new HotelDBManager();
+		hotelName = connection.getHotelName(hotelId);
+		return hotelName;
 	}
 	
 	/**
