@@ -300,6 +300,8 @@ public class HotelDBManager {
 				throw new SQLException("Invalid character entry in hotel name.");
 			}
 			
+			// FIXME: Use the next highest room price if king or queen sizes are unavailable.
+			
 			// Build the query string from the parameters passed. First check for null values and do not search for them.
 			
 			// Checks for an entry to search for the hotel by name.
