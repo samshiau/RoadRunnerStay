@@ -27,8 +27,11 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,22 +44,43 @@ public class Results implements Initializable{
 	@FXML private Button bookIt;
 	@FXML ImageView imageViewResults;
 	@FXML private ListView<String> resultsList;
+	@FXML RadioButton standardRadio; 
+	@FXML RadioButton queenRadio; 
+	@FXML RadioButton kingRadio;
+	@FXML Label hotelNameLabel;
+	@FXML TextField numRoomsTextField;
+	
 	MainController mainController = new MainController();
 	LoginController whoIsLogin = new LoginController();
 	User user = whoIsLogin.returnUserThatIsLoggedIn();
 	HotelDBManager connection = new HotelDBManager();
 	ArrayList<Hotel> results = MainController.getResultsArray();
+	ToggleGroup radioGroup = new ToggleGroup();
+	
+	int numRooms = 1;
 	String whichHotel;
+	String roomType;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		radioButtonSetup();
 		for (int i = 0; i < MainController.getResultsArray().size()/2; i++) {
 			whichHotel = MainController.getResultsArray().get(i).getName();
 			resultsList.getItems().addAll(whichHotel);
 		}
 	}
 	
+	// used for the radio button toggles	
+	public void radioButtonSetup() {		
+		standardRadio.setToggleGroup(radioGroup);
+		queenRadio.setToggleGroup(radioGroup);
+		kingRadio.setToggleGroup(radioGroup);
+		// set standard room type as default
+		standardRadio.setSelected(true);
+	}
+	
 	public void resultsListSelected() {
+
 		whichHotel = resultsList.getSelectionModel().getSelectedItem();
 		//showImage(whichHotel);
 		
@@ -78,11 +102,19 @@ public class Results implements Initializable{
 			imageViewResults.setImage(hotelImage);
 		}
 	}
+	
+	// get users input for booking
+	public void userInput() {
+		numRooms = Integer.parseInt(numRoomsTextField.getText());
+		RadioButton selectedRadioButton = (RadioButton) radioGroup.getSelectedToggle();
+		roomType = selectedRadioButton.getText().toLowerCase();
+	}
+	
+	
 	@FXML 
 	public void bookItButton(ActionEvent event) throws IOException, InterruptedException {
 		// if user is not logged in show error message
-		if(!LoginController.isLoggedIn) {
-			 			 
+		if(!LoginController.isLoggedIn) {	
 			Alert userNotLoggedIn = new Alert(AlertType.NONE);
 			userNotLoggedIn.setTitle("Please Login");
 			userNotLoggedIn.setHeaderText("Plesae login to book hotel");
@@ -91,9 +123,7 @@ public class Results implements Initializable{
 			ImageView icon = new ImageView(this.getClass().getResource("./roadrunnerIcon.png").toString());
 			icon.setFitHeight(75);
 			icon.setFitWidth(75);
-			userNotLoggedIn.setGraphic(icon);
-			
-			
+			userNotLoggedIn.setGraphic(icon);			
 			ButtonType goToLogin = new ButtonType("Go to Login");
 			ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 			userNotLoggedIn.getButtonTypes().setAll(goToLogin, buttonTypeCancel);
@@ -104,17 +134,17 @@ public class Results implements Initializable{
 				changeScreenLogin(event);
 			}
 			
+		// if user is logged in let them book	
 		} else {
+			userInput();
 			// gather user's information and send for booking
 			String userID = user.getUserId();
 			int hotelId = connection.getHotelId(whichHotel);
-		
-			String roomType = "queen";
+			
 		
 			String startDate = mainController.getStartDate();
 			String endDate = mainController.getEndDate();
 			
-			int numRooms = 1;
 		
 			int rc = connection.bookReservation(userID,
 												hotelId,
@@ -122,6 +152,7 @@ public class Results implements Initializable{
 												startDate, 
 												endDate,
 												numRooms);
+			numRoomsTextField.clear();
 		
 			if (rc != 0) {
 				System.out.println("Booking failed.");

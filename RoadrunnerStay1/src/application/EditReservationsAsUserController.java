@@ -99,7 +99,7 @@ public class EditReservationsAsUserController implements Initializable{
 			fromDateInput.clear();
 			toDateInput.clear();
 			updateArrayList();
-		}
+		} System.out.println();
 
 	}
 	// when cancelbutton is pressed update change on DB	
