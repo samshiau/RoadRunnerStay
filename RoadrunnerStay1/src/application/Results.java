@@ -1,32 +1,19 @@
 package application;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
-import java.util.Properties;
 import java.util.ResourceBundle;
-import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
@@ -35,8 +22,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 
 public class Results implements Initializable{
@@ -133,18 +118,22 @@ public class Results implements Initializable{
 				//TimeUnit.SECONDS.sleep(1);
 				changeScreenLogin(event);
 			}
-			
+		// if user is an employee they cannot book show error 
+		} else if(user.isEmployee()) {
+			Alert noInput = new Alert(AlertType.ERROR);
+			noInput.setTitle("Cannot book as Employee");
+			noInput.setHeaderText("Please sign in as a customer to book hotel");
+			noInput.setContentText("Hurry limited space available!");
+			noInput.showAndWait();
+		}
 		// if user is logged in let them book	
-		} else {
-			userInput();
+		else {
 			// gather user's information and send for booking
+			userInput();
 			String userID = user.getUserId();
-			int hotelId = connection.getHotelId(whichHotel);
-			
-		
+			int hotelId = connection.getHotelId(whichHotel);			
 			String startDate = mainController.getStartDate();
-			String endDate = mainController.getEndDate();
-			
+			String endDate = mainController.getEndDate();	  
 		
 			int rc = connection.bookReservation(userID,
 												hotelId,
@@ -152,6 +141,7 @@ public class Results implements Initializable{
 												startDate, 
 												endDate,
 												numRooms);
+			// clear textfield
 			numRoomsTextField.clear();
 		
 			if (rc != 0) {
