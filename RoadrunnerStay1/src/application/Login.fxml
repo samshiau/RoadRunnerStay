@@ -45,5 +45,10 @@
             <Font name="Avenir Light" size="35.0" />
          </font>
       </Label>
+      <Button fx:id="create2" layoutX="386.0" layoutY="636.0" mnemonicParsing="false" onAction="#changeScreenAccountType" prefHeight="37.0" prefWidth="149.0" text="Create Account">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

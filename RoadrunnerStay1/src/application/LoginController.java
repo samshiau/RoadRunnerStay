@@ -95,4 +95,9 @@ public class LoginController implements Initializable{
 		SwitchScenesController change = new SwitchScenesController();
 		change.changeScreenonHome(event);
 	}
+	@FXML 
+	public void changeScreenAccountType(ActionEvent event) throws IOException {
+		SwitchScenesController change = new SwitchScenesController();
+		change.changeScreenAccountType(event);
+	}
 }
