@@ -15,6 +15,7 @@ public class ReturnCodes {
 	public static final int RC_DUP_USER = 3;
 	public static final int RC_EMAIL_SYN_WRONG = 4;
 	public static final int RC_DATE_SYN_WRONG = 5;
+	public static final int RC_NO_MORE_ROOMS = 6;
 	public static final int RC_MISC_ERR = 99;
 	
 	/**
@@ -39,6 +40,8 @@ public class ReturnCodes {
 				return "Email syntax is incorrect.";
 			case RC_DATE_SYN_WRONG:
 				return "The date format is incorrect.";
+			case RC_NO_MORE_ROOMS:
+				return "There are not enough rooms of this type for this reservation.";
 			default:
 				return "Unknown return code: " + rc + ".";
 		}

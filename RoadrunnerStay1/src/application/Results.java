@@ -45,8 +45,8 @@ public class Results implements Initializable{
 	LoginController whoIsLogin = new LoginController();
 	User user = whoIsLogin.returnUserThatIsLoggedIn();
 	HotelDBManager connection = new HotelDBManager();
+	ArrayList<Hotel> results = MainController.getResultsArray();
 	String whichHotel;
-
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -60,7 +60,9 @@ public class Results implements Initializable{
 		whichHotel = resultsList.getSelectionModel().getSelectedItem();
 		//showImage(whichHotel);
 		
-		Hotel hotel = Hotel.getHotelByName(MainController.getResultsArray(), whichHotel);
+		System.out.println("Getting hotel: " + whichHotel);
+		
+		Hotel hotel = Hotel.getHotelByName(results, whichHotel);
 		System.out.println(hotel.getNumberOfRooms());
 		showImage(hotel.getImageStream());
 	}
@@ -133,21 +135,21 @@ public class Results implements Initializable{
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
 		SwitchScenesController change = new SwitchScenesController();
-		closeImages(MainController.getResultsArray());
+		closeImages();
 		change.changeScreenonHome(event);
 	}
 	@FXML 
 	public void changeScreenLogin(ActionEvent event) throws IOException {
 		SwitchScenesController change = new SwitchScenesController();
+		closeImages();
 		change.changeScreenLogin(event);
 	}
 	
-	public void closeImages(ArrayList<Hotel> hotels) {
-		// Releases the InputStream references for the results images. Call this when switching scenes from
-		// this page.
-		for (int i = 0; i < hotels.size(); i++) {
+	public void closeImages() {
+		System.out.println("Closing images...");
+		for (int i = 0; i < results.size(); i++) {
 			try {
-				hotels.get(i).getImageStream().close();
+				results.get(i).getImageStream().close();
 			}
 			catch (IOException e) {
 				e.printStackTrace();

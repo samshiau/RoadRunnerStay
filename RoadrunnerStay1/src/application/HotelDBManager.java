@@ -457,25 +457,29 @@ public class HotelDBManager {
 			int numDays = endSqlDate.compareTo(startSqlDate);
 			
 			// Appends the room type attribute based on the user's room type selection.
-			if (roomType.equals("standard")) {
-				// Gets the price of a standard room for one night. 
-				query.append("h.rmPriceStandard, ");
-				statement.executeUpdate("UPDATE Hotel h SET h.numRoomsStandard = h.numRoomsStandard - " + numRooms +
-										" WHERE h.hotelId = " + hotelId + ";");
-			}
-			else if (roomType.equals("queen")) {
-				// Gets the price of a queen room for one night. 
-				query.append("h.rmPriceQueen, ");
-				rmPriceCol += 1;
-				statement.executeUpdate("UPDATE Hotel h SET h.numRoomsQueen = h.numRoomsQueen - " + numRooms + 
-										" WHERE h.hotelId = " + hotelId + ";");
-			}
-			else {
-				// Gets the price of a king room for one night. 
-				query.append("h.rmPriceKing, ");
-				rmPriceCol += 2;
-				statement.executeUpdate("UPDATE Hotel h SET h.numRoomsKing = h.numRoomsKing - " + numRooms +
-										" WHERE h.hotelId = " + hotelId + ";");
+			switch (roomType) {
+				case "standard":
+					// Gets the price of a standard room for one night. 
+					query.append("h.rmPriceStandard, h.numRoomsStandard, ");
+					//statement.executeUpdate("UPDATE Hotel h SET h.numRoomsStandard = h.numRoomsStandard - " + numRooms +
+					//						" WHERE h.hotelId = " + hotelId + ";");
+					break;
+					
+				case "queen":
+					// Gets the price of a queen room for one night. 
+					query.append("h.rmPriceQueen, h.numRoomsQueen, ");
+					rmPriceCol += 1;
+					//statement.executeUpdate("UPDATE Hotel h SET h.numRoomsQueen = h.numRoomsQueen - " + numRooms + 
+					//						" WHERE h.hotelId = " + hotelId + ";");
+					break;
+					
+				default:
+					// Gets the price of a king room for one night. 
+					query.append("h.rmPriceKing, h.numRoomsKing, ");
+					rmPriceCol += 2;
+					//statement.executeUpdate("UPDATE Hotel h SET h.numRoomsKing = h.numRoomsKing - " + numRooms +
+					//						" WHERE h.hotelId = " + hotelId + ";");
+					break;
 			}
 			
 			// Obtains the data of the hotel to book from the database.
@@ -487,8 +491,32 @@ public class HotelDBManager {
 			while (resultSet.next()) {
 				System.out.println("Column index = " + rmPriceCol);
 				double costPerRoom = resultSet.getDouble(1);
+				int numRoomsAvailable = resultSet.getInt(2);
 				float weekendDiff = resultSet.getFloat("wkndDiff");
+				
+				// Ensures there are enough rooms of the selected type available.
+				if (numRoomsAvailable - numRooms < 0) {
+					return ReturnCodes.RC_NO_MORE_ROOMS;
+				}
 				totalCost = numDays * costPerRoom * (1 * weekendDiff);
+			}
+			
+			// Updates the hotel rooms based on the user's selection.
+			switch (roomType) {
+				case "standard":
+					statement.executeUpdate("UPDATE Hotel h SET h.numRoomsStandard = h.numRoomsStandard - " + numRooms +
+											" WHERE h.hotelId = " + hotelId + ";");
+					break;
+					
+				case "queen":
+					statement.executeUpdate("UPDATE Hotel h SET h.numRoomsQueen = h.numRoomsQueen - " + numRooms + 
+											" WHERE h.hotelId = " + hotelId + ";");
+					break;
+					
+				default:
+					statement.executeUpdate("UPDATE Hotel h SET h.numRoomsKing = h.numRoomsKing - " + numRooms +
+											" WHERE h.hotelId = " + hotelId + ";");
+					break;
 			}
 			
 			// Sets the total cost and then adds the reservation to the database.
