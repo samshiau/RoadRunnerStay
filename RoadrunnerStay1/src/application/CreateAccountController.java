@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -18,23 +21,41 @@ public class CreateAccountController implements Initializable{
 	@FXML private PasswordField passwordInput;
 	@FXML private TextField nameInput;
 	@FXML private TextField emailInput;
-	@FXML private TextField companyNameInput;
 	@FXML private TextField positionInput;
-	@FXML private Label companyNameLabel;
+	@FXML private Label supportedHotelsLabel;
 	@FXML private Label positionLabel;
+	@FXML private ComboBox hotelNameComboBox;
 	
-	//static String companyName;
-	//static String position;
+	ObservableList<String> options = 
+		    FXCollections.observableArrayList(
+		        "The Magnolia All Suites",
+		        "The Lofts at Town Centre",
+		        "Park North Hotel",
+		        "The Courtyard Suites",
+		        "The Regency Rooms",
+		        "Town Inn Budget Rooms",
+		        "The Comfy Motel Place",
+		        "Sun Palace Inn",
+		        "HomeAway Inn",
+		        "Rio Inn"
+		        );
 	
-
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources ) {
+	setUpComboBox();
 	if(!AccountTypeController.isEmployee) {
-		companyNameInput.setVisible(false);
-		companyNameLabel.setVisible(false);
+		supportedHotelsLabel.setVisible(false);
+		hotelNameComboBox.setVisible(false);
+		
 		positionInput.setVisible(false);
 		positionLabel.setVisible(false);
 		}
+	}
+	
+	private void setUpComboBox() {
+		hotelNameComboBox.setItems(options);
+		hotelNameComboBox.setVisibleRowCount(4);
 	}
 	
 	@FXML 
@@ -46,23 +67,14 @@ public class CreateAccountController implements Initializable{
 		String passWord = passwordInput.getText();
 		String name = nameInput.getText();
 		String email = emailInput.getText();
-		String companyName = companyNameInput.getText();
+		String companyName = (String) hotelNameComboBox.getValue();
 		String position = positionInput.getText();
-		
-		// print user input (for testing)
-		System.out.println("username is: "+ username + "\n");
-		System.out.println("passWord is: "+ passWord + "\n");
-		System.out.println("name is: "+ name + "\n");
-		System.out.println("email is: "+ email + "\n");
-		System.out.println("Company Name is: "+ companyName + "\n");
-		System.out.println("position is: "+ position + "\n");
 		
 		// clear textfields
 		userNameInput.clear();
 		passwordInput.clear();
 		nameInput.clear();
 		emailInput.clear();
-		companyNameInput.clear();
 		positionInput.clear();
 
 		HotelDBManager connection = new HotelDBManager();
