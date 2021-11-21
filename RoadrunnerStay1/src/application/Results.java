@@ -48,6 +48,7 @@ public class Results implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// setup radio functionality
 		radioButtonSetup();
 		for (int i = 0; i < MainController.getResultsArray().size()/2; i++) {
 			whichHotel = MainController.getResultsArray().get(i).getName();
