@@ -65,7 +65,7 @@ public class Results implements Initializable{
 		standardRadio.setSelected(true);
 	}
 	
-	public void resultsListSelected() {
+	public void resultsListSelected() throws IOException {
 
 		whichHotel = resultsList.getSelectionModel().getSelectedItem();
 		//showImage(whichHotel);
@@ -77,13 +77,20 @@ public class Results implements Initializable{
 		showImage(hotel.getImageStream());
 	}
 	
-	public void showImage(InputStream image) {
+	public void showImage(InputStream image) throws IOException {
 		try {
+			if (image.markSupported()) {
+				image.reset();
+			}
 			Image hotelimage = new Image(image);
 			imageViewResults.setImage(hotelimage);
 		}
 		catch (NullPointerException e) {
 			// handles the case where the hotel object does not have an image.
+			Image hotelImage = new Image("./NoImageAvailable.png");
+			imageViewResults.setImage(hotelImage);
+		}
+		catch (IOException e) {
 			Image hotelImage = new Image("./NoImageAvailable.png");
 			imageViewResults.setImage(hotelImage);
 		}
@@ -136,12 +143,18 @@ public class Results implements Initializable{
 			String startDate = mainController.getStartDate();
 			String endDate = mainController.getEndDate();	  
 		
-			int rc = connection.bookReservation(userID,
-												hotelId,
-												roomType,
-												startDate, 
-												endDate,
-												numRooms);
+//			int rc = connection.bookReservation(userID,
+//												hotelId,
+//												roomType,
+//												startDate, 
+//												endDate,
+//												numRooms);
+			int rc = connection.bookReservation("user67",
+					8,
+					"standard",
+					"2021-04-05", 
+					"2021-04-06",
+					1);
 			// clear textfield
 			numRoomsTextField.clear();
 		
