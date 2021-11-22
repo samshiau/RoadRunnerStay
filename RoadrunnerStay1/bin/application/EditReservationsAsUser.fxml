@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="800.0" minWidth="600.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EditReservationsAsUserController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#98a2ab1e" height="539.0" layoutX="98.0" layoutY="149.0" stroke="BLACK" strokeType="INSIDE" width="336.0" />
+      <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
+      <Label fx:id="title" alignment="CENTER" layoutX="209.0" layoutY="22.0" prefHeight="73.0" prefWidth="535.0" text="Enter New Information" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Button fx:id="rules11" layoutX="778.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="55.0" prefWidth="175.0" text="Profile">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Label fx:id="title1" alignment="CENTER" layoutX="546.0" layoutY="149.0" text="Update Booking" textAlignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <ListView fx:id="reservationsList" layoutX="106.0" layoutY="227.0" onMouseClicked="#resultsListSelected" prefHeight="371.0" prefWidth="319.0" />
+      <Label fx:id="title11" alignment="CENTER" layoutX="144.0" layoutY="149.0" text="Current Booking" textAlignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Pane layoutX="515.0" layoutY="221.0" prefHeight="371.0" prefWidth="319.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0b" height="539.0" layoutX="-12.0" layoutY="-73.0" stroke="BLACK" strokeType="INSIDE" width="344.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff21" height="371.0" stroke="BLACK" strokeType="INSIDE" width="319.0" />
+            <TextField fx:id="toDateInput" layoutX="85.0" layoutY="223.0" promptText="YYYY-MM-DD" />
+            <TextField fx:id="fromDateInput" layoutX="85.0" layoutY="150.0" promptText="YYYY-MM-DD" />
+            <TextField fx:id="roomsInput" layoutX="85.0" layoutY="83.0" />
+            <Label layoutX="135.0" layoutY="206.0" text="End Date" />
+            <Label layoutX="133.0" layoutY="133.0" text="Start Date" />
+            <Label layoutX="141.0" layoutY="57.0" text="Rooms" />
+            <Button layoutX="88.0" layoutY="388.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="67.0" prefWidth="142.0" text="Update">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Label layoutX="115.0" layoutY="202.0" text="(Select a booking to update or cancel)">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="cancelButton" layoutX="195.0" layoutY="607.0" mnemonicParsing="false" onAction="#cancelButton" prefHeight="67.0" prefWidth="142.0" text="Cancel">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

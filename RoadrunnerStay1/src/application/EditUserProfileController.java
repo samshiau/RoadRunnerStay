@@ -4,13 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -20,13 +17,13 @@ public class EditUserProfileController implements Initializable{
 	@FXML private PasswordField passwordInput;
 	@FXML private TextField nameInput;
 	@FXML private TextField emailInput;
+	@FXML private TextField companyNameInput;
 	@FXML private TextField positionInput;
 	@FXML private Label passwordLabel;
 	@FXML private Label nameLabel;
 	@FXML private Label emailLabel;
-	@FXML private Label companyNameLabel;
+	@FXML private Label companyNameLabel, companyNameLabel2;
 	@FXML private Label empPositionLabel, empPositionLabel2;
-	@FXML private Label supportedHotelsLabel;
 
 
 	HotelDBManager connection = new HotelDBManager();
@@ -34,26 +31,9 @@ public class EditUserProfileController implements Initializable{
 	User user = whoIsLogin.returnUserThatIsLoggedIn();
 	String OldPassword = whoIsLogin.passWord ;
 	
-	@FXML private ComboBox hotelNameComboBox;
-	
-	ObservableList<String> options = 
-		    FXCollections.observableArrayList(
-		        "The Magnolia All Suites",
-		        "The Lofts at Town Centre",
-		        "Park North Hotel",
-		        "The Courtyard Suites",
-		        "The Regency Rooms",
-		        "Town Inn Budget Rooms",
-		        "The Comfy Motel Place",
-		        "Sun Palace Inn",
-		        "HomeAway Inn",
-		        "Rio Inn"
-		        );
-	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources ) {		
-		setUpComboBox();
 		// show current user information
 		nameLabel.setText(user.getName());
 		passwordLabel.setText(OldPassword);
@@ -62,17 +42,17 @@ public class EditUserProfileController implements Initializable{
 			companyNameLabel.setText(user.getCompanyName());
 			empPositionLabel.setText(user.getPosition());
 			companyNameLabel.setVisible(true);
-			supportedHotelsLabel.setVisible(true);
+			companyNameLabel2.setVisible(true);
 			empPositionLabel.setVisible(true);
 			empPositionLabel2.setVisible(true);
-			hotelNameComboBox.setVisible(true);
+			companyNameInput.setVisible(true);
 			positionInput.setVisible(true);
 		} else {
 			companyNameLabel.setVisible(false);
-			supportedHotelsLabel.setVisible(false);
+			companyNameLabel2.setVisible(false);
 			empPositionLabel.setVisible(false);
 			empPositionLabel2.setVisible(false);
-			hotelNameComboBox.setVisible(false);
+			companyNameInput.setVisible(false);
 			positionInput.setVisible(false);
 		}
 		
@@ -86,24 +66,19 @@ public class EditUserProfileController implements Initializable{
 			empPositionLabel.setText(user.getPosition());
 		}
 	}
-	
-	private void setUpComboBox() {
-		hotelNameComboBox.setItems(options);
-		hotelNameComboBox.setVisibleRowCount(4);
-	}
-	
 	@FXML 
 	public void saveChanges(ActionEvent event) throws IOException {
 		String passWord = passwordInput.getText();
 		String name = nameInput.getText();
 		String email = emailInput.getText();
-		String companyName = (String) hotelNameComboBox.getValue();
+		String companyName = companyNameInput.getText();
 		String position = positionInput.getText();
 		
 		// clear textfields
 		passwordInput.clear();
 		nameInput.clear();
 		emailInput.clear();
+		companyNameInput.clear();
 		positionInput.clear();
 		
 		if(passWord.isEmpty()) {
@@ -117,7 +92,7 @@ public class EditUserProfileController implements Initializable{
 		if(!email.isEmpty())
 			user.setEmail(email);
 	
-		if(!(companyName == null))
+		if(!companyName.isEmpty())
 			user.setCompanyName(companyName);
 
 		if(!position.isEmpty())

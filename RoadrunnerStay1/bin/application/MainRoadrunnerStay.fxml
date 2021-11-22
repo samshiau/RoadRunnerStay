@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="800.0" minWidth="600.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d9ff2169" height="113.0" layoutX="6.0" layoutY="91.0" stroke="BLACK" strokeType="INSIDE" width="484.0" />
+      <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
+      <Button fx:id="searchButton" layoutX="498.0" layoutY="95.0" mnemonicParsing="false" onAction="#changeScreenResult" prefHeight="113.0" prefWidth="150.0" text="Search">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <Button fx:id="loginButton" layoutX="813.0" layoutY="87.0" mnemonicParsing="false" onAction="#changeScreenLogin" prefHeight="55.0" prefWidth="175.0" text="Login">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Label fx:id="title" alignment="CENTER" layoutX="14.0" layoutY="22.0" text="RoadRunner Stay" textAlignment="CENTER" textFill="WHITE" />
+      <ImageView fx:id="imageView" fitHeight="408.0" fitWidth="327.0" layoutY="341.0" pickOnBounds="true">
+         <image>
+            <Image url="@../NY.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imageView2" fitHeight="408.0" fitWidth="326.0" layoutX="350.0" layoutY="341.0" pickOnBounds="true">
+         <image>
+            <Image url="@../SA_river.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imageView3" fitHeight="408.0" fitWidth="326.0" layoutX="700.0" layoutY="341.0" pickOnBounds="true">
+         <image>
+            <Image url="@../sydney.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="hotelNameInput" layoutX="14.0" layoutY="119.0" prefHeight="38.0" prefWidth="275.0" promptText="Hotel Name (optional)" />
+      <Button fx:id="createAccountButton" layoutX="813.0" layoutY="22.0" mnemonicParsing="false" onAction="#changeScreenAccountType" prefHeight="55.0" prefWidth="175.0" text="Create Account">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Button fx:id="profileButton" layoutX="813.0" layoutY="87.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="55.0" prefWidth="175.0" text="Profile">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <CheckBox fx:id="pool" layoutX="14.0" layoutY="173.0" mnemonicParsing="false" text="Pool" />
+      <CheckBox fx:id="gym" layoutX="71.0" layoutY="173.0" mnemonicParsing="false" text="Gym" />
+      <CheckBox fx:id="spa" layoutX="131.0" layoutY="173.0" mnemonicParsing="false" text="Spa" />
+      <CheckBox fx:id="businessOffice" layoutX="179.0" layoutY="173.0" mnemonicParsing="false" text="Business Office" />
+      <TextField fx:id="fromDateInput" layoutX="297.0" layoutY="115.0" prefHeight="38.0" prefWidth="84.0" promptText="From Date" />
+      <TextField fx:id="toDateInput" layoutX="394.0" layoutY="115.0" prefHeight="38.0" prefWidth="84.0" promptText="To Date" />
+      <TextField fx:id="minPriceInput" layoutX="297.0" layoutY="154.0" prefHeight="38.0" prefWidth="84.0" promptText="Price (min)" />
+      <TextField fx:id="maxPriceInput" layoutX="394.0" layoutY="154.0" prefHeight="38.0" prefWidth="84.0" promptText="Price (max)" />
+      <Button fx:id="logOutButton" layoutX="813.0" layoutY="154.0" mnemonicParsing="false" onAction="#logoutButtton" prefHeight="55.0" prefWidth="175.0" text="Logout">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

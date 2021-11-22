@@ -48,7 +48,6 @@ public class Results implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// setup radio functionality
 		radioButtonSetup();
 		for (int i = 0; i < MainController.getResultsArray().size()/2; i++) {
 			whichHotel = MainController.getResultsArray().get(i).getName();
@@ -79,11 +78,18 @@ public class Results implements Initializable{
 	
 	public void showImage(InputStream image) {
 		try {
+			if (image.markSupported()) {
+				image.reset();
+			}
 			Image hotelimage = new Image(image);
 			imageViewResults.setImage(hotelimage);
 		}
 		catch (NullPointerException e) {
 			// handles the case where the hotel object does not have an image.
+			Image hotelImage = new Image("./NoImageAvailable.png");
+			imageViewResults.setImage(hotelImage);
+		}
+		catch (IOException e) {
 			Image hotelImage = new Image("./NoImageAvailable.png");
 			imageViewResults.setImage(hotelImage);
 		}

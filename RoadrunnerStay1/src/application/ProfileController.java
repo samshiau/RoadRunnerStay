@@ -12,11 +12,9 @@ import java.util.Scanner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Alert.AlertType;
 
 public class ProfileController implements Initializable{
 	
@@ -41,13 +39,7 @@ public class ProfileController implements Initializable{
 		// show message if user does not have reservation else show reservation  
 		if(getReservation.size() == 0) {
 			hasReservation = false;
-			String noReservatoin = "\n\n---------------------------------------------" +
-					               "\n################################" + 	
-					               "\nSorry but it looks like you don't have any " +
-								   "\nreservations on file." +
-								   "\n################################" +
-								   "\n---------------------------------------------\n\n\n\n\n\n\n"; 
-			reservationsList.getItems().addAll(noReservatoin);
+			reservationsList.getItems().addAll("Sorry but it looks like you don't have any reservations");
 		} else {
 			hasReservation = true;
 			for (int i = 0; i < getReservation.size(); i++) {
@@ -85,16 +77,10 @@ public class ProfileController implements Initializable{
 		if(hasReservation) {
 			SwitchScenesController change = new SwitchScenesController();
 			change.changeScreenEditReservationsAsUser(event);				
-		} else {
-			// show error message telling user they cannot edit because they do not have a 
-			// Reservation to edit
-			Alert noInput = new Alert(AlertType.ERROR);
-			noInput.setTitle("No Reservation to Edit");
-			noInput.setHeaderText("It looks like you don't have a reservation to edit");
-			noInput.setContentText("Book one hurry limited space available!");
-			noInput.showAndWait();
 		}
-		 
+		/* TODO show error message telling user they cannot edit because they do not have a 
+		 * Reservation to edit
+		 */
 	}
 	@FXML
 	public void changeScreenEditUserProfile(ActionEvent event) throws IOException {

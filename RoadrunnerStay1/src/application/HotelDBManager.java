@@ -78,7 +78,7 @@ public class HotelDBManager {
 		String encryptPass = Encryption.encrypt(password, username);	// Encrypt the password for the database.
 		
 		try {
-			if (company == null || position.equals("")) {
+			if (company.equals("") || position.equals("")) {
 				// Inserts a new customer with the passed credentials into the User table of the database.
 				statement.executeUpdate("INSERT INTO `User` (`userId`, `password`, `name`, `emailAddress`)" +
 													"VALUES (\"" + username + "\", \""
@@ -222,12 +222,9 @@ public class HotelDBManager {
 	public int editHotel(String name, boolean[] amenities, int[] numRoomsPerType, double[] roomPricePerType, float weekendDiff) {
 		String amenityStr = "h.amenities = (\"";
 		try {
-			// TODO: Write the code to update the hotel attributes based on the passed parameters.
 			preparedStatement = connect.prepareStatement("UPDATE Hotel h SET h.amenities = ?, h.numRoomsStandard = ?, h.numRoomsQueen = ?, h.numRoomsKing = ?, " +
 															"h.rmPriceStandard = ?, h.rmPriceQueen = ?, h.rmPriceKing = ?, h.wkndDiff = ? WHERE h.name = ?;");
 			preparedStatement.setString(9, name);
-			
-			// TODO: Set the rest of the parameters for the prepared statement where index range is from 1 to 8 inclusively. Index 9 is already handled.
 			
 			// Builds the string to set the amenity set.
 			if (amenities[0]) {
@@ -443,15 +440,15 @@ public class HotelDBManager {
 		
 		// Attempts to insert the book into the reservation table.
 		try {
-			preparedStatement = connect.prepareStatement("INSERT INTO `Reservation` (`userId`, `hotelId`, `startDate`, `endDate`, "
-														+ "`totalCost`, 'roomType`, `numRooms`) "
+			preparedStatement = connect.prepareStatement("INSERT INTO Reservation (`userId`, `hotelId`, `startDate`, `endDate`, "
+														+ "`totalCost`, `roomType`, `numRooms`) "
 														+ "VALUES (?, ?, ?, ?, ?, ?, ?);");
 			preparedStatement.setString(1, userId);
 			preparedStatement.setInt(2, hotelId);
 			preparedStatement.setDate(3, startSqlDate);
 			preparedStatement.setDate(4, endSqlDate);
-			preparedStatement.setString(5, roomType);
-			preparedStatement.setInt(6, numRooms);
+			preparedStatement.setString(6, roomType);
+			preparedStatement.setInt(7, numRooms);
 			
 			// Calculates the total cost of the room.
 			int numDays = endSqlDate.compareTo(startSqlDate);
