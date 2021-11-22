@@ -9,11 +9,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.text.Text;
 
 public class CreateAccountController implements Initializable{
@@ -70,22 +72,43 @@ public class CreateAccountController implements Initializable{
 		String companyName = (String) hotelNameComboBox.getValue();
 		String position = positionInput.getText();
 		
-		// clear textfields
-		userNameInput.clear();
-		passwordInput.clear();
-		nameInput.clear();
-		emailInput.clear();
-		positionInput.clear();
+		
+		if(!AccountTypeController.isEmployee && (username.isEmpty() ||
+											     passWord.isEmpty() ||
+											     name.isEmpty() ||
+											     email.isEmpty())) {
+			Alert noInput = new Alert(AlertType.ERROR);
+			noInput.setTitle("Enter all information");
+			noInput.setHeaderText("Please enter all the required information");			
+			noInput.showAndWait();
+		} else if(AccountTypeController.isEmployee && (username.isEmpty() ||
+			     									   passWord.isEmpty() ||
+			     									   name.isEmpty() ||
+			     									   email.isEmpty() ||
+													   companyName == null ||
+													   position.isEmpty())) {
+			Alert noInput = new Alert(AlertType.ERROR);
+			noInput.setTitle("Enter all information");
+			noInput.setHeaderText("Please enter all the required information");			
+			noInput.showAndWait();
+		} else {
+			// clear textfields
+			userNameInput.clear();
+			passwordInput.clear();
+			nameInput.clear();
+			emailInput.clear();
+			positionInput.clear();
 
-		HotelDBManager connection = new HotelDBManager();
-		int rc = connection.addUser(username, passWord, name, email, companyName, position);
-		if (rc != ReturnCodes.RC_OK) {
-			String rcStr = ReturnCodes.getRcAsString(rc);
-			// TODO: Delete the below line and display the error to the status.
-			System.out.println(rcStr);
-		}
-		connection.closeManager();
-		changeScreenCreateAccount(event);
+			HotelDBManager connection = new HotelDBManager();
+			int rc = connection.addUser(username, passWord, name, email, companyName, position);
+			if (rc != ReturnCodes.RC_OK) {
+				String rcStr = ReturnCodes.getRcAsString(rc);
+				// TODO: Delete the below line and display the error to the status.
+				System.out.println(rcStr);
+			}
+			connection.closeManager();
+			changeScreenCreateAccount(event);
+			}
 	}
 	
 	@FXML 

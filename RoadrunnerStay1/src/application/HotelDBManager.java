@@ -78,7 +78,7 @@ public class HotelDBManager {
 		String encryptPass = Encryption.encrypt(password, username);	// Encrypt the password for the database.
 		
 		try {
-			if (company.equals("") || position.equals("")) {
+			if (company == null || position.equals("")) {
 				// Inserts a new customer with the passed credentials into the User table of the database.
 				statement.executeUpdate("INSERT INTO `User` (`userId`, `password`, `name`, `emailAddress`)" +
 													"VALUES (\"" + username + "\", \""

@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -22,6 +23,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 
 public class EditReservations implements Initializable{
 	@FXML private TextField numRoomsStandard, numRoomsQueen, numRoomsKing;
@@ -125,42 +127,55 @@ public class EditReservations implements Initializable{
 	@FXML 
 	public void saveChanges(ActionEvent event) throws IOException {
 		getUserInput();
+		// if textfield is empty show error message
+		if(		numberOfRoomsStandard.isEmpty() ||
+				numberOfRoomsQueen.isEmpty() ||
+				numberOfRoomsKing.isEmpty() ||
+				roomPricePerNightStandard.isEmpty() ||
+				roomPricePerNightQueen.isEmpty() ||
+				roomPricePerNightKing.isEmpty()){
+			Alert noInput = new Alert(AlertType.ERROR);
+			noInput.setTitle("Enter all information");
+			noInput.setHeaderText("Please enter all the required information");			
+			noInput.showAndWait();
+		} else {
 		
-		// gets the user-checked amenities
-		boolean[] amenityChecks = new boolean[4];
-		amenityChecks[0] = gymSelected;
-		amenityChecks[1] = spaSelected;
-		amenityChecks[2] = poolSelected;
-		amenityChecks[3] = businessOfficeSelected;
+			// gets the user-checked amenities
+			boolean[] amenityChecks = new boolean[4];
+			amenityChecks[0] = gymSelected;
+			amenityChecks[1] = spaSelected;
+			amenityChecks[2] = poolSelected;
+			amenityChecks[3] = businessOfficeSelected;
 		
-		// gets the user room numbers
-		int[] numRoomsPerType = new int[3];
-		numRoomsPerType[0] = Integer.parseInt(numberOfRoomsStandard);
-		numRoomsPerType[1] = Integer.parseInt(numberOfRoomsQueen);
-		numRoomsPerType[2] = Integer.parseInt(numberOfRoomsKing);
+			// gets the user room numbers
+			int[] numRoomsPerType = new int[3];
+			numRoomsPerType[0] = Integer.parseInt(numberOfRoomsStandard);
+			numRoomsPerType[1] = Integer.parseInt(numberOfRoomsQueen);
+			numRoomsPerType[2] = Integer.parseInt(numberOfRoomsKing);
 		
-		// gets the price per night
-		double[] roomPricePerType = new double[3];
-		roomPricePerType[0] = Double.parseDouble(roomPricePerNightStandard);
-		roomPricePerType[1] = Double.parseDouble(roomPricePerNightQueen);
-		roomPricePerType[2] = Double.parseDouble(roomPricePerNightKing);
+			// gets the price per night
+			double[] roomPricePerType = new double[3];
+			roomPricePerType[0] = Double.parseDouble(roomPricePerNightStandard);
+			roomPricePerType[1] = Double.parseDouble(roomPricePerNightQueen);
+			roomPricePerType[2] = Double.parseDouble(roomPricePerNightKing);
 			
 		
-		/* send data to database */
-		HotelDBManager connection = new HotelDBManager();
+			/* send data to database */
+			HotelDBManager connection = new HotelDBManager();
 		
-		// call editReservation to modify the reservation.
-		connection.editHotel(user.getCompanyName(),
-							 amenityChecks,
-							 numRoomsPerType,
-							 roomPricePerType,
-							 Float.parseFloat(percent));
-		connection.closeManager();
+			// call editReservation to modify the reservation.
+			connection.editHotel(user.getCompanyName(),
+							     amenityChecks,
+							     numRoomsPerType,
+							     roomPricePerType,
+							     Float.parseFloat(percent));
+			connection.closeManager();
 		
-		// clear textfields
+			// clear textfields
 		
-		// update arraylist
-		getHotelInfo();
+			// update arraylist
+			getHotelInfo();
+		}
 	}
 
 	

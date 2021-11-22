@@ -43,10 +43,10 @@
             </Label>
             <TextField fx:id="emailInput" layoutX="38.0" layoutY="209.0" />
             <Text layoutX="97.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-            <TextField fx:id="companyNameInput" layoutX="38.0" layoutY="270.0" />
             <TextField fx:id="positionInput" layoutX="46.0" layoutY="345.0" />
-            <Label fx:id="companyNameLabel2" layoutX="69.0" layoutY="253.0" text="Company Name" />
             <Label fx:id="empPositionLabel2" layoutX="90.0" layoutY="328.0" text="Position" />
+            <Label fx:id="supportedHotelsLabel" layoutX="65.0" layoutY="245.0" text="Supported Hotels" />
+            <ComboBox fx:id="hotelNameComboBox" layoutX="37.0" layoutY="262.0" prefWidth="150.0" promptText="Company Name" />
          </children>
       </Pane>
       <Label alignment="CENTER" layoutX="179.0" layoutY="120.0" prefHeight="35.0" prefWidth="238.0" text="Current Information" textAlignment="CENTER">
