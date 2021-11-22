@@ -43,7 +43,7 @@ public class Reservation {
 	    		"\nStart date is: "+ this.getStartDate() +
 	    		"\nEnd date is: "+ this.getEndDate() +
 	    		"\nTotal Cost is: " + this.getTotalCost() + 
-	    		"\nRoom type is: " + this.getRoomType() + 
+	    		"\nRoom type is: " + this.getRoomType().toUpperCase() + 
 	    		"\nNumber of rooms is: " + this.getNumRooms());
 	}
 	

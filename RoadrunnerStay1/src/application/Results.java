@@ -143,18 +143,12 @@ public class Results implements Initializable{
 			String startDate = mainController.getStartDate();
 			String endDate = mainController.getEndDate();	  
 		
-//			int rc = connection.bookReservation(userID,
-//												hotelId,
-//												roomType,
-//												startDate, 
-//												endDate,
-//												numRooms);
-			int rc = connection.bookReservation("user67",
-					8,
-					"standard",
-					"2021-04-05", 
-					"2021-04-06",
-					1);
+			int rc = connection.bookReservation(userID,
+												hotelId,
+												roomType,
+												startDate, 
+												endDate,
+												numRooms);
 			// clear textfield
 			numRoomsTextField.clear();
 		

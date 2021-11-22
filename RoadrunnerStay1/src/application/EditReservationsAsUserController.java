@@ -22,7 +22,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,6 +34,10 @@ public class EditReservationsAsUserController implements Initializable{
 	@FXML private Button updateButton, cancelButton;
 	@FXML private ListView<String> reservationsList;
 	@FXML private TextField roomsInput, fromDateInput, toDateInput;
+	@FXML RadioButton standardRadio; 
+	@FXML RadioButton queenRadio; 
+	@FXML RadioButton kingRadio;
+	ToggleGroup radioGroup = new ToggleGroup();
 	
 	HotelDBManager connection = new HotelDBManager();
 	LoginController whoIsLogin = new LoginController();
@@ -39,10 +45,13 @@ public class EditReservationsAsUserController implements Initializable{
 	
 	public ArrayList<Reservation> getReservation;
 
-	String roomsInputStr, fromDateInputStr, toDateInputStr;
+	//String roomsInputStr, fromDateInputStr, toDateInputStr;
+	String fromDateInputStr, toDateInputStr;
 	String whichReservation;
 	String reservationInfo;
 	String hotelName;
+	String roomType;
+	int newNumRooms;
 	int reservationNum;
 	
  
@@ -50,6 +59,16 @@ public class EditReservationsAsUserController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		updateArrayList();
+		// setup radio functionality
+		radioButtonSetup();
+	}
+	// used for the radio button toggles	
+	public void radioButtonSetup() {		
+		standardRadio.setToggleGroup(radioGroup);
+		queenRadio.setToggleGroup(radioGroup);
+		kingRadio.setToggleGroup(radioGroup);
+		// set standard room type as default
+		standardRadio.setSelected(true);
 	}
 	
 	// fill the arraylist with current reservation the user has
@@ -72,10 +91,13 @@ public class EditReservationsAsUserController implements Initializable{
 	}
 
 	// get user input in TextFields
-	public void userInput() {				
-		roomsInputStr = roomsInput.getText();
+	public void userInput() {
+		newNumRooms = Integer.parseInt(roomsInput.getText());
+		//roomsInputStr = roomsInput.getText();
 		fromDateInputStr = fromDateInput.getText();
 		toDateInputStr = toDateInput.getText();
+		RadioButton selectedRadioButton = (RadioButton) radioGroup.getSelectedToggle();
+		roomType = selectedRadioButton.getText().toLowerCase();
 	}
 
 	// when updatebutton is pressed update change on DB	
@@ -93,7 +115,7 @@ public class EditReservationsAsUserController implements Initializable{
 			noInput.showAndWait();
 		} else {
 			// updates the results in the database
-			connection.editReservation(user.getUserId(), hotelName, "queen", 4, fromDateInputStr, toDateInputStr);
+			connection.editReservation(user.getUserId(), hotelName, roomType, newNumRooms, fromDateInputStr, toDateInputStr);
 			// clear textfields
 			roomsInput.clear();
 			fromDateInput.clear();
