@@ -1,33 +1,19 @@
 package application;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
 import java.util.ResourceBundle;
-import java.util.Scanner;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class EditReservationsAsUserController implements Initializable{
 	
@@ -51,7 +37,7 @@ public class EditReservationsAsUserController implements Initializable{
 	String reservationInfo;
 	String hotelName;
 	String roomType;
-	int newNumRooms;
+	Integer newNumRooms;
 	int reservationNum;
 	
  
@@ -104,16 +90,27 @@ public class EditReservationsAsUserController implements Initializable{
 	@FXML 
 	public void updateButton(ActionEvent event) throws IOException {
 		userInput();
+		System.out.println(newNumRooms);
 		
 		// user has to select a booking for updating else show error message
-		System.out.println(hotelName);
 		if(hotelName == null) {
 			Alert noInput = new Alert(AlertType.ERROR);
 			noInput.setTitle("Select a booking");
 			noInput.setHeaderText("Please select a booking");
 			noInput.setContentText("Hurry limited space available!");
 			noInput.showAndWait();
-		} else {
+		// user has to fill out all inputs
+		} else if(newNumRooms.equals(null)||
+				fromDateInputStr.isEmpty()||
+				toDateInputStr.isEmpty() ||
+				roomType == null) {
+			Alert noInput = new Alert(AlertType.ERROR);
+			noInput.setTitle("Enter all information");
+			noInput.setHeaderText("Please enter all the required information");			
+			noInput.showAndWait();
+		}
+		// if hotel is selected and user has all input then update DB
+		else {
 			// updates the results in the database
 			connection.editReservation(user.getUserId(), hotelName, roomType, newNumRooms, fromDateInputStr, toDateInputStr);
 			// clear textfields
