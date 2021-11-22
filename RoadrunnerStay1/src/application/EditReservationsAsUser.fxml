@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
@@ -26,7 +27,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <ListView fx:id="reservationsList" layoutX="106.0" layoutY="227.0" onMouseClicked="#resultsListSelected" prefHeight="371.0" prefWidth="319.0" />
+      <ListView fx:id="reservationsListUser" layoutX="106.0" layoutY="227.0" onMouseClicked="#resultsListSelected" prefHeight="371.0" prefWidth="319.0" />
       <Label fx:id="title11" alignment="CENTER" layoutX="144.0" layoutY="149.0" text="Current Booking" textAlignment="CENTER">
          <font>
             <Font size="36.0" />

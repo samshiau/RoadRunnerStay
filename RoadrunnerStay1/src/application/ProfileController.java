@@ -24,8 +24,8 @@ public class ProfileController implements Initializable{
 	@FXML private Button userEditReservation;
 	@FXML private Button employeeEditReservation;
 	@FXML private Label wecomeUser;
+	SwitchScenesController changeScene = new SwitchScenesController(); 
 	HotelDBManager connection = new HotelDBManager();
-	
 	LoginController whoIsLogin = new LoginController();	
 	User user = whoIsLogin.returnUserThatIsLoggedIn();
 	public ArrayList<Reservation> getReservation;
@@ -71,20 +71,20 @@ public class ProfileController implements Initializable{
 
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenonHome(event);
+		changeScene.setSceneInfo("MainRoadrunnerStay.fxml", "MainRoadrunnerStay: Home");
+		changeScene.changeScreen(event);
 	}
 	
 	@FXML
 	public void changeScreenEditReservations(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenEditReservations(event);	
+		changeScene.setSceneInfo("EditReservations.fxml", "Edit Reservations");
+		changeScene.changeScreen(event);
 	}
 	@FXML
 	public void changeScreenEditReservationsAsUser(ActionEvent event) throws IOException {
 		if(hasReservation) {
-			SwitchScenesController change = new SwitchScenesController();
-			change.changeScreenEditReservationsAsUser(event);				
+			changeScene.setSceneInfo("EditReservationsAsUSer.fxml", "Edit Reservations");
+			changeScene.changeScreen(event);				
 		} else {
 			// show error message telling user they cannot edit because they do not have a 
 			// Reservation to edit
@@ -98,8 +98,8 @@ public class ProfileController implements Initializable{
 	}
 	@FXML
 	public void changeScreenEditUserProfile(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenEditUserProfile(event);	
+		changeScene.setSceneInfo("EditUserProfile.fxml", "Edit Profile");
+		changeScene.changeScreen(event);
 	}
 	
 	

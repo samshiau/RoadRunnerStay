@@ -28,7 +28,7 @@ public class EditUserProfileController implements Initializable{
 	@FXML private Label empPositionLabel, empPositionLabel2;
 	@FXML private Label supportedHotelsLabel;
 
-
+	SwitchScenesController changeScene = new SwitchScenesController(); 
 	HotelDBManager connection = new HotelDBManager();
 	LoginController whoIsLogin = new LoginController();
 	User user = whoIsLogin.returnUserThatIsLoggedIn();
@@ -131,12 +131,12 @@ public class EditUserProfileController implements Initializable{
 	
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenonHome(event);
+		changeScene.setSceneInfo("MainRoadrunnerStay.fxml", "MainRoadrunnerStay: Home");
+		changeScene.changeScreen(event);
 	}
 	@FXML 
 	public void changeScreenProfile(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenProfile(event);
+		changeScene.setSceneInfo("Profile.fxml", "Profile");
+		changeScene.changeScreen(event);
 	}
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
@@ -9,46 +10,66 @@
 
 <AnchorPane prefHeight="752.0" prefWidth="921.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="498.0" layoutX="329.0" layoutY="191.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="261.0" />
+      <ImageView fitHeight="611.0" fitWidth="1055.0" layoutX="-135.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="shutterstock_594619745.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="592.0" layoutX="-11.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="415.0" />
       <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
-      <Button fx:id="create" layoutX="358.0" layoutY="588.0" mnemonicParsing="false" onAction="#Login" prefHeight="32.0" prefWidth="203.0" text="Login">
+      <Button fx:id="create" layoutX="51.0" layoutY="549.0" mnemonicParsing="false" onAction="#Login" prefHeight="32.0" prefWidth="261.0" text="Login">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <TextField fx:id="userNameInput" layoutX="342.0" layoutY="366.0" prefHeight="27.0" prefWidth="235.0" />
+      <TextField fx:id="userNameInput" layoutX="14.0" layoutY="301.0" prefHeight="27.0" prefWidth="349.0" />
       <Button fx:id="create1" layoutX="27.0" layoutY="18.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="48.0" prefWidth="149.0" text="Home">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Text layoutX="347.0" layoutY="349.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+      <Text layoutX="19.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
          <font>
             <Font name="Avenir Light" size="20.0" />
          </font></Text>
-      <Text layoutX="344.0" layoutY="450.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+      <Text layoutX="23.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
          <font>
             <Font name="Avenir Light" size="20.0" />
          </font></Text>
-      <PasswordField fx:id="passwordInput" layoutX="341.0" layoutY="465.0" prefHeight="27.0" prefWidth="235.0" />
-      <Label alignment="CENTER" layoutX="339.0" layoutY="224.0" text="Login" textAlignment="CENTER">
+      <PasswordField fx:id="passwordInput" layoutX="19.0" layoutY="402.0" prefHeight="27.0" prefWidth="349.0" />
+      <Label alignment="CENTER" layoutX="87.0" layoutY="150.0" text="Login" textAlignment="CENTER">
          <font>
-            <Font name="Avenir Light" size="35.0" />
+            <Font name="Avenir Light" size="50.0" />
          </font></Label>
-      <Label fx:id="loginLabel" layoutX="378.0" layoutY="523.0" prefHeight="20.0" prefWidth="134.0" text="Status: " textFill="#d70d0d">
+      <Label fx:id="loginLabel" layoutX="36.0" layoutY="471.0" prefHeight="20.0" prefWidth="134.0" text="Status: " textFill="#d70d0d">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="234.0" layoutY="107.0" text="Your Destination Awaits You">
-         <font>
-            <Font name="Avenir Light" size="35.0" />
-         </font>
-      </Label>
-      <Button fx:id="create2" layoutX="386.0" layoutY="636.0" mnemonicParsing="false" onAction="#changeScreenAccountType" prefHeight="37.0" prefWidth="149.0" text="Create Account">
+      <Button fx:id="create3" layoutX="93.0" layoutY="606.0" mnemonicParsing="false" onAction="#changeScreenAccountType" prefHeight="20.0" prefWidth="190.0" text="Create an account">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
+      <Label layoutX="545.0" layoutY="199.0" text="YOUR" textFill="WHITE">
+         <font>
+            <Font name="Avenir Light" size="50.0" />
+         </font>
+      </Label>
+      <Label layoutX="547.0" layoutY="277.0" text="DESTINATION" textFill="WHITE">
+         <font>
+            <Font name="Avenir Light" size="50.0" />
+         </font>
+      </Label>
+      <Label layoutX="544.0" layoutY="357.0" text="AWAITS" textFill="WHITE">
+         <font>
+            <Font name="Avenir Light" size="50.0" />
+         </font>
+      </Label>
+      <Label layoutX="544.0" layoutY="445.0" text="YOU" textFill="WHITE">
+         <font>
+            <Font name="Avenir Light" size="50.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

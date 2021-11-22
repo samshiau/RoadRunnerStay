@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 
 public class AccountTypeController {
 
+	SwitchScenesController changeScene = new SwitchScenesController(); 
 	@FXML private Button customerButton;
 	@FXML private Button employeeButton;
 	static boolean isEmployee = false;
@@ -27,12 +28,12 @@ public class AccountTypeController {
 	}
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenonHome(event);
+		changeScene.setSceneInfo("MainRoadrunnerStay.fxml", "MainRoadrunnerStay: Home");
+		changeScene.changeScreen(event);
 	}
 	@FXML 
 	public void changeScreenCreateAccount(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenCreateAccount(event);
+		changeScene.setSceneInfo("CreateAccount.fxml", "Create Account");
+		changeScene.changeScreen(event);
 	}
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
@@ -25,17 +26,17 @@
       <Label fx:id="title" alignment="CENTER" layoutX="14.0" layoutY="22.0" text="RoadRunner Stay" textAlignment="CENTER" textFill="WHITE" />
       <ImageView fx:id="imageView" fitHeight="408.0" fitWidth="327.0" layoutY="341.0" pickOnBounds="true">
          <image>
-            <Image url="@../NY.jpg" />
+            <Image url="@../../images/NY.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="imageView2" fitHeight="408.0" fitWidth="326.0" layoutX="350.0" layoutY="341.0" pickOnBounds="true">
          <image>
-            <Image url="@../SA_river.jpg" />
+            <Image url="@../../images/SA_river.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="imageView3" fitHeight="408.0" fitWidth="326.0" layoutX="700.0" layoutY="341.0" pickOnBounds="true">
          <image>
-            <Image url="@../sydney.jpg" />
+            <Image url="@../../images/sydney.jpg" />
          </image>
       </ImageView>
       <TextField fx:id="hotelNameInput" layoutX="14.0" layoutY="119.0" prefHeight="38.0" prefWidth="275.0" promptText="Hotel Name (optional)" />

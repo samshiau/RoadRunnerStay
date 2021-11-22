@@ -11,9 +11,6 @@
 	-fx-font-size: 16;
 	-fx-text-fill: white;
 }
-.list-cell {
-    -fx-font-size: 1.2em ;
-}
 .button:hover{
 	-fx-font-weight: bold;
 	-fx-background-color:white;
@@ -34,6 +31,9 @@
 	-fx-border-radius: 20;
 	-fx-border-width: 3;
 	-fx-rotate: 10;
+}
+.list-cell {
+    -fx-font-size: 1.2em ;
 }
 #searchButton{
 	-fx-font-weight: bold;
@@ -86,5 +86,9 @@
 	-fx-text-fill: #1f1f1f;
 	-fx-font-size: 50px; 
 	-fx-alignment:center;
+}
+#create3{
+	-fx-border :none;
+	-fx-border-bottom: 2px solid black;
 }
  

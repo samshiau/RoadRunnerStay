@@ -27,6 +27,7 @@ public class CreateAccountController implements Initializable{
 	@FXML private Label supportedHotelsLabel;
 	@FXML private Label positionLabel;
 	@FXML private ComboBox hotelNameComboBox;
+	SwitchScenesController changeScene = new SwitchScenesController(); 
 	
 	ObservableList<String> options = 
 		    FXCollections.observableArrayList(
@@ -107,18 +108,13 @@ public class CreateAccountController implements Initializable{
 				System.out.println(rcStr);
 			}
 			connection.closeManager();
-			changeScreenCreateAccount(event);
+			changeScreenHome(event);
 			}
 	}
 	
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenonHome(event);
-	}
-	@FXML 
-	public void changeScreenCreateAccount(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenonHome(event);
+		changeScene.setSceneInfo("MainRoadrunnerStay.fxml", "MainRoadrunnerStay: Home");
+		changeScene.changeScreen(event);
 	}
 }

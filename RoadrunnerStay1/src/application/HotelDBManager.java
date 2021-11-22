@@ -220,7 +220,7 @@ public class HotelDBManager {
 	 * 							other error occurred.
 	 */
 	public int editHotel(String name, boolean[] amenities, int[] numRoomsPerType, double[] roomPricePerType, float weekendDiff) {
-		String amenityStr = "h.amenities = (\"";
+		String amenityStr = "h.amenities = \"";
 		try {
 			preparedStatement = connect.prepareStatement("UPDATE Hotel h SET h.amenities = ?, h.numRoomsStandard = ?, h.numRoomsQueen = ?, h.numRoomsKing = ?, " +
 															"h.rmPriceStandard = ?, h.rmPriceQueen = ?, h.rmPriceKing = ?, h.wkndDiff = ? WHERE h.name = ?;");
@@ -246,7 +246,7 @@ public class HotelDBManager {
 				if (amenities[2] || amenities[1] || amenities[0]) amenityStr += ",";
 				amenityStr += "business office";
 			}
-			amenityStr += "\")";
+			amenityStr += "\"";
 			preparedStatement.setString(1, amenityStr);
 			
 			// Sets the number of rooms for each type.
@@ -263,6 +263,7 @@ public class HotelDBManager {
 			preparedStatement.setFloat(8, weekendDiff);
 			
 			// Executes the update.
+			System.out.println(preparedStatement.toString());
 			preparedStatement.executeUpdate();
 			
 			return ReturnCodes.RC_OK;
@@ -451,7 +452,8 @@ public class HotelDBManager {
 			preparedStatement.setInt(7, numRooms);
 			
 			// Calculates the total cost of the room.
-			int numDays = endSqlDate.compareTo(startSqlDate);
+			Reservation tempReservation = new Reservation("temp", 0, startDate, endDate, 0, "temp", 0);
+			int numDays = (int) tempReservation.getDateDifference();
 			
 			// Appends the room type attribute based on the user's room type selection.
 			switch (roomType) {
@@ -495,7 +497,7 @@ public class HotelDBManager {
 				if (numRoomsAvailable - numRooms < 0) {
 					return ReturnCodes.RC_NO_MORE_ROOMS;
 				}
-				totalCost = numDays * costPerRoom * (1 * weekendDiff);
+				totalCost = numDays * costPerRoom * (1 + weekendDiff);
 			}
 			
 			// Updates the hotel rooms based on the user's selection.
@@ -590,11 +592,11 @@ public class HotelDBManager {
 		Matcher startDateCorrect = dateSyntax.matcher(startDate), endDateCorrect = dateSyntax.matcher(endDate);
 		Date startSqlDate, endSqlDate;
 		String getHotelQuery = "SELECT h.hotelId, ";
-		String pNumRoomsQuery = "SELECT r.numRooms FROM Reservation r where r.userId = \"" + userId + "\" AND r.hotelId = ";
 		double totalCost;
 		float roomCost = (float) 0.0;
+		float weekendDiff = (float) 0.0;
 		int hotelId = 0;
-		int pNumRooms = 0;
+		int numRoomsAvailable = 0;
 		
 		// Checks the input date syntax.
 		if (!startDateCorrect.find() || !endDateCorrect.find()) {
@@ -606,30 +608,25 @@ public class HotelDBManager {
 		endSqlDate = Date.valueOf(endDate);
 		
 		try {
-			preparedStatement = connect.prepareStatement("UPDATE Reservation r SET r.totalCost = ?, r.roomType = ?, r.numRooms = ?" +
-															"WHERE r.hotelId = ? AND r.userId = ?;");
+			preparedStatement = connect.prepareStatement("UPDATE Reservation SET totalCost = ?, roomType = ?, numRooms = ?, " +
+															"startDate = ?, endDate = ? " +
+															"WHERE hotelId = ? AND userId = ?;");
 			
 			hotelId = getHotelId(hotelName);
-			pNumRoomsQuery += hotelId + ";";
 			
 			// Gets the hotel attributes.
 			switch (roomType) {
 				case "standard":
-					getHotelQuery += "h.rmPriceStandard ";
+					getHotelQuery += "h.rmPriceStandard, h.numRoomsStandard, ";
 					break;
 				case "queen":
-					getHotelQuery += "h.rmPriceQueen ";
+					getHotelQuery += "h.rmPriceQueen, h.numRoomsQueen, ";
 					break;
 				case "king":
-					getHotelQuery += "h.rmPriceKing ";
+					getHotelQuery += "h.rmPriceKing, h.numRoomsKing, ";
 					break;
 			}
-			
-			// Get the previous number of rooms from the user's current reservation.
-			resultSet = statement.executeQuery(pNumRoomsQuery);
-			while (resultSet.next()) {
-				pNumRooms = resultSet.getInt("numRooms");
-			}
+			getHotelQuery += "h.wkndDiff ";
 			
 			// Gets the hotel ID and cost for the room type based on the above switch-case to change the number of rooms.
 			getHotelQuery += "FROM Hotel h WHERE h.hotelId = " + hotelId + ";";
@@ -637,21 +634,34 @@ public class HotelDBManager {
 			while (resultSet.next()) {
 				hotelId = resultSet.getInt("hotelId");
 				roomCost = resultSet.getFloat(2);
+				numRoomsAvailable = resultSet.getInt(3);
+				weekendDiff = resultSet.getFloat("wkndDiff");
 			}
 			
 			// Calculates the new total cost after the edit.
-			totalCost = Math.abs(pNumRooms - newNumRooms) * roomCost * endSqlDate.compareTo(startSqlDate);
+			Reservation tempReservation = new Reservation("temp", 0, startDate, endDate, 0, "temp", 0);
+			totalCost = newNumRooms * roomCost * (1 + roomCost * weekendDiff) * tempReservation.getDateDifference();
 			
 			// Sets the values for each parameter in the prepared statement.
 			preparedStatement.setDouble(1, totalCost);
 			preparedStatement.setString(2, roomType);
 			preparedStatement.setInt(3, newNumRooms);
-			preparedStatement.setInt(4, hotelId);
-			preparedStatement.setString(5, userId);
+			preparedStatement.setDate(4, startSqlDate);
+			preparedStatement.setDate(5, endSqlDate);
+			preparedStatement.setInt(6, hotelId);
+			preparedStatement.setString(7, userId);
 			
+			// Ensures the new number of rooms does not exceed the amount available for the hotel.
+			if (numRoomsAvailable - newNumRooms < 0) {
+				preparedStatement.close();
+				return ReturnCodes.RC_NO_MORE_ROOMS;
+			}
 			// Execute the statement.
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
+			
+			// FIXME: Delete this line once debugged.
+			System.out.println("Reservation changes saved.");
 			
 			return ReturnCodes.RC_OK;
 		}

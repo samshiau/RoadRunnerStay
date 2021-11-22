@@ -17,7 +17,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -33,27 +32,32 @@ public class Results implements Initializable{
 	@FXML RadioButton queenRadio; 
 	@FXML RadioButton kingRadio;
 	@FXML Label hotelNameLabel;
-	@FXML TextField numRoomsTextField;
-	
+	@FXML Label numRoomsLabel;
+
 	MainController mainController = new MainController();
 	LoginController whoIsLogin = new LoginController();
 	User user = whoIsLogin.returnUserThatIsLoggedIn();
+	SwitchScenesController changeScene = new SwitchScenesController(); 
 	HotelDBManager connection = new HotelDBManager();
 	ArrayList<Hotel> results = MainController.getResultsArray();
 	ToggleGroup radioGroup = new ToggleGroup();
 	
 	int numRooms = 1;
 	String whichHotel;
+	
+
 	String roomType;
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize(URL location, ResourceBundle resources) {		
 		// setup radio functionality
 		radioButtonSetup();
 		for (int i = 0; i < MainController.getResultsArray().size()/2; i++) {
 			whichHotel = MainController.getResultsArray().get(i).getName();
+
 			resultsList.getItems().addAll(whichHotel);
 		}
+		numRoomsLabel.setText(String.valueOf(numRooms));
 	}
 	
 	// used for the radio button toggles	
@@ -63,6 +67,20 @@ public class Results implements Initializable{
 		kingRadio.setToggleGroup(radioGroup);
 		// set standard room type as default
 		standardRadio.setSelected(true);
+	}
+	public void decreaseRoomNumber() {
+		numRooms--;
+		if(numRooms < 1) {
+			numRooms = 1;
+		}
+		numRoomsLabel.setText(String.valueOf(numRooms));
+	}
+	public void increaseRoomNumber() {
+		numRooms++;
+		if(numRooms > 9) {
+			numRooms = 9;
+		}
+		numRoomsLabel.setText(String.valueOf(numRooms));
 	}
 	
 	public void resultsListSelected() throws IOException {
@@ -98,7 +116,6 @@ public class Results implements Initializable{
 	
 	// get users input for booking
 	public void userInput() {
-		numRooms = Integer.parseInt(numRoomsTextField.getText());
 		RadioButton selectedRadioButton = (RadioButton) radioGroup.getSelectedToggle();
 		roomType = selectedRadioButton.getText().toLowerCase();
 	}
@@ -149,8 +166,6 @@ public class Results implements Initializable{
 												startDate, 
 												endDate,
 												numRooms);
-			// clear textfield
-			numRoomsTextField.clear();
 		
 			if (rc != 0) {
 				System.out.println("Booking failed.");
@@ -163,15 +178,15 @@ public class Results implements Initializable{
 
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
+		changeScene.setSceneInfo("MainRoadrunnerStay.fxml", "MainRoadrunnerStay: Home");
 		closeImages();
-		change.changeScreenonHome(event);
+		changeScene.changeScreen(event);
 	}
 	@FXML 
 	public void changeScreenLogin(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
+		changeScene.setSceneInfo("Login.fxml", "Login");
 		closeImages();
-		change.changeScreenLogin(event);
+		changeScene.changeScreen(event);
 	}
 	
 	public void closeImages() {

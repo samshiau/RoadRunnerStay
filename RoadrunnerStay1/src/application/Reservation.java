@@ -1,7 +1,9 @@
 package application;
 
-import javafx.fxml.Initializable;
-
+import java.util.Calendar;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 /**
  * Package: application
  * The class to represent a hotel reservation booked by the end user.
@@ -26,6 +28,8 @@ public class Reservation {
 	 * @param s	the start date.
 	 * @param e	the end date.
 	 * @param t	the total cost.
+	 * @param r the room type.
+	 * @param n the number of rooms to book.
 	 */
 	public Reservation(String u, int h, String s, String e, double t, String r, int n) {
 		this.userId = u;
@@ -42,9 +46,45 @@ public class Reservation {
 	    return ("Hotel: "+this.getHotelName()+
 	    		"\nStart date is: "+ this.getStartDate() +
 	    		"\nEnd date is: "+ this.getEndDate() +
-	    		"\nTotal Cost is: " + this.getTotalCost() + 
-	    		"\nRoom type is: " + this.getRoomType().toUpperCase() + 
+	    		String.format("\nTotal Cost is: $%.2f", this.getTotalCost()) + 
+	    		"\nRoom type is: " + this.getRoomType() + 
 	    		"\nNumber of rooms is: " + this.getNumRooms());
+	}
+	
+	/**
+	 * Calculates the number of days in between the start and end dates.
+	 * 
+	 * @return the number of days in between the start date and the end date.
+	 */
+	public int getDateDifference() {
+		try {
+			SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-mm-dd");
+			Date startDate = sqlDateFormat.parse(this.startDate);
+			Date endDate = sqlDateFormat.parse(this.endDate);
+			Calendar startCal = Calendar.getInstance();
+			Calendar endCal = Calendar.getInstance();
+			startCal.setTime(startDate);
+			endCal.setTime(endDate);
+			int startDay = startCal.get(Calendar.DATE), endDay = endCal.get(Calendar.DATE);
+			int startMonth = startCal.get(Calendar.MONTH), endMonth = endCal.get(Calendar.MONTH);
+			int startYear = startCal.get(Calendar.YEAR), endYear = endCal.get(Calendar.YEAR);
+			int difference = 0;
+			
+			// Gets the differences
+			if (endYear - startYear != 0) {
+				difference += (endYear - startYear) * 365;
+			}
+			if (endMonth - startMonth != 0) {
+				difference += (endMonth - startMonth) * 30;
+			}
+			difference += endDay + startDay;
+			
+			return difference;
+		}
+		catch (ParseException e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 	
 	/**

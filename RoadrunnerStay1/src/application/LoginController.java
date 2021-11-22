@@ -15,7 +15,7 @@ public class LoginController implements Initializable{
 	
 	
 	
-	//public static final String user = null;
+	SwitchScenesController changeScene = new SwitchScenesController();
 	@FXML private TextField userNameInput;
 	@FXML private PasswordField passwordInput;
 	@FXML private Label loginLabel;
@@ -87,17 +87,12 @@ public class LoginController implements Initializable{
 	
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenonHome(event);
+		changeScene.setSceneInfo("MainRoadrunnerStay.fxml", "MainRoadrunnerStay: Home");
+		changeScene.changeScreen(event);
 	}
-	@FXML 
-	public void changeScreenLogin(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenonHome(event);
-	}
-	@FXML 
-	public void changeScreenAccountType(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenAccountType(event);
+	@FXML
+	public void changeScreenAccountType(ActionEvent event) throws IOException{
+		changeScene.setSceneInfo("AccountType.fxml", "Account Type");
+		changeScene.changeScreen(event);
 	}
 }

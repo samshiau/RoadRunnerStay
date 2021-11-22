@@ -1,0 +1,101 @@
+ #Home {
+	-fx-background-image:url("background_Wine.png");    
+	-fx-background-size: 100% 100%;
+}
+.button {
+	-fx-font-family: "Joystix"; 
+	-fx-font-size: 15px;
+	-fx-font-weight: bold;
+	-fx-background-color: #d50000 ;
+	-fx-background-radius: 22;
+	-fx-font-size: 16;
+	-fx-text-fill: white;
+}
+.button:hover{
+	-fx-font-weight: bold;
+	-fx-background-color:white;
+	-fx-background-radius: 22;
+	-fx-font-size: 16;
+	-fx-text-fill: #d50000 ;
+	-fx-border-color: #d50000 ;
+	-fx-border-radius: 20;
+	-fx-border-width: 3;
+}
+.button:pressed{
+	-fx-font-weight: bold;
+	-fx-background-color:white;
+	-fx-background-radius: 22;
+	-fx-font-size: 16;
+	-fx-text-fill: #d50000 ;
+	-fx-border-color: #d50000 ;
+	-fx-border-radius: 20;
+	-fx-border-width: 3;
+	-fx-rotate: 10;
+}
+.list-cell {
+    -fx-font-size: 1.2em ;
+}
+.list-cell:selected {
+    -fx-font-size: 1.65em ;
+    -fx-cell-size: 50;
+    -fx-text-fill: orange;
+    -fx-font-weight: bolder;
+    -fx-font-family: fantasy;
+}
+#searchButton{
+	-fx-font-weight: bold;
+	-fx-background-color:orange;
+	-fx-background-radius: 22;
+	-fx-font-size: 16;
+	-fx-text-fill: white;
+	-fx-border-color: Orange;
+	-fx-border-radius: 20;
+	-fx-border-width: 3;
+}
+#searchButton:hover{
+	-fx-font-weight: bold;
+	-fx-background-color:white;
+	-fx-background-radius: 22;
+	-fx-font-size: 16;
+	-fx-text-fill: orange ;
+	-fx-border-color: orange ;
+	-fx-border-radius: 20;
+	-fx-border-width: 3;
+}
+#customerButton{
+	-fx-background-image:url("./grey_customerImage.png");
+	-fx-background-size: 100% 100%;
+	-fx-background-color: none ;
+}
+#customerButton:hover{
+	-fx-background-image:url("./customerImage.png");
+	-fx-background-size: 100% 100%;
+	-fx-scale-x: 1.15;
+    -fx-scale-y: 1.15;
+    -fx-scale-z: 1.15;
+    -fx-border-color: none ;
+}
+#employeeButton{
+	-fx-background-image:url("./grey_employeeImage.png");
+	-fx-background-size: 100% 100%;
+	-fx-background-color: none ;
+}
+#employeeButton:hover{
+	-fx-background-image:url("./employeeImage.png");
+	-fx-background-size: 100% 100%;
+	-fx-scale-x: 1.15;
+    -fx-scale-y: 1.15;
+    -fx-scale-z: 1.15;
+    -fx-border-color: none ;
+}
+#title{
+	-fx-font-family: 'Karmatic Arcade';
+	-fx-text-fill: #1f1f1f;
+	-fx-font-size: 50px; 
+	-fx-alignment:center;
+}
+#create3{
+	-fx-border :none;
+	-fx-border-bottom: 2px solid black;
+}
+ 

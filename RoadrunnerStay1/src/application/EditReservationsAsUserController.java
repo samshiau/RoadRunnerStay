@@ -18,13 +18,14 @@ import javafx.scene.control.Alert.AlertType;
 public class EditReservationsAsUserController implements Initializable{
 	
 	@FXML private Button updateButton, cancelButton;
-	@FXML private ListView<String> reservationsList;
+	//@FXML private ListView<String> reservationsList;
+	@FXML private ListView<String> reservationsListUser;
 	@FXML private TextField roomsInput, fromDateInput, toDateInput;
 	@FXML RadioButton standardRadio; 
 	@FXML RadioButton queenRadio; 
 	@FXML RadioButton kingRadio;
 	ToggleGroup radioGroup = new ToggleGroup();
-	
+	SwitchScenesController changeScene = new SwitchScenesController(); 
 	HotelDBManager connection = new HotelDBManager();
 	LoginController whoIsLogin = new LoginController();
 	User user = whoIsLogin.returnUserThatIsLoggedIn();
@@ -60,18 +61,18 @@ public class EditReservationsAsUserController implements Initializable{
 	// fill the arraylist with current reservation the user has
 	public void updateArrayList(){
 		// clear arraylist in case updated
-		reservationsList.getItems().clear();
+		reservationsListUser.getItems().clear();
 		getReservation = connection.getReservationsByUser(user.getUserId());
 		for (int i = 0; i < getReservation.size(); i++) {
 			reservationNum = i;
 			reservationInfo = getReservation.get(i).toString();
-			reservationsList.getItems().addAll(reservationInfo);
+			reservationsListUser.getItems().addAll(reservationInfo);
 		}
 		
 	}
 	// get which row is selected
 	public void resultsListSelected() {
-		whichReservation = reservationsList.getSelectionModel().getSelectedItem();
+		whichReservation = reservationsListUser.getSelectionModel().getSelectedItem();
 		// get name depending on which row is selected
 		hotelName =  getReservation.get(reservationNum).getHotelName();
 	}
@@ -91,7 +92,8 @@ public class EditReservationsAsUserController implements Initializable{
 	public void updateButton(ActionEvent event) throws IOException {
 		userInput();
 		System.out.println(newNumRooms);
-		
+		try {
+			System.out.println(hotelName);
 		// user has to select a booking for updating else show error message
 		if(hotelName == null) {
 			Alert noInput = new Alert(AlertType.ERROR);
@@ -119,6 +121,12 @@ public class EditReservationsAsUserController implements Initializable{
 			toDateInput.clear();
 			updateArrayList();
 		} System.out.println();
+		}
+		catch (NumberFormatException e) {
+			// TODO: Handle input errors when user enters the number of rooms to update (i.e., user enters 
+			// something that is not a numerical value in the number of rooms box.
+			e.printStackTrace();
+		}
 
 	}
 	// when cancelbutton is pressed update change on DB	
@@ -144,7 +152,7 @@ public class EditReservationsAsUserController implements Initializable{
 	@FXML 
 	public void changeScreenProfile(ActionEvent event) throws IOException {
 		connection.closeManager();
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenProfile(event);
+		changeScene.setSceneInfo("Profile.fxml", "Profile");
+		changeScene.changeScreen(event);
 	}
 }

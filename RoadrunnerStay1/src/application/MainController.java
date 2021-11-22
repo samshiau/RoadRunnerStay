@@ -31,6 +31,7 @@ public class MainController  implements Initializable{
 	static String fromDateInputStr, toDateInputStr;
 	@FXML ImageView imageView, imageView2, imageView3;
 	@FXML CheckBox pool, gym, spa, businessOffice;
+	SwitchScenesController changeScene = new SwitchScenesController(); 
 	
 	
 	boolean poolSelected = false, gymSelected = false, spaSelected = false, businessOfficeSelected = false; 
@@ -67,7 +68,7 @@ public class MainController  implements Initializable{
 	// addes all ".jpg"s to images arraylist
 	public void addJPGs() {
 		//Creating a File object for directory
-		File directoryPath = new File("./src");
+		File directoryPath = new File("./images");
 		//Creating filter for jpg files
 		FilenameFilter jpgFilefilter = new FilenameFilter(){
 			public boolean accept(File dir, String name) {
@@ -180,7 +181,10 @@ public class MainController  implements Initializable{
 		
 		// TODO: Display the received results from the database that are stored in the results variable. Sometimes the list may not have any results.
 		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenResult(event);
+		
+		// changes scenes to results scene
+		changeScene.setSceneInfo("Results.fxml", "Results");
+		changeScene.changeScreen(event);
 		}
 	}
 	
@@ -194,28 +198,24 @@ public class MainController  implements Initializable{
 		return toDateInputStr;
 	}
 	
-	@FXML 
-	public void changeScreenAccountType(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenAccountType(event);
-	}
-	
+	@FXML
+	public void changeScreenAccountType(ActionEvent event) throws IOException{
+		changeScene.setSceneInfo("AccountType.fxml", "Account Type");
+		changeScene.changeScreen(event);
+	}	
 	@FXML 
 	public void changeScreenLogin(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenLogin(event);
-	}
-	
+		changeScene.setSceneInfo("Login.fxml", "Login");
+		changeScene.changeScreen(event);
+	}	
 	@FXML 
 	public void changeScreenProfile(ActionEvent event) throws IOException {
 		if(LoginController.isLoggedIn) {
-			SwitchScenesController change = new SwitchScenesController();
-			change.changeScreenProfile(event);
+			changeScene.setSceneInfo("Profile.fxml", "Profile");
+			changeScene.changeScreen(event);
 		}
 		else {
 			changeScreenLogin(event);
 		}
 	}
-	
-
 }

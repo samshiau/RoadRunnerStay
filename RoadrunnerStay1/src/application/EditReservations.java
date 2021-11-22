@@ -38,12 +38,13 @@ public class EditReservations implements Initializable{
 	@FXML RadioButton radio20; 
 	@FXML RadioButton radio25;
 	@FXML RadioButton radio35;
-	ToggleGroup radioGroup = new ToggleGroup();
 	
-	public static ArrayList<Hotel> results;
-	
+	ToggleGroup radioGroup = new ToggleGroup();	
+	SwitchScenesController changeScene = new SwitchScenesController(); 
 	LoginController whoIsLogin = new LoginController();
 	User user = whoIsLogin.returnUserThatIsLoggedIn();
+	
+	public static ArrayList<Hotel> results;
 	
 	String percent; 
 	String numberOfRoomsStandard, numberOfRoomsQueen, numberOfRoomsKing;
@@ -181,12 +182,12 @@ public class EditReservations implements Initializable{
 	
 	@FXML 
 	public void changeScreenHome(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenonHome(event);
+		changeScene.setSceneInfo("MainRoadrunnerStay.fxml", "MainRoadrunnerStay: Home");
+		changeScene.changeScreen(event);
 	}
 	@FXML 
 	public void changeScreenProfile(ActionEvent event) throws IOException {
-		SwitchScenesController change = new SwitchScenesController();
-		change.changeScreenProfile(event);
+		changeScene.setSceneInfo("Profile.fxml", "Profile");
+		changeScene.changeScreen(event);
 	}
 }
