@@ -26,12 +26,19 @@ public class SwitchScenesController{
 	
 	private String setTitle;
 	private String fxmlFile;
+	private String screenID;
 	
 	// get info from controllers
 	public void setSceneInfo(String fxmlFileSet, String setTitleSet) {
 		fxmlFile = fxmlFileSet;
 		setTitle = setTitleSet;
 	}
+	// get info from controllers
+		public void setSceneInfo(String fxmlFileSet, String setTitleSet, String setID) {
+			fxmlFile = fxmlFileSet;
+			setTitle = setTitleSet;
+			screenID = setID;
+		}
 	
 	// change to desired scene according to controller info
 	@FXML 
