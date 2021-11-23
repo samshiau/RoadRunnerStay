@@ -1,6 +1,7 @@
 package application;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -41,6 +42,8 @@ public class Results implements Initializable{
 	HotelDBManager connection = new HotelDBManager();
 	ArrayList<Hotel> results = MainController.getResultsArray();
 	ToggleGroup radioGroup = new ToggleGroup();
+	@FXML ImageView bookedCelebrationView;
+	@FXML ImageView bookedCelebrationView2;
 	
 	int numRooms = 1;
 	String whichHotel;
@@ -124,7 +127,9 @@ public class Results implements Initializable{
 	@FXML 
 	public void bookItButton(ActionEvent event) throws IOException, InterruptedException {
 		// if user is not logged in show error message
-		if(!LoginController.isLoggedIn) {	
+		if(!LoginController.isLoggedIn) {
+						
+			
 			Alert userNotLoggedIn = new Alert(AlertType.NONE);
 			userNotLoggedIn.setTitle("Please Login");
 			userNotLoggedIn.setHeaderText("Plesae login to book hotel");
@@ -170,8 +175,14 @@ public class Results implements Initializable{
 			if (rc != 0) {
 				System.out.println("Booking failed.");
 			}
+
 			connection.closeManager();
 			}
+		// if user is successful booking show confetti
+		Image bookedConfetti = new Image("./booked.gif");
+		bookedCelebrationView.setImage(bookedConfetti);
+		bookedCelebrationView2.setImage(bookedConfetti);
+
 	}
 	
 	

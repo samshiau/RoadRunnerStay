@@ -11,6 +11,8 @@
 
 <AnchorPane prefHeight="752.0" prefWidth="921.0" stylesheets="@application_results.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Results">
    <children>
+      <ImageView fx:id="bookedCelebrationView" fitHeight="746.0" fitWidth="413.0" layoutX="39.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="bookedCelebrationView2" fitHeight="746.0" fitWidth="413.0" layoutX="453.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fffb1f3b" height="477.0" layoutX="405.0" layoutY="112.0" stroke="BLACK" strokeType="INSIDE" width="413.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="532.0" layoutX="95.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="732.0" />
       <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css">
