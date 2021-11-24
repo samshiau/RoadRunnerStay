@@ -2,6 +2,7 @@ package application;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 /**
@@ -56,33 +57,16 @@ public class Reservation {
 	 * 
 	 * @return the number of days in between the start date and the end date.
 	 */
-	public int getDateDifference() {
+	public long getDateDifference() {
 		try {
-			SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-mm-dd");
-			Date startDate = sqlDateFormat.parse(this.startDate);
-			Date endDate = sqlDateFormat.parse(this.endDate);
-			Calendar startCal = Calendar.getInstance();
-			Calendar endCal = Calendar.getInstance();
-			startCal.setTime(startDate);
-			endCal.setTime(endDate);
-			int startDay = startCal.get(Calendar.DATE), endDay = endCal.get(Calendar.DATE);
-			int startMonth = startCal.get(Calendar.MONTH), endMonth = endCal.get(Calendar.MONTH);
-			int startYear = startCal.get(Calendar.YEAR), endYear = endCal.get(Calendar.YEAR);
-			int difference = 0;
+			SimpleDateFormat sqlFormat = new SimpleDateFormat("yyyy-mm-dd");
+			Date start = sqlFormat.parse(startDate);
+			Date end = sqlFormat.parse(endDate);
+			long diff = end.getTime() - start.getTime();
 			
-			// Gets the differences
-			if (endYear - startYear != 0) {
-				difference += (endYear - startYear) * 365;
-			}
-			if (endMonth - startMonth != 0) {
-				difference += (endMonth - startMonth) * 30;
-			}
-			difference += endDay + startDay;
-			
-			return difference;
+			return TimeUnit.MILLISECONDS.toDays(diff);
 		}
-		catch (ParseException e) {
-			e.printStackTrace();
+		catch(ParseException e) {
 			return 0;
 		}
 	}

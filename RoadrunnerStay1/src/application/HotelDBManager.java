@@ -497,7 +497,7 @@ public class HotelDBManager {
 				if (numRoomsAvailable - numRooms < 0) {
 					return ReturnCodes.RC_NO_MORE_ROOMS;
 				}
-				totalCost = numDays * costPerRoom * (1 + weekendDiff);
+				totalCost = numDays * costPerRoom * numRooms * (1 + weekendDiff * costPerRoom);
 			}
 			
 			// Updates the hotel rooms based on the user's selection.
