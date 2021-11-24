@@ -52,7 +52,9 @@ public class Hotel {
 		this.priceKing = pk;
 		this.weekendDiff = wd;
 		this.imageStream = i;
-		this.imageStream.mark(0);
+		if (this.imageStream != null) {
+			this.imageStream.mark(0);
+		}
 	}
 	
 	/**
