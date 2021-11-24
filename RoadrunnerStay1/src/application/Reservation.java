@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.text.ParseException;
 /**
  * Package: application
@@ -69,6 +71,36 @@ public class Reservation {
 		catch(ParseException e) {
 			return 0;
 		}
+	}
+	
+	/**
+	 * Calculates and returns and updates {@code this.totalCost} the total cost for the reservation.
+	 * 
+	 * @param costOfRoom	the cost of the booked room.
+	 * @param weekendDiff	the hotel weekend differential.
+	 * @return				the total cost for the reservation.
+	 */
+	public double calculateCost(double costOfRoom, float weekendDiff) {
+		//SimpleDateFormat sqlFormat = new SimpleDateFormat("yyyy-mm-dd");
+		//Date start = sqlFormat.parse(startDate);
+		//Date end = sqlFormat.parse(endDate);
+		String[] startDateArr = startDate.split("-");
+		String[] endDateArr = endDate.split("-");
+		LocalDate startLocal = LocalDate.of(Integer.parseInt(startDateArr[0]),
+				Integer.parseInt(startDateArr[1]), Integer.parseInt(startDateArr[2]));
+		LocalDate endLocal = LocalDate.of(Integer.parseInt(endDateArr[0]),
+				Integer.parseInt(endDateArr[1]), Integer.parseInt(endDateArr[2]));
+		long numDays = getDateDifference();
+		double cost = 0.0;
+		
+		for (LocalDate date = startLocal; date.isEqual(endLocal); date = date.plusDays(1)) {
+			if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+				cost += costOfRoom * weekendDiff;
+			}
+		}
+		totalCost = cost;
+		
+		return cost;
 	}
 	
 	/**
