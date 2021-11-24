@@ -176,34 +176,34 @@ public class Results implements Initializable{
 				System.out.println("Booking failed.");
 			}
 
-			connection.closeManager();
-			// if user is successful booking show confetti
-			Image bookedConfetti = new Image("./booked.gif");
-			bookedCelebrationView.toFront();
-			bookedCelebrationView2.toFront();
-			
-			bookedCelebrationView.setImage(bookedConfetti);
-			bookedCelebrationView2.setImage(bookedConfetti);
-			// show user message and take them back to main menu
-			Alert userNotLoggedInBook = new Alert(AlertType.NONE);
-			userNotLoggedInBook.setTitle("Booking Complete");
-			userNotLoggedInBook.setHeaderText("Your booking is now complete you can now return to the main menu");
-			userNotLoggedInBook.setContentText("Enjoy the stay!");
-			// setting the icon for the alert message
-			ImageView icon = new ImageView(this.getClass().getResource("./roadrunnerIcon.png").toString());
-			icon.setFitHeight(75);
-			icon.setFitWidth(75);
-			userNotLoggedInBook.setGraphic(icon);			
-			ButtonType goToLogin = new ButtonType("Go to Main Menu");
-			//ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-			userNotLoggedInBook.getButtonTypes().setAll(goToLogin);
-			Optional<ButtonType> result = userNotLoggedInBook.showAndWait();
-			// if user clicks on "goToLogin" it will take them to the login screen
-			if(result.get() == goToLogin) {
-				//TimeUnit.SECONDS.sleep(1);
-				changeScreenHome(event);
-			}
 		}
+		// if user is successful booking show confetti
+		Image bookedConfetti = new Image("./booked.gif");
+		bookedCelebrationView.toFront();
+		bookedCelebrationView2.toFront();
+		
+		bookedCelebrationView.setImage(bookedConfetti);
+		bookedCelebrationView2.setImage(bookedConfetti);
+		// show user message and take them back to main menu
+		Alert userNotLoggedInBook = new Alert(AlertType.NONE);
+		userNotLoggedInBook.setTitle("Booking Complete");
+		userNotLoggedInBook.setHeaderText("Your booking is now complete you can now return to the main menu");
+		userNotLoggedInBook.setContentText("Enjoy the stay!");
+		// setting the icon for the alert message
+		ImageView icon = new ImageView(this.getClass().getResource("./roadrunnerIcon.png").toString());
+		icon.setFitHeight(75);
+		icon.setFitWidth(75);
+		userNotLoggedInBook.setGraphic(icon);			
+		ButtonType goToLogin = new ButtonType("Go to Main Menu");
+		//ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		userNotLoggedInBook.getButtonTypes().setAll(goToLogin);
+		Optional<ButtonType> result = userNotLoggedInBook.showAndWait();
+		// if user clicks on "goToLogin" it will take them to the login screen
+		if(result.get() == goToLogin) {
+			//TimeUnit.SECONDS.sleep(1);
+			changeScreenHome(event);
+		}
+			connection.closeManager();
 		
 
 	}
