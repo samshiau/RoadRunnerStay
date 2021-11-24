@@ -73,10 +73,11 @@ public class EditReservationsAsUserController implements Initializable{
 	// get which row is selected
 	public void resultsListSelected() {
 		whichReservation = reservationsListUser.getSelectionModel().getSelectedItem();
-		// get name depending on which row is selected
-		hotelName =  getReservation.get(reservationNum).getHotelName();
-	}
+		int arraylistIndex = reservationsListUser.getSelectionModel().getSelectedIndex();
 
+		// get name depending on which row is selected
+		hotelName =  getReservation.get(arraylistIndex).getHotelName();
+	}
 	// get user input in TextFields
 	public void userInput() {
 		newNumRooms = Integer.parseInt(roomsInput.getText());
@@ -91,9 +92,7 @@ public class EditReservationsAsUserController implements Initializable{
 	@FXML 
 	public void updateButton(ActionEvent event) throws IOException {
 		userInput();
-		System.out.println(newNumRooms);
 		try {
-			System.out.println(hotelName);
 		// user has to select a booking for updating else show error message
 		if(hotelName == null) {
 			Alert noInput = new Alert(AlertType.ERROR);
