@@ -23,9 +23,9 @@
             <Font size="36.0" />
          </font>
       </Button>
-      <TextField fx:id="userNameInput" layoutX="21.0" layoutY="249.0" prefHeight="27.0" prefWidth="349.0" />
-      <TextField fx:id="nameInput" layoutX="33.0" layoutY="408.0" />
-      <TextField fx:id="emailInput" layoutX="28.0" layoutY="494.0" />
+      <TextField fx:id="userNameInput" layoutX="26.0" layoutY="249.0" prefHeight="27.0" prefWidth="349.0" />
+      <TextField fx:id="nameInput" layoutX="26.0" layoutY="408.0" prefHeight="28.0" prefWidth="349.0" />
+      <TextField fx:id="emailInput" layoutX="26.0" layoutY="494.0" prefHeight="28.0" prefWidth="349.0" />
       <TextField fx:id="positionInput" layoutX="220.0" layoutY="570.0" />
       <Button fx:id="create1" layoutX="27.0" layoutY="18.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="48.0" prefWidth="149.0">
          <font>
@@ -36,22 +36,22 @@
          <font>
             <Font size="20.0" />
          </font></Text>
-      <Text layoutX="20.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+      <Text layoutX="26.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
          <font>
             <Font size="20.0" />
          </font></Text>
-      <Text layoutX="29.0" layoutY="396.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+      <Text layoutX="26.0" layoutY="396.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
          <font>
             <Font size="20.0" />
          </font></Text>
-      <Text layoutX="22.0" layoutY="488.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+      <Text layoutX="26.0" layoutY="488.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
          <font>
             <Font size="20.0" />
          </font></Text>
-      <PasswordField fx:id="passwordInput" layoutX="27.0" layoutY="324.0" />
+      <PasswordField fx:id="passwordInput" layoutX="26.0" layoutY="324.0" prefHeight="28.0" prefWidth="349.0" />
       <Label fx:id="supportedHotelsLabel" layoutX="22.0" layoutY="543.0" text="Supported Hotels">
          <font>
-            <Font size="20.0" />
+            <Font name="Avenir Light" size="20.0" />
          </font></Label>
       <Label fx:id="positionLabel" layoutX="277.0" layoutY="543.0" text="Position">
          <font>
