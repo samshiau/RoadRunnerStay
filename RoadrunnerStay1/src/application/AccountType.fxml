@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="752.0" prefWidth="921.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AccountTypeController">
+<AnchorPane prefHeight="752.0" prefWidth="921.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AccountTypeController">
    <children>
-      <Button fx:id="create1" layoutX="764.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="73.0" prefWidth="117.0" text="Home">
+      <Button fx:id="create1" layoutX="27.0" layoutY="18.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="48.0" prefWidth="149.0">
          <font>
             <Font size="36.0" />
          </font>
@@ -27,7 +27,10 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label fx:id="title" alignment="CENTER" layoutX="252.0" layoutY="14.0" text="Select Accout Type" textAlignment="CENTER" />
+      <Label alignment="CENTER" layoutX="252.0" layoutY="14.0" text="Select Accout Type" textAlignment="CENTER">
+         <font>
+            <Font name="Avenir Light" size="30.0" />
+         </font></Label>
       <Label layoutX="150.0" layoutY="125.0" text="Customer">
          <font>
             <Font size="48.0" />

@@ -1,25 +1,15 @@
- #Home {
-	-fx-background-image:url("background_Wine.png");    
-	-fx-background-size: 100% 100%;
-}
+
 .button {
-	-fx-font-family: "Joystix"; 
-	-fx-font-size: 15px;
-	-fx-font-weight: bold;
-	-fx-background-color: #d50000 ;
-	-fx-background-radius: 22;
-	-fx-font-size: 16;
-	-fx-text-fill: white;
+	-fx-border-color:grey;
+	-fx-border-width:0 0 0 0;
+	-fx-background-color: transparent
 }
+
+
 .button:hover{
-	-fx-font-weight: bold;
-	-fx-background-color:white;
-	-fx-background-radius: 22;
-	-fx-font-size: 16;
-	-fx-text-fill: #d50000 ;
-	-fx-border-color: #d50000 ;
-	-fx-border-radius: 20;
-	-fx-border-width: 3;
+	-fx-border-color:grey;
+	-fx-border-width:0 0 1 0;
+	-fx-background-color: transparent
 }
 .button:pressed{
 	-fx-font-weight: bold;
@@ -90,5 +80,24 @@
 #create3{
 	-fx-border :none;
 	-fx-border-bottom: 2px solid black;
+}
+#create1{
+	-fx-background-image:url("logo.png");
+	-fx-background-size: 100% 100%;
+	
+}
+#create{
+	-fx-font-family: "Joystix"; 
+	-fx-font-size: 15px;
+	-fx-font-weight: bold;
+	-fx-background-color: #d50000 ;
+	-fx-background-radius: 22;
+	-fx-font-size: 16;
+	-fx-text-fill: white;
+}
+.text-field{
+	-fx-border-color:grey;
+	-fx-border-width:0 0 1 0;
+	-fx-background-color: transparent
 }
  

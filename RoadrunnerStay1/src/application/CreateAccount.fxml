@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.net.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
@@ -8,35 +9,59 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="752.0" prefWidth="921.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreateAccountController">
+<AnchorPane prefHeight="752.0" prefWidth="921.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreateAccountController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="442.0" layoutX="239.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" width="444.0" />
-      <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css">
-         <children>
-            <Label fx:id="title" alignment="CENTER" layoutX="104.0" layoutY="14.0" text="Create Account" textAlignment="CENTER" />
-         </children>
-      </Pane>
-      <Button fx:id="create" layoutX="291.0" layoutY="578.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="124.0" prefWidth="340.0" text="Create Account">
+      <ImageView fitHeight="611.0" fitWidth="1055.0" layoutX="-135.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@city.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="592.0" layoutX="-11.0" layoutY="100.0" opacity="0.84" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="415.0" />
+      <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
+      <Button fx:id="create" layoutX="67.0" layoutY="618.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="32.0" prefWidth="268.0" text="Create Account">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <TextField fx:id="userNameInput" layoutX="386.0" layoutY="150.0" />
-      <TextField fx:id="nameInput" layoutX="386.0" layoutY="298.0" />
-      <TextField fx:id="emailInput" layoutX="386.0" layoutY="364.0" />
-      <TextField fx:id="positionInput" layoutX="508.0" layoutY="439.0" />
-      <Button fx:id="create1" layoutX="721.0" layoutY="90.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="87.0" prefWidth="149.0" text="Home">
+      <TextField fx:id="userNameInput" layoutX="21.0" layoutY="249.0" prefHeight="27.0" prefWidth="349.0" />
+      <TextField fx:id="nameInput" layoutX="33.0" layoutY="408.0" />
+      <TextField fx:id="emailInput" layoutX="28.0" layoutY="494.0" />
+      <TextField fx:id="positionInput" layoutX="220.0" layoutY="570.0" />
+      <Button fx:id="create1" layoutX="27.0" layoutY="18.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="48.0" prefWidth="149.0">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Text layoutX="434.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
-      <Text layoutX="434.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
-      <Text layoutX="445.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-      <Text layoutX="447.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-      <PasswordField fx:id="passwordInput" layoutX="384.0" layoutY="234.0" />
-      <Label fx:id="supportedHotelsLabel" layoutX="316.0" layoutY="422.0" text="Supported Hotels" />
-      <Label fx:id="positionLabel" layoutX="561.0" layoutY="422.0" text="Position" />
-      <ComboBox fx:id="hotelNameComboBox" layoutX="291.0" layoutY="439.0" prefWidth="150.0" promptText="Company Name" />
+      <Text layoutX="26.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
+      <Text layoutX="20.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
+      <Text layoutX="29.0" layoutY="396.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
+      <Text layoutX="22.0" layoutY="488.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
+      <PasswordField fx:id="passwordInput" layoutX="27.0" layoutY="324.0" />
+      <Label fx:id="supportedHotelsLabel" layoutX="22.0" layoutY="543.0" text="Supported Hotels">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Label fx:id="positionLabel" layoutX="277.0" layoutY="543.0" text="Position">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <ComboBox fx:id="hotelNameComboBox" layoutX="26.0" layoutY="578.0" prefWidth="150.0" promptText="Company Name" />
+      <Label alignment="CENTER" layoutX="19.0" layoutY="125.0" prefHeight="74.0" prefWidth="254.0" text="Create an account" textAlignment="CENTER">
+         <font>
+            <Font name="Avenir Light" size="30.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

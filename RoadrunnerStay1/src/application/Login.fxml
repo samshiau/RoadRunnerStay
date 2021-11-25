@@ -8,22 +8,22 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="752.0" prefWidth="921.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
+<AnchorPane prefHeight="752.0" prefWidth="921.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <children>
       <ImageView fitHeight="611.0" fitWidth="1055.0" layoutX="-135.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="shutterstock_594619745.jpg" />
+            <Image url="@../shutterstock_594619745.jpg" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="592.0" layoutX="-11.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="415.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="592.0" layoutX="-11.0" layoutY="100.0" opacity="0.79" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="415.0" />
       <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
-      <Button fx:id="create" layoutX="51.0" layoutY="549.0" mnemonicParsing="false" onAction="#Login" prefHeight="32.0" prefWidth="261.0" text="Login">
+      <Button fx:id="create" layoutX="125.0" layoutY="541.0" mnemonicParsing="false" onAction="#Login" prefHeight="39.0" prefWidth="126.0" text="Login">
          <font>
-            <Font size="36.0" />
+            <Font name="Avenir Light" size="25.0" />
          </font>
       </Button>
       <TextField fx:id="userNameInput" layoutX="14.0" layoutY="301.0" prefHeight="27.0" prefWidth="349.0" />
-      <Button fx:id="create1" layoutX="27.0" layoutY="18.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="48.0" prefWidth="149.0" text="Home">
+      <Button fx:id="create1" layoutX="27.0" layoutY="18.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="48.0" prefWidth="149.0">
          <font>
             <Font size="36.0" />
          </font>
@@ -32,12 +32,12 @@
          <font>
             <Font name="Avenir Light" size="20.0" />
          </font></Text>
-      <Text layoutX="23.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+      <Text layoutX="19.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
          <font>
             <Font name="Avenir Light" size="20.0" />
          </font></Text>
       <PasswordField fx:id="passwordInput" layoutX="19.0" layoutY="402.0" prefHeight="27.0" prefWidth="349.0" />
-      <Label alignment="CENTER" layoutX="87.0" layoutY="150.0" text="Login" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="19.0" layoutY="125.0" text="Login" textAlignment="CENTER">
          <font>
             <Font name="Avenir Light" size="50.0" />
          </font></Label>
@@ -46,9 +46,9 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="create3" layoutX="93.0" layoutY="606.0" mnemonicParsing="false" onAction="#changeScreenAccountType" prefHeight="20.0" prefWidth="190.0" text="Create an account">
+      <Button fx:id="create3" layoutX="107.0" layoutY="595.0" mnemonicParsing="false" onAction="#changeScreenAccountType" prefHeight="39.0" prefWidth="172.0" text="Create an account">
          <font>
-            <Font size="36.0" />
+            <Font name="Avenir Light" size="18.0" />
          </font>
       </Button>
       <Label layoutX="545.0" layoutY="199.0" text="YOUR" textFill="WHITE">

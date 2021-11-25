@@ -9,59 +9,80 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="800.0" minWidth="600.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+<AnchorPane minHeight="800.0" minWidth="600.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d9ff2169" height="113.0" layoutX="6.0" layoutY="91.0" stroke="BLACK" strokeType="INSIDE" width="484.0" />
+      <ImageView fitHeight="265.0" fitWidth="1023.0" layoutX="1.0" layoutY="78.0" pickOnBounds="true">
+         <image>
+            <Image url="@plane2.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff69" height="115.0" layoutX="144.0" layoutY="114.0" opacity="0.75" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="717.0" />
       <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
-      <Button fx:id="searchButton" layoutX="498.0" layoutY="95.0" mnemonicParsing="false" onAction="#changeScreenResult" prefHeight="113.0" prefWidth="150.0" text="Search">
+      <Button fx:id="searchButton" layoutX="442.0" layoutY="262.0" mnemonicParsing="false" onAction="#changeScreenResult" prefHeight="0.0" prefWidth="150.0" text="Search">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <Button fx:id="loginButton" layoutX="813.0" layoutY="87.0" mnemonicParsing="false" onAction="#changeScreenLogin" prefHeight="55.0" prefWidth="175.0" text="Login">
+      <Button fx:id="loginButton" layoutX="921.0" layoutY="23.0" mnemonicParsing="false" onAction="#changeScreenLogin" prefHeight="32.0" prefWidth="71.0" text="Login">
          <font>
-            <Font size="36.0" />
+            <Font name="Avenir Light" size="17.0" />
          </font>
       </Button>
-      <Label fx:id="title" alignment="CENTER" layoutX="14.0" layoutY="22.0" text="RoadRunner Stay" textAlignment="CENTER" textFill="WHITE" />
-      <ImageView fx:id="imageView" fitHeight="408.0" fitWidth="327.0" layoutY="341.0" pickOnBounds="true">
+      <ImageView fx:id="imageView" fitHeight="408.0" fitWidth="327.0" layoutY="365.0" pickOnBounds="true">
          <image>
             <Image url="@../../images/NY.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="imageView2" fitHeight="408.0" fitWidth="326.0" layoutX="350.0" layoutY="341.0" pickOnBounds="true">
+      <ImageView fx:id="imageView2" fitHeight="408.0" fitWidth="326.0" layoutX="350.0" layoutY="365.0" pickOnBounds="true">
          <image>
             <Image url="@../../images/SA_river.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="imageView3" fitHeight="408.0" fitWidth="326.0" layoutX="700.0" layoutY="341.0" pickOnBounds="true">
+      <ImageView fx:id="imageView3" fitHeight="408.0" fitWidth="326.0" layoutX="700.0" layoutY="365.0" pickOnBounds="true">
          <image>
             <Image url="@../../images/sydney.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="hotelNameInput" layoutX="14.0" layoutY="119.0" prefHeight="38.0" prefWidth="275.0" promptText="Hotel Name (optional)" />
-      <Button fx:id="createAccountButton" layoutX="813.0" layoutY="22.0" mnemonicParsing="false" onAction="#changeScreenAccountType" prefHeight="55.0" prefWidth="175.0" text="Create Account">
+      <TextField fx:id="hotelNameInput" layoutX="180.0" layoutY="123.0" prefHeight="38.0" prefWidth="452.0" promptText="Hotel Name (optional)" />
+      <Button fx:id="createAccountButton" layoutX="777.0" layoutY="23.0" mnemonicParsing="false" onAction="#changeScreenAccountType" prefHeight="27.0" prefWidth="146.0" text="Create Account">
          <font>
-            <Font size="36.0" />
+            <Font name="Avenir Light" size="17.0" />
          </font>
       </Button>
-      <Button fx:id="profileButton" layoutX="813.0" layoutY="87.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="55.0" prefWidth="175.0" text="Profile">
+      <Button fx:id="profileButton" layoutX="830.0" layoutY="12.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="55.0" prefWidth="83.0" text="Profile">
          <font>
-            <Font size="36.0" />
+            <Font name="Avenir Light" size="17.0" />
          </font>
       </Button>
-      <CheckBox fx:id="pool" layoutX="14.0" layoutY="173.0" mnemonicParsing="false" text="Pool" />
-      <CheckBox fx:id="gym" layoutX="71.0" layoutY="173.0" mnemonicParsing="false" text="Gym" />
-      <CheckBox fx:id="spa" layoutX="131.0" layoutY="173.0" mnemonicParsing="false" text="Spa" />
-      <CheckBox fx:id="businessOffice" layoutX="179.0" layoutY="173.0" mnemonicParsing="false" text="Business Office" />
-      <TextField fx:id="fromDateInput" layoutX="297.0" layoutY="115.0" prefHeight="38.0" prefWidth="84.0" promptText="From Date" />
-      <TextField fx:id="toDateInput" layoutX="394.0" layoutY="115.0" prefHeight="38.0" prefWidth="84.0" promptText="To Date" />
-      <TextField fx:id="minPriceInput" layoutX="297.0" layoutY="154.0" prefHeight="38.0" prefWidth="84.0" promptText="Price (min)" />
-      <TextField fx:id="maxPriceInput" layoutX="394.0" layoutY="154.0" prefHeight="38.0" prefWidth="84.0" promptText="Price (max)" />
-      <Button fx:id="logOutButton" layoutX="813.0" layoutY="154.0" mnemonicParsing="false" onAction="#logoutButtton" prefHeight="55.0" prefWidth="175.0" text="Logout">
+      <CheckBox fx:id="pool" layoutX="671.0" layoutY="123.0" mnemonicParsing="false" text="Pool">
          <font>
-            <Font size="36.0" />
+            <Font name="Avenir Light" size="15.0" />
+         </font></CheckBox>
+      <CheckBox fx:id="gym" layoutX="671.0" layoutY="148.0" mnemonicParsing="false" text="Gym">
+         <font>
+            <Font name="Avenir Light" size="15.0" />
+         </font></CheckBox>
+      <CheckBox fx:id="spa" layoutX="671.0" layoutY="173.0" mnemonicParsing="false" text="Spa">
+         <font>
+            <Font name="Avenir Light" size="15.0" />
+         </font></CheckBox>
+      <CheckBox fx:id="businessOffice" layoutX="671.0" layoutY="198.0" mnemonicParsing="false" text="Business Office">
+         <font>
+            <Font name="Avenir Light" size="15.0" />
+         </font></CheckBox>
+      <TextField fx:id="fromDateInput" layoutX="180.0" layoutY="173.0" prefHeight="38.0" prefWidth="102.0" promptText="From Date" />
+      <TextField fx:id="toDateInput" layoutX="298.0" layoutY="173.0" prefHeight="38.0" prefWidth="102.0" promptText="To Date" />
+      <TextField fx:id="minPriceInput" layoutX="416.0" layoutY="173.0" prefHeight="38.0" prefWidth="102.0" promptText="Price (min)" />
+      <TextField fx:id="maxPriceInput" layoutX="534.0" layoutY="173.0" prefHeight="38.0" prefWidth="102.0" promptText="Price (max)" />
+      <Button fx:id="logOutButton" layoutX="921.0" layoutY="10.0" mnemonicParsing="false" onAction="#logoutButtton" prefHeight="55.0" prefWidth="83.0" text="Logout">
+         <font>
+            <Font name="Avenir Light" size="17.0" />
          </font>
       </Button>
+      <ImageView fitHeight="78.0" fitWidth="175.0" layoutX="14.0" pickOnBounds="true">
+         <image>
+            <Image url="@logo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
