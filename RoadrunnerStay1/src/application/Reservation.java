@@ -1,6 +1,5 @@
 package application;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import java.text.SimpleDateFormat;
@@ -93,7 +92,9 @@ public class Reservation {
 		long numDays = getDateDifference();
 		double cost = 0.0;
 		
-		for (LocalDate date = startLocal; date.isEqual(endLocal); date = date.plusDays(1)) {
+		for (LocalDate date = startLocal; !date.isEqual(endLocal); date = date.plusDays(1)) {
+			System.out.println("Added cost per night.");
+			cost += costOfRoom;
 			if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
 				cost += costOfRoom * weekendDiff;
 			}

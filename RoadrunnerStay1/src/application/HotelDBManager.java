@@ -428,6 +428,8 @@ public class HotelDBManager {
 		StringBuilder query = new StringBuilder("SELECT ");
 		int rmPriceCol = 8;
 		double totalCost = 0.0;
+		double costPerRoom = 0;
+		float weekendDiff = (float) 0.0;
 		
 		// Checks for date syntax (valid syntax: MM/DD/YYYY) before proceeding with the booking.
 		if (!startDateCorrect.find() || !endDateCorrect.find()) {
@@ -489,16 +491,18 @@ public class HotelDBManager {
 			
 			while (resultSet.next()) {
 				System.out.println("Column index = " + rmPriceCol);
-				double costPerRoom = resultSet.getDouble(1);
+				costPerRoom = resultSet.getDouble(1);
 				int numRoomsAvailable = resultSet.getInt(2);
-				float weekendDiff = resultSet.getFloat("wkndDiff");
+				weekendDiff = resultSet.getFloat("wkndDiff");
 				
 				// Ensures there are enough rooms of the selected type available.
 				if (numRoomsAvailable - numRooms < 0) {
 					return ReturnCodes.RC_NO_MORE_ROOMS;
 				}
-				totalCost = numDays * costPerRoom * numRooms * (1 + weekendDiff * costPerRoom);
+				// totalCost = numDays * costPerRoom * numRooms * (1 + weekendDiff * costPerRoom);
 			}
+			
+			totalCost = tempReservation.calculateCost(costPerRoom, weekendDiff);
 			
 			// Updates the hotel rooms based on the user's selection.
 			switch (roomType) {
@@ -640,7 +644,8 @@ public class HotelDBManager {
 			
 			// Calculates the new total cost after the edit.
 			Reservation tempReservation = new Reservation("temp", 0, startDate, endDate, 0, "temp", 0);
-			totalCost = newNumRooms * roomCost * (1 + roomCost * weekendDiff) * tempReservation.getDateDifference();
+			// totalCost = newNumRooms * roomCost * (1 + roomCost * weekendDiff) * tempReservation.getDateDifference();
+			totalCost = tempReservation.calculateCost(roomCost, weekendDiff);
 			
 			// Sets the values for each parameter in the prepared statement.
 			preparedStatement.setDouble(1, totalCost);
