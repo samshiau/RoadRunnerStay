@@ -453,10 +453,6 @@ public class HotelDBManager {
 			preparedStatement.setString(6, roomType);
 			preparedStatement.setInt(7, numRooms);
 			
-			// Calculates the total cost of the room.
-			Reservation tempReservation = new Reservation("temp", 0, startDate, endDate, 0, "temp", 0);
-			int numDays = (int) tempReservation.getDateDifference();
-			
 			// Appends the room type attribute based on the user's room type selection.
 			switch (roomType) {
 				case "standard":
@@ -502,6 +498,8 @@ public class HotelDBManager {
 				// totalCost = numDays * costPerRoom * numRooms * (1 + weekendDiff * costPerRoom);
 			}
 			
+			// Calculates the total cost of the room.
+			Reservation tempReservation = new Reservation("temp", 0, startDate, endDate, 0, "temp", 0);
 			totalCost = tempReservation.calculateCost(costPerRoom, weekendDiff);
 			
 			// Updates the hotel rooms based on the user's selection.
@@ -596,6 +594,7 @@ public class HotelDBManager {
 		Matcher startDateCorrect = dateSyntax.matcher(startDate), endDateCorrect = dateSyntax.matcher(endDate);
 		Date startSqlDate, endSqlDate;
 		String getHotelQuery = "SELECT h.hotelId, ";
+		String updateHotelQuery = "UPDATE Hotel SET ";
 		double totalCost;
 		float roomCost = (float) 0.0;
 		float weekendDiff = (float) 0.0;
@@ -637,14 +636,13 @@ public class HotelDBManager {
 			resultSet = statement.executeQuery(getHotelQuery);
 			while (resultSet.next()) {
 				hotelId = resultSet.getInt("hotelId");
-				roomCost = resultSet.getFloat(2);
-				numRoomsAvailable = resultSet.getInt(3);
+				roomCost = resultSet.getFloat(2);				// Cost of selected room type.
+				numRoomsAvailable = resultSet.getInt(3);		// Number of rooms available for the type.
 				weekendDiff = resultSet.getFloat("wkndDiff");
 			}
 			
 			// Calculates the new total cost after the edit.
 			Reservation tempReservation = new Reservation("temp", 0, startDate, endDate, 0, "temp", 0);
-			// totalCost = newNumRooms * roomCost * (1 + roomCost * weekendDiff) * tempReservation.getDateDifference();
 			totalCost = tempReservation.calculateCost(roomCost, weekendDiff);
 			
 			// Sets the values for each parameter in the prepared statement.
@@ -661,9 +659,34 @@ public class HotelDBManager {
 				preparedStatement.close();
 				return ReturnCodes.RC_NO_MORE_ROOMS;
 			}
+			// Ensures the integrity of the number of rooms available for the type.
+			else if (numRoomsAvailable - newNumRooms != getTotalRoomsByType(hotelId, roomType)) {
+				preparedStatement.close();
+				return ReturnCodes.RC_NUMROOM_MISMATCH;
+			}
+			
 			// Execute the statement.
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
+			
+			// Updates the hotel table for number of rooms available.
+			switch (roomType) {
+				case "standard":
+					// Update the number of standard rooms for the hotel.
+					updateHotelQuery += "numRoomsStandard = " + (numRoomsAvailable - newNumRooms);
+					break;
+				case "queen":
+					// Update the number of queen rooms for the hotel.
+					updateHotelQuery += "numRoomsQueen = " + (numRoomsAvailable - newNumRooms);
+					break;
+				default:
+					// Update the number of king rooms for the hotel.
+					updateHotelQuery += "numRoomsKing = " + (numRoomsAvailable - newNumRooms);
+					break;
+			}
+			updateHotelQuery += " WHERE hotelId = " + hotelId + ";";
+			System.out.println(updateHotelQuery);
+			//statement.executeUpdate(updateHotelQuery);
 			
 			// FIXME: Delete this line once debugged.
 			System.out.println("Reservation changes saved.");
@@ -865,6 +888,59 @@ public class HotelDBManager {
 			e.printStackTrace();
 			return ReturnCodes.RC_MISC_ERR;
 		}
+	}
+	
+	/**
+	 * Gets the total number of rooms by a type for the hotel.
+	 * 
+	 * @param hotelId	The hotel to search.
+	 * @param roomType	The room type to search.
+	 * @return			The total number of rooms for the given type of the hotel.
+	 */
+	public int getTotalRoomsByType(int hotelId, String roomType) {
+		String getReservationsQuery = "SELECT r.numRooms FROM Reservation r WHERE r.roomType = \"" + roomType + "\" AND r.hotelId = " + hotelId + ";";
+		String getHotelsQuery = "SELECT ";
+		int count = 0;
+		
+		System.out.println(getReservationsQuery);
+		
+		// Selects the room type for the hotel based on the passed room type.
+		switch(roomType) {
+			case "standard":
+				// Select standard.
+				getHotelsQuery += "h.numRoomsStandard ";
+				break;
+			case "queen":
+				// Select queen.
+				getHotelsQuery += "h.numRoomsQueen ";
+				break;
+			default:
+				// Select king.
+				getHotelsQuery += "h.numRoomsKing ";
+				break;
+		}
+		getHotelsQuery += " FROM Hotel h WHERE h.hotelId = " + hotelId + ";";
+		
+		try {
+			// Adds the reservations found to the count.
+			resultSet = statement.executeQuery(getReservationsQuery);
+			while (resultSet.next()) {
+				count += resultSet.getInt("numRooms");
+			}
+			
+			// Adds the number of rooms of the selected room type.
+			resultSet = statement.executeQuery(getHotelsQuery);
+			while (resultSet.next()) {
+				count += resultSet.getInt(1);
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+		
+		System.out.println("Number of rooms received: " + count);
+		return count;
 	}
 	
 	/**

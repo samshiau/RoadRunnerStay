@@ -16,6 +16,7 @@ public class ReturnCodes {
 	public static final int RC_EMAIL_SYN_WRONG = 4;
 	public static final int RC_DATE_SYN_WRONG = 5;
 	public static final int RC_NO_MORE_ROOMS = 6;
+	public static final int RC_NUMROOM_MISMATCH = 7;
 	public static final int RC_MISC_ERR = 99;
 	
 	/**
@@ -42,6 +43,8 @@ public class ReturnCodes {
 				return "The date format is incorrect.";
 			case RC_NO_MORE_ROOMS:
 				return "There are not enough rooms of this type for this reservation.";
+			case RC_NUMROOM_MISMATCH:
+				return "The current number of rooms does not match the total amount of the hotel.";
 			default:
 				return "Unknown return code: " + rc + ".";
 		}
