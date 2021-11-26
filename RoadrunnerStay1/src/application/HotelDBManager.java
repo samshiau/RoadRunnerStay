@@ -480,7 +480,7 @@ public class HotelDBManager {
 			}
 			
 			// Obtains the data of the hotel to book from the database.
-			query.append("h.wkndDiff FROM Hotel h WHERE h.hotelId = \"" + hotelId + "\";");
+			query.append("h.wkndDiff FROM Hotel h WHERE h.hotelId = " + hotelId + ";");
 			
 			System.out.println(query.toString());
 			resultSet = statement.executeQuery(query.toString());
@@ -495,7 +495,6 @@ public class HotelDBManager {
 				if (numRoomsAvailable - numRooms < 0) {
 					return ReturnCodes.RC_NO_MORE_ROOMS;
 				}
-				// totalCost = numDays * costPerRoom * numRooms * (1 + weekendDiff * costPerRoom);
 			}
 			
 			// Calculates the total cost of the room.
@@ -654,14 +653,18 @@ public class HotelDBManager {
 			preparedStatement.setInt(6, hotelId);
 			preparedStatement.setString(7, userId);
 			
+			int totalRooms = getTotalRoomsByType(hotelId, roomType);
+			System.out.println(numRoomsAvailable - newNumRooms + " = " + totalRooms);
+			
 			// Ensures the new number of rooms does not exceed the amount available for the hotel.
 			if (numRoomsAvailable - newNumRooms < 0) {
 				preparedStatement.close();
 				return ReturnCodes.RC_NO_MORE_ROOMS;
 			}
 			// Ensures the integrity of the number of rooms available for the type.
-			else if (numRoomsAvailable - newNumRooms != getTotalRoomsByType(hotelId, roomType)) {
+			else if (numRoomsAvailable + newNumRooms != totalRooms) {
 				preparedStatement.close();
+				System.out.println("ERROR: Number of rooms mismatch.");
 				return ReturnCodes.RC_NUMROOM_MISMATCH;
 			}
 			

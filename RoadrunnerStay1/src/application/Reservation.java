@@ -69,6 +69,11 @@ public class Reservation {
 				Integer.parseInt(endDateArr[1]), Integer.parseInt(endDateArr[2]));
 		double cost = 0.0;
 		
+		if (endLocal.isBefore(startLocal)) {
+			System.out.println("ERROR: End date is before start date.");
+			return 0.0;
+		}
+		
 		// Iterate through each day and add the cost per night and determine if any days in this reservation
 		// are a weekend to add the weekend differential to the cost.
 		for (LocalDate date = startLocal; !date.isEqual(endLocal); date = date.plusDays(1)) {
