@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.net.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
@@ -8,58 +9,102 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="752.0" prefWidth="921.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EditUserProfileController">
+<AnchorPane prefHeight="752.0" prefWidth="921.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EditUserProfileController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="442.0" layoutX="179.0" layoutY="120.0" stroke="BLACK" strokeType="INSIDE" width="240.0" />
-      <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css">
-         <children>
-            <Label fx:id="title" alignment="CENTER" layoutX="104.0" layoutY="14.0" text="Edit Profile" textAlignment="CENTER" />
-         </children>
-      </Pane>
-      <Button fx:id="create" layoutX="291.0" layoutY="578.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="124.0" prefWidth="340.0" text="Save Changes">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="561.0" layoutX="33.0" layoutY="160.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="848.0" />
+      <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
+      <Button fx:id="create" layoutX="537.0" layoutY="99.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="41.0" prefWidth="340.0" text="Save Changes">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Button fx:id="create1" layoutX="755.0" layoutY="47.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="73.0" prefWidth="120.0" text="Profile">
+      <Button fx:id="create11" layoutX="39.0" layoutY="85.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="57.0" prefWidth="110.0" text="Profile">
          <font>
-            <Font size="36.0" />
+            <Font name="Avenir Light" size="26.0" />
          </font>
       </Button>
-      <Label fx:id="nameLabel" layoutX="275.0" layoutY="273.0" text="Name" />
-      <Label fx:id="emailLabel" layoutX="277.0" layoutY="330.0" text="Email" />
-      <Label fx:id="companyNameLabel" layoutX="256.0" layoutY="387.0" text="Company Name" />
-      <Label fx:id="empPositionLabel" layoutX="270.0" layoutY="458.0" text="Position" />
-      <Pane layoutX="499.0" layoutY="117.0" prefHeight="442.0" prefWidth="241.0">
-         <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="442.0" stroke="BLACK" strokeType="INSIDE" width="241.0" />
-            <PasswordField fx:id="passwordInput" layoutX="38.0" layoutY="87.0" />
-            <TextField fx:id="nameInput" layoutX="38.0" layoutY="155.0" />
-            <Text layoutX="87.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
-            <Text layoutX="96.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-            <Label text="Enter New Information">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <TextField fx:id="emailInput" layoutX="38.0" layoutY="209.0" />
-            <Text layoutX="97.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-            <TextField fx:id="positionInput" layoutX="46.0" layoutY="345.0" />
-            <Label fx:id="empPositionLabel2" layoutX="90.0" layoutY="328.0" text="Position" />
-            <Label fx:id="supportedHotelsLabel" layoutX="65.0" layoutY="245.0" text="Supported Hotels" />
-            <ComboBox fx:id="hotelNameComboBox" layoutX="37.0" layoutY="262.0" prefWidth="150.0" promptText="Company Name" />
-         </children>
-      </Pane>
-      <Label alignment="CENTER" layoutX="179.0" layoutY="120.0" prefHeight="35.0" prefWidth="238.0" text="Current Information" textAlignment="CENTER">
+      <Label fx:id="nameLabel" layoutX="170.0" layoutY="360.0" prefHeight="30.0" prefWidth="192.0" text="Name">
          <font>
-            <Font size="24.0" />
+            <Font name="Avenir Light" size="20.0" />
+         </font></Label>
+      <Label fx:id="emailLabel" layoutX="163.0" layoutY="448.0" prefHeight="30.0" prefWidth="211.0" text="Email">
+         <font>
+            <Font name="Avenir Light" size="20.0" />
+         </font></Label>
+      <Label fx:id="companyNameLabel" layoutX="205.0" layoutY="539.0" prefHeight="30.0" prefWidth="180.0" text="Company Name">
+         <font>
+            <Font name="Avenir Light" size="20.0" />
+         </font></Label>
+      <Label fx:id="empPositionLabel" layoutX="190.0" layoutY="629.0" prefHeight="30.0" prefWidth="89.0" text="Position">
+         <font>
+            <Font name="Avenir Light" size="20.0" />
+         </font></Label>
+      <Label alignment="CENTER" layoutX="75.0" layoutY="181.0" prefHeight="43.0" prefWidth="232.0" text="Current Information" textAlignment="CENTER">
+         <font>
+            <Font name="Avenir Light" size="26.0" />
          </font>
       </Label>
-      <Label fx:id="passwordLabel" layoutX="266.0" layoutY="210.0" text="Password" />
-      <Button fx:id="create11" layoutX="755.0" layoutY="138.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="73.0" prefWidth="120.0" text="Home">
+      <Label fx:id="passwordLabel" layoutX="204.0" layoutY="269.0" prefHeight="30.0" prefWidth="161.0" text="Password">
+         <font>
+            <Font name="Avenir Light" size="20.0" />
+         </font></Label>
+      <Button fx:id="create1" layoutX="27.0" layoutY="18.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="48.0" prefWidth="149.0">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
+      <TextField fx:id="nameInput" layoutX="609.0" layoutY="363.0" />
+      <TextField fx:id="emailInput" layoutX="613.0" layoutY="449.0" />
+      <Label fx:id="supportedHotelsLabel" layoutX="421.0" layoutY="536.0" text="Supported Hotels">
+         <font>
+            <Font name="Avenir Light" size="24.0" />
+         </font></Label>
+      <ComboBox fx:id="hotelNameComboBox" layoutX="630.0" layoutY="536.0" prefHeight="29.0" prefWidth="172.0" promptText="Company Name" />
+      <Label fx:id="empPositionLabel2" layoutX="421.0" layoutY="626.0" text="Enter new position:">
+         <font>
+            <Font name="Avenir Light" size="24.0" />
+         </font></Label>
+      <TextField fx:id="positionInput" layoutX="631.0" layoutY="631.0" />
+      <PasswordField fx:id="passwordInput" layoutX="656.0" layoutY="270.0" />
+      <Label layoutX="75.0" layoutY="266.0" text="Password:">
+         <font>
+            <Font name="Avenir Light" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="75.0" layoutY="356.0" text="Name:">
+         <font>
+            <Font name="Avenir Light" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="77.0" layoutY="446.0" text="Email:">
+         <font>
+            <Font name="Avenir Light" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="75.0" layoutY="536.0" text="Company:">
+         <font>
+            <Font name="Avenir Light" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="75.0" layoutY="626.0" text="Position:">
+         <font>
+            <Font name="Avenir Light" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="421.0" layoutY="266.0" text="Enter new password:">
+         <font>
+            <Font name="Avenir Light" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="421.0" layoutY="356.0" text="Enter new name:">
+         <font>
+            <Font name="Avenir Light" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="421.0" layoutY="446.0" text="Enter new email:">
+         <font>
+            <Font name="Avenir Light" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
