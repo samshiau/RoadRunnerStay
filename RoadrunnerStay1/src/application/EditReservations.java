@@ -100,6 +100,8 @@ public class EditReservations implements Initializable{
 		searcher.closeManager();
 	}
 	
+	
+	
 	// get user input
 	private void getUserInput() {
 		// check which and if checkboxes are selected

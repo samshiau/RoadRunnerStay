@@ -10,9 +10,9 @@
 
 <AnchorPane prefHeight="752.0" prefWidth="921.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EditReservations">
    <children>
-      <Pane layoutX="198.0" layoutY="14.0" stylesheets="@application.css">
+      <Pane layoutX="182.0" layoutY="14.0" stylesheets="@application.css">
          <children>
-            <Label fx:id="title" alignment="CENTER" layoutX="104.0" text="Edit Reservations" textAlignment="CENTER" />
+            <Label fx:id="title" alignment="CENTER" layoutX="104.0" text="Edit Hotel Property" textAlignment="CENTER" />
          </children>
       </Pane>
       <Button fx:id="create1" layoutX="765.0" layoutY="76.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="66.0" prefWidth="125.0" text="Home">
