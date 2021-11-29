@@ -13,59 +13,68 @@
    <children>
       <ImageView fx:id="bookedCelebrationView" fitHeight="746.0" fitWidth="413.0" layoutX="39.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="bookedCelebrationView2" fitHeight="746.0" fitWidth="413.0" layoutX="453.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fffb1f3b" height="477.0" layoutX="409.0" layoutY="185.0" stroke="BLACK" strokeType="INSIDE" width="413.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff0f" height="562.0" layoutX="48.0" layoutY="145.0" stroke="BLACK" strokeType="INSIDE" width="830.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff3b" height="477.0" layoutX="409.0" layoutY="185.0" stroke="BLACK" strokeType="INSIDE" width="413.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff0f" height="605.0" layoutX="48.0" layoutY="102.0" stroke="BLACK" strokeType="INSIDE" width="830.0" />
       <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
       <Button fx:id="create1" layoutX="41.0" layoutY="20.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="63.0" prefWidth="149.0" text="Home">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Text layoutX="272.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Availables Reservations">
+      <Text layoutX="279.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Availables Reservations">
          <font>
             <Font name="Avenir Light" size="36.0" />
          </font></Text>
       <ListView fx:id="resultsList" layoutX="104.0" layoutY="196.0" onMouseClicked="#resultsListSelected" prefHeight="371.0" prefWidth="257.0" />
-      <Button fx:id="bookIt" layoutX="133.0" layoutY="640.0" mnemonicParsing="false" onAction="#bookItButton" prefHeight="36.0" prefWidth="194.0" text="Book It">
+      <Button fx:id="bookIt" layoutX="133.0" layoutY="610.0" mnemonicParsing="false" onAction="#bookItButton" prefHeight="36.0" prefWidth="194.0" text="Book It">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <ImageView fx:id="imageViewResults" fitHeight="258.0" fitWidth="381.0" layoutX="430.0" layoutY="227.0" pickOnBounds="true">
+      <ImageView fx:id="imageViewResults" fitHeight="258.0" fitWidth="381.0" layoutX="426.0" layoutY="206.0" pickOnBounds="true">
          <image>
             <Image url="@../../images/Park%20North%20Hotel.jpg" />
          </image></ImageView>
-      <RadioButton fx:id="standardRadio" layoutX="420.0" layoutY="522.0" mnemonicParsing="false" text="Standard" />
-      <RadioButton fx:id="queenRadio" layoutX="428.0" layoutY="557.0" mnemonicParsing="false" text="Queen" />
-      <RadioButton fx:id="kingRadio" layoutX="429.0" layoutY="584.0" mnemonicParsing="false" text="King" />
-      <Label layoutX="431.0" layoutY="504.0" text="Select Room Type">
+      <RadioButton fx:id="standardRadio" layoutX="423.0" layoutY="530.0" mnemonicParsing="false" text="Standard">
          <font>
-            <Font size="14.0" />
+            <Font name="Avenir Light" size="15.0" />
+         </font></RadioButton>
+      <RadioButton fx:id="queenRadio" layoutX="423.0" layoutY="570.0" mnemonicParsing="false" text="Queen">
+         <font>
+            <Font name="Avenir Light" size="15.0" />
+         </font></RadioButton>
+      <RadioButton fx:id="kingRadio" layoutX="423.0" layoutY="610.0" mnemonicParsing="false" text="King">
+         <font>
+            <Font name="Avenir Light" size="15.0" />
+         </font></RadioButton>
+      <Label layoutX="427.0" layoutY="499.0" text="Select Room Type">
+         <font>
+            <Font name="Avenir Light" size="20.0" />
          </font></Label>
-      <Label layoutX="576.0" layoutY="514.0" prefHeight="4.0" prefWidth="213.0" text="How many rooms would you like">
+      <Label layoutX="634.0" layoutY="499.0" prefHeight="30.0" prefWidth="196.0" text="Number of rooms">
          <font>
-            <Font size="14.0" />
+            <Font name="Avenir Light" size="20.0" />
          </font></Label>
-      <Label layoutX="511.0" layoutY="520.0" text="Price">
+      <Label layoutX="531.0" layoutY="530.0" text="Price">
          <font>
-            <Font size="14.0" />
+            <Font name="Avenir Light" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="510.0" layoutY="555.0" text="Price">
+      <Label layoutX="530.0" layoutY="570.0" text="Price">
          <font>
-            <Font size="14.0" />
+            <Font name="Avenir Light" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="515.0" layoutY="586.0" text="Price">
+      <Label layoutX="531.0" layoutY="610.0" text="Price">
          <font>
-            <Font size="14.0" />
+            <Font name="Avenir Light" size="15.0" />
          </font>
       </Label>
-      <Button layoutX="589.0" layoutY="553.0" mnemonicParsing="false" onAction="#decreaseRoomNumber" text="Down" />
-      <Button layoutX="732.0" layoutY="553.0" mnemonicParsing="false" onAction="#increaseRoomNumber" text="UP" />
-      <Label fx:id="numRoomsLabel" layoutX="685.0" layoutY="547.0" text="1">
+      <Button layoutX="664.0" layoutY="542.0" mnemonicParsing="false" onAction="#decreaseRoomNumber" text="-" />
+      <Button layoutX="749.0" layoutY="544.0" mnemonicParsing="false" onAction="#increaseRoomNumber" text="+" />
+      <Label fx:id="numRoomsLabel" layoutX="713.0" layoutY="535.0" text="1">
          <font>
-            <Font size="36.0" />
+            <Font name="Avenir Light" size="35.0" />
          </font>
       </Label>
    </children>
