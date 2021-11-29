@@ -11,14 +11,14 @@
 
 <AnchorPane prefHeight="752.0" prefWidth="921.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreateAccountController">
    <children>
-      <ImageView fitHeight="611.0" fitWidth="1055.0" layoutX="-135.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="614.0" fitWidth="1001.0" layoutX="-65.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@city.jpg" />
+            <Image url="@greece.jpg" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="592.0" layoutX="-11.0" layoutY="100.0" opacity="0.84" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="415.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="612.0" layoutX="-11.0" layoutY="100.0" opacity="0.84" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="415.0" />
       <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
-      <Button fx:id="create" layoutX="67.0" layoutY="618.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="32.0" prefWidth="268.0" text="Create Account">
+      <Button fx:id="create" layoutX="60.0" layoutY="647.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="32.0" prefWidth="268.0" text="Create Account">
          <font>
             <Font size="36.0" />
          </font>
