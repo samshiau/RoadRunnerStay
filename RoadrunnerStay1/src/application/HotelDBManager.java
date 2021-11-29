@@ -101,8 +101,6 @@ public class HotelDBManager {
 				
 				System.out.println("Added employee");
 			}
-			// FIXME: Delete this line once account creation is successful (i.e., credentials must be on database).
-			System.out.println("Account creation successful!");
 			
 			return ReturnCodes.RC_OK;
 		}
@@ -346,10 +344,8 @@ public class HotelDBManager {
 			if (maxPrice > 0) {
 				// Uses the king room price to check the maximum price since it is the most expensive option.
 				if (minPrice > 0) query.append("AND ");
-				query.append("h.rmPriceKing <= " + maxPrice);
+				query.append("h.rmPriceKing <= " + maxPrice + " OR h.rmPriceKing = null OR h.rmPriceKing = 0");
 			}
-			
-			// TODO: Once dates are worked out, append a string that will search the dates.
 			
 			// Concludes the query string.
 			query.append(";");
@@ -521,8 +517,6 @@ public class HotelDBManager {
 			
 			// Sets the total cost and then adds the reservation to the database.
 			preparedStatement.setDouble(5, totalCost);
-			// FIXME: Delete the below line once debugged.
-			System.out.println(preparedStatement.toString());
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
 			
@@ -599,6 +593,8 @@ public class HotelDBManager {
 		float weekendDiff = (float) 0.0;
 		int hotelId = 0;
 		int numRoomsAvailable = 0;
+		int pNumRooms = 0;
+		int roomDifference = 0;
 		
 		// Checks the input date syntax.
 		if (!startDateCorrect.find() || !endDateCorrect.find()) {
@@ -641,7 +637,7 @@ public class HotelDBManager {
 			}
 			
 			// Calculates the new total cost after the edit.
-			Reservation tempReservation = new Reservation("temp", 0, startDate, endDate, 0, "temp", 0);
+			Reservation tempReservation = new Reservation("temp", 0, startDate, endDate, 0, "temp", newNumRooms);
 			totalCost = tempReservation.calculateCost(roomCost, weekendDiff);
 			
 			// Sets the values for each parameter in the prepared statement.
@@ -654,19 +650,22 @@ public class HotelDBManager {
 			preparedStatement.setString(7, userId);
 			
 			int totalRooms = getTotalRoomsByType(hotelId, roomType);
-			System.out.println(numRoomsAvailable - newNumRooms + " = " + totalRooms);
 			
 			// Ensures the new number of rooms does not exceed the amount available for the hotel.
 			if (numRoomsAvailable - newNumRooms < 0) {
 				preparedStatement.close();
 				return ReturnCodes.RC_NO_MORE_ROOMS;
 			}
-			// Ensures the integrity of the number of rooms available for the type.
-			else if (numRoomsAvailable + newNumRooms != totalRooms) {
-				preparedStatement.close();
-				System.out.println("ERROR: Number of rooms mismatch.");
-				return ReturnCodes.RC_NUMROOM_MISMATCH;
+			
+			// Gets the previous number of rooms of the reservation to edit.
+			resultSet = statement.executeQuery("SELECT numRooms FROM Reservation WHERE hotelId = " + hotelId +
+												" AND userId = \"" + userId + "\";");
+			while (resultSet.next()) {
+				pNumRooms = resultSet.getInt("numRooms");
 			}
+			
+			// An increased number rooms means adding the negative number of rooms to the hotel.
+			roomDifference = pNumRooms - newNumRooms;
 			
 			// Execute the statement.
 			preparedStatement.executeUpdate();
@@ -676,23 +675,20 @@ public class HotelDBManager {
 			switch (roomType) {
 				case "standard":
 					// Update the number of standard rooms for the hotel.
-					updateHotelQuery += "numRoomsStandard = " + (numRoomsAvailable - newNumRooms);
+					updateHotelQuery += "numRoomsStandard = numRoomsStandard + " + roomDifference;
 					break;
 				case "queen":
 					// Update the number of queen rooms for the hotel.
-					updateHotelQuery += "numRoomsQueen = " + (numRoomsAvailable - newNumRooms);
+					updateHotelQuery += "numRoomsQueen = numRoomsQueen + " + roomDifference;
 					break;
 				default:
 					// Update the number of king rooms for the hotel.
-					updateHotelQuery += "numRoomsKing = " + (numRoomsAvailable - newNumRooms);
+					updateHotelQuery += "numRoomsKing = numRoomsKing + " + roomDifference;
 					break;
 			}
 			updateHotelQuery += " WHERE hotelId = " + hotelId + ";";
 			System.out.println(updateHotelQuery);
-			//statement.executeUpdate(updateHotelQuery);
-			
-			// FIXME: Delete this line once debugged.
-			System.out.println("Reservation changes saved.");
+			statement.executeUpdate(updateHotelQuery);
 			
 			return ReturnCodes.RC_OK;
 		}

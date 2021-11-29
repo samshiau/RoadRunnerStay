@@ -83,9 +83,9 @@ public class Reservation {
 				cost += costOfRoom * weekendDiff;
 			}
 		}
-		totalCost = cost;
+		totalCost = cost * numRooms;
 		
-		return cost;
+		return cost * numRooms;
 	}
 	
 	/**

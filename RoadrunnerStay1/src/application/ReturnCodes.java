@@ -17,6 +17,7 @@ public class ReturnCodes {
 	public static final int RC_DATE_SYN_WRONG = 5;
 	public static final int RC_NO_MORE_ROOMS = 6;
 	public static final int RC_NUMROOM_MISMATCH = 7;
+	public static final int RC_TOO_MANY_ROOMS = 8;
 	public static final int RC_MISC_ERR = 99;
 	
 	/**
@@ -45,6 +46,8 @@ public class ReturnCodes {
 				return "There are not enough rooms of this type for this reservation.";
 			case RC_NUMROOM_MISMATCH:
 				return "The current number of rooms does not match the total amount of the hotel.";
+			case RC_TOO_MANY_ROOMS:
+				return "Too many rooms are booked for this hotel.";
 			default:
 				return "Unknown return code: " + rc + ".";
 		}
