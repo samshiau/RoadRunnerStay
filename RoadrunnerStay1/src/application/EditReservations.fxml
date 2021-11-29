@@ -8,24 +8,29 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="752.0" prefWidth="921.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EditReservations">
+<AnchorPane prefHeight="752.0" prefWidth="921.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.EditReservations">
    <children>
-      <Pane layoutX="198.0" layoutY="14.0" stylesheets="@application.css" />
-      <Button fx:id="create1" layoutX="27.0" layoutY="18.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="48.0" prefWidth="149.0">
+      <Pane layoutX="198.0" layoutY="14.0" stylesheets="@application.css">
+         <children>
+            <Label fx:id="title" alignment="CENTER" layoutX="104.0" text="Edit Reservations" textAlignment="CENTER" />
+         </children>
+      </Pane>
+      <Button fx:id="create1" layoutX="765.0" layoutY="76.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="66.0" prefWidth="125.0" text="Home">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Button fx:id="create11" layoutX="37.0" layoutY="86.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="32.0" prefWidth="111.0" text="Profile">
+      <Button fx:id="create11" layoutX="765.0" layoutY="163.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="66.0" prefWidth="125.0" text="Profile">
          <font>
-            <Font name="Avenir Light" size="20.0" />
+            <Font size="36.0" />
          </font>
       </Button>
-      <Pane layoutX="254.0" layoutY="173.0" prefHeight="398.0" prefWidth="423.0">
+      <Pane layoutX="261.0" layoutY="99.0" prefHeight="398.0" prefWidth="423.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff21218f" height="38.0" layoutX="38.0" layoutY="215.0" stroke="BLACK" strokeType="INSIDE" width="368.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f1ff218f" height="38.0" layoutX="38.0" layoutY="171.0" stroke="BLACK" strokeType="INSIDE" width="368.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff8f" height="38.0" layoutX="38.0" layoutY="120.0" stroke="BLACK" strokeType="INSIDE" width="368.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0f" height="398.0" stroke="BLACK" strokeType="INSIDE" width="423.0" />
             <TextField fx:id="pricePerNightStandard" layoutX="308.0" layoutY="127.0" prefHeight="25.0" prefWidth="73.0" />
             <CheckBox fx:id="pool" layoutX="51.0" layoutY="71.0" mnemonicParsing="false" text="Pool" />
             <CheckBox fx:id="gym" layoutX="121.0" layoutY="71.0" mnemonicParsing="false" text="Gym" />
@@ -45,9 +50,9 @@
                   <Font size="36.0" />
                </font>
             </Button>
-            <Label fx:id="nameOfHotel" layoutX="116.0" layoutY="14.0" text="Name of Hotel">
+            <Label fx:id="nameOfHotel" layoutX="155.0" text="Name of Hotel">
                <font>
-                  <Font name="Avenir Light" size="30.0" />
+                  <Font size="36.0" />
                </font>
             </Label>
             <TextField fx:id="numRoomsQueen" layoutX="167.0" layoutY="177.0" prefHeight="25.0" prefWidth="73.0" />
@@ -75,17 +80,11 @@
             <RadioButton fx:id="radio35" layoutX="323.0" layoutY="301.0" mnemonicParsing="false" text="35" />
          </children>
       </Pane>
-      <Pane layoutX="165.0" layoutY="577.0" prefHeight="141.0" prefWidth="610.0">
+      <Pane layoutX="261.0" layoutY="496.0" prefHeight="125.0" prefWidth="423.0">
          <children>
-            <ListView fx:id="resultList" layoutY="-1.0" prefHeight="144.0" prefWidth="610.0" />
+            <ListView fx:id="resultList" prefHeight="125.0" prefWidth="423.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="125.0" stroke="BLACK" strokeType="INSIDE" width="423.0" />
          </children>
       </Pane>
-      <Label alignment="CENTER" layoutX="53.0" layoutY="130.0" text="Edit Reservations" textAlignment="CENTER">
-         <font>
-            <Font name="Avenir Light" size="25.0" />
-         </font>
-      </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff0f" height="559.0" layoutX="36.0" layoutY="167.0" stroke="BLACK" strokeType="INSIDE" width="857.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="148.0" layoutX="165.0" layoutY="576.0" stroke="BLACK" strokeType="INSIDE" width="608.0" />
    </children>
 </AnchorPane>
