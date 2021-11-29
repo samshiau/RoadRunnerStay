@@ -85,6 +85,8 @@ public class Reservation {
 		}
 		totalCost = cost * numRooms;
 		
+		System.out.println("Number of rooms = " + numRooms);
+		
 		return cost * numRooms;
 	}
 	

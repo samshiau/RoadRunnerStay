@@ -494,7 +494,7 @@ public class HotelDBManager {
 			}
 			
 			// Calculates the total cost of the room.
-			Reservation tempReservation = new Reservation("temp", 0, startDate, endDate, 0, "temp", 0);
+			Reservation tempReservation = new Reservation("temp", 0, startDate, endDate, 0, "temp", numRooms);
 			totalCost = tempReservation.calculateCost(costPerRoom, weekendDiff);
 			
 			// Updates the hotel rooms based on the user's selection.
