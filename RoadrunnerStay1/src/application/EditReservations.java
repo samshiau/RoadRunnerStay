@@ -141,6 +141,7 @@ public class EditReservations implements Initializable{
 			noInput.setTitle("Enter all information");
 			noInput.setHeaderText("Please enter all the required information");			
 			noInput.showAndWait();
+			System.out.println(	(float) (Float.parseFloat(percent) * 0.01));
 		} else {
 		
 			// gets the user-checked amenities
@@ -171,8 +172,9 @@ public class EditReservations implements Initializable{
 							     amenityChecks,
 							     numRoomsPerType,
 							     roomPricePerType,
-							     Float.parseFloat(percent));
+							     (float) (Float.parseFloat(percent) * 0.01));
 			connection.closeManager();
+
 		
 			// clear textfields
 		
