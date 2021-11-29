@@ -218,7 +218,7 @@ public class HotelDBManager {
 	 * 							other error occurred.
 	 */
 	public int editHotel(String name, boolean[] amenities, int[] numRoomsPerType, double[] roomPricePerType, float weekendDiff) {
-		String amenityStr = "h.amenities = \"";
+		String amenityStr = "";
 		try {
 			preparedStatement = connect.prepareStatement("UPDATE Hotel h SET h.amenities = ?, h.numRoomsStandard = ?, h.numRoomsQueen = ?, h.numRoomsKing = ?, " +
 															"h.rmPriceStandard = ?, h.rmPriceQueen = ?, h.rmPriceKing = ?, h.wkndDiff = ? WHERE h.name = ?;");
@@ -244,7 +244,6 @@ public class HotelDBManager {
 				if (amenities[2] || amenities[1] || amenities[0]) amenityStr += ",";
 				amenityStr += "business office";
 			}
-			amenityStr += "\"";
 			preparedStatement.setString(1, amenityStr);
 			
 			// Sets the number of rooms for each type.
@@ -261,7 +260,6 @@ public class HotelDBManager {
 			preparedStatement.setFloat(8, weekendDiff);
 			
 			// Executes the update.
-			System.out.println(preparedStatement.toString());
 			preparedStatement.executeUpdate();
 			
 			return ReturnCodes.RC_OK;
@@ -343,12 +341,13 @@ public class HotelDBManager {
 			}
 			if (maxPrice > 0) {
 				// Uses the king room price to check the maximum price since it is the most expensive option.
-				if (minPrice > 0) query.append("AND ");
-				query.append("h.rmPriceKing <= " + maxPrice + " OR h.rmPriceKing = null OR h.rmPriceKing = 0");
+				if (minPrice > 0) query.append(" AND ");
+				query.append("h.rmPriceKing <= " + maxPrice);
 			}
 			
 			// Concludes the query string.
 			query.append(";");
+			System.out.println(query.toString());
 			resultSet = statement.executeQuery(query.toString());
 			
 			// Gets the data obtained and stores them into the resultSet.
