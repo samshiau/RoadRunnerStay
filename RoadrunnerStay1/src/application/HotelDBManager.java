@@ -426,7 +426,7 @@ public class HotelDBManager {
 		double costPerRoom = 0;
 		float weekendDiff = (float) 0.0;
 		
-		// Checks for date syntax (valid syntax: MM/DD/YYYY) before proceeding with the booking.
+		// Checks for date syntax (valid syntax: YYYY-MM-DD) before proceeding with the booking.
 		if (!startDateCorrect.find() || !endDateCorrect.find()) {
 			System.out.println("Date syntax incorrect");
 			return ReturnCodes.RC_DATE_SYN_WRONG;
@@ -453,24 +453,18 @@ public class HotelDBManager {
 				case "standard":
 					// Gets the price of a standard room for one night. 
 					query.append("h.rmPriceStandard, h.numRoomsStandard, ");
-					//statement.executeUpdate("UPDATE Hotel h SET h.numRoomsStandard = h.numRoomsStandard - " + numRooms +
-					//						" WHERE h.hotelId = " + hotelId + ";");
 					break;
 					
 				case "queen":
 					// Gets the price of a queen room for one night. 
 					query.append("h.rmPriceQueen, h.numRoomsQueen, ");
 					rmPriceCol += 1;
-					//statement.executeUpdate("UPDATE Hotel h SET h.numRoomsQueen = h.numRoomsQueen - " + numRooms + 
-					//						" WHERE h.hotelId = " + hotelId + ";");
 					break;
 					
 				default:
 					// Gets the price of a king room for one night. 
 					query.append("h.rmPriceKing, h.numRoomsKing, ");
 					rmPriceCol += 2;
-					//statement.executeUpdate("UPDATE Hotel h SET h.numRoomsKing = h.numRoomsKing - " + numRooms +
-					//						" WHERE h.hotelId = " + hotelId + ";");
 					break;
 			}
 			
@@ -488,6 +482,7 @@ public class HotelDBManager {
 				
 				// Ensures there are enough rooms of the selected type available.
 				if (numRoomsAvailable - numRooms < 0) {
+					System.out.println("Error: no more rooms available for this type.");
 					return ReturnCodes.RC_NO_MORE_ROOMS;
 				}
 			}
