@@ -54,8 +54,6 @@ public class HotelDBManager {
 		Matcher matcher = emailSyntax.matcher(email);
 		boolean syntaxIsCorrect = matcher.find();
 		
-		System.out.println(company);
-		
 		// Checks to make sure required entries are entered.
 		if (username.equals("") || password.equals("") || name.equals("") || email.equals("")) {
 			return ReturnCodes.RC_MISSING_ENTRY;
@@ -85,7 +83,6 @@ public class HotelDBManager {
 																+ encryptPass + "\", \""
 																+ name + "\", \""
 																+ email + "\");");
-				System.out.println("Added customer");
 			}
 			else {
 				// Adds a new employee given the credentials which includes the company and position.
@@ -98,8 +95,6 @@ public class HotelDBManager {
 													+ email + "\", \""
 													+ company + "\", \""
 													+ position + "\");");
-				
-				System.out.println("Added employee");
 			}
 			
 			return ReturnCodes.RC_OK;
@@ -294,8 +289,6 @@ public class HotelDBManager {
 				throw new SQLException("Invalid character entry in hotel name.");
 			}
 			
-			// FIXME: Use the next highest room price if king or queen sizes are unavailable.
-			
 			// Build the query string from the parameters passed. First check for null values and do not search for them.
 			
 			// Checks for an entry to search for the hotel by name.
@@ -347,7 +340,6 @@ public class HotelDBManager {
 			
 			// Concludes the query string.
 			query.append(";");
-			System.out.println(query.toString());
 			resultSet = statement.executeQuery(query.toString());
 			
 			// Gets the data obtained and stores them into the resultSet.
@@ -421,7 +413,6 @@ public class HotelDBManager {
 		Matcher startDateCorrect = dateSyntax.matcher(startDate), endDateCorrect = dateSyntax.matcher(endDate);
 		Date startSqlDate, endSqlDate;
 		StringBuilder query = new StringBuilder("SELECT ");
-		int rmPriceCol = 8;
 		double totalCost = 0.0;
 		double costPerRoom = 0;
 		float weekendDiff = (float) 0.0;
@@ -458,24 +449,20 @@ public class HotelDBManager {
 				case "queen":
 					// Gets the price of a queen room for one night. 
 					query.append("h.rmPriceQueen, h.numRoomsQueen, ");
-					rmPriceCol += 1;
 					break;
 					
 				default:
 					// Gets the price of a king room for one night. 
 					query.append("h.rmPriceKing, h.numRoomsKing, ");
-					rmPriceCol += 2;
 					break;
 			}
 			
 			// Obtains the data of the hotel to book from the database.
 			query.append("h.wkndDiff FROM Hotel h WHERE h.hotelId = " + hotelId + ";");
 			
-			System.out.println(query.toString());
 			resultSet = statement.executeQuery(query.toString());
 			
 			while (resultSet.next()) {
-				System.out.println("Column index = " + rmPriceCol);
 				costPerRoom = resultSet.getDouble(1);
 				int numRoomsAvailable = resultSet.getInt(2);
 				weekendDiff = resultSet.getFloat("wkndDiff");
@@ -711,7 +698,6 @@ public class HotelDBManager {
 					break;
 			}
 			updateHotelQuery += " WHERE hotelId = " + hotelId + ";";
-			System.out.println(updateHotelQuery);
 			statement.executeUpdate(updateHotelQuery);
 			
 			return ReturnCodes.RC_OK;
@@ -925,8 +911,6 @@ public class HotelDBManager {
 		String getHotelsQuery = "SELECT ";
 		int count = 0;
 		
-		System.out.println(getReservationsQuery);
-		
 		// Selects the room type for the hotel based on the passed room type.
 		switch(roomType) {
 			case "standard":
@@ -962,7 +946,6 @@ public class HotelDBManager {
 			return 0;
 		}
 		
-		System.out.println("Number of rooms received: " + count);
 		return count;
 	}
 	
