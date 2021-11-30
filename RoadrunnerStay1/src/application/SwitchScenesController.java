@@ -55,7 +55,7 @@ public class SwitchScenesController{
 		
 		stage.setScene(scene);
 		stage.setTitle(setTitle);
-		stage.getIcons().add(new Image(getClass().getResourceAsStream("roadrunnerIcon.png")));
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("logoicon.png")));
 		stage.show();
 	}
 }

@@ -19,7 +19,7 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("RoadRunner Stay: Home");
-			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("roadrunnerIcon.png")));
+			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("logoicon.png")));
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
