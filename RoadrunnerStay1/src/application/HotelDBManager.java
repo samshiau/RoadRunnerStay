@@ -432,12 +432,12 @@ public class HotelDBManager {
 			return ReturnCodes.RC_DATE_SYN_WRONG;
 		}
 		
-		// Converts the date format of the hotel into the format SQL can store it as.
-		startSqlDate = Date.valueOf(startDate);
-		endSqlDate = Date.valueOf(endDate);
-		
 		// Attempts to insert the book into the reservation table.
 		try {
+			// Converts the date format of the hotel into the format SQL can store it as.
+			startSqlDate = Date.valueOf(startDate);
+			endSqlDate = Date.valueOf(endDate);
+			
 			preparedStatement = connect.prepareStatement("INSERT INTO Reservation (`userId`, `hotelId`, `startDate`, `endDate`, "
 														+ "`totalCost`, `roomType`, `numRooms`) "
 														+ "VALUES (?, ?, ?, ?, ?, ?, ?);");
@@ -519,9 +519,17 @@ public class HotelDBManager {
 			return ReturnCodes.RC_OK;
 			
 		}
+		catch (SQLIntegrityConstraintViolationException e) {
+			System.out.println("A reservation already exists for this user at this hotel.");
+			return ReturnCodes.RC_DUP_RESERVATION;
+		}
 		catch (SQLException e) {
 			e.printStackTrace();
 			return ReturnCodes.RC_MISC_ERR;
+		}
+		catch (IllegalArgumentException e) {
+			System.out.println("Date values are incorrect.");
+			return ReturnCodes.RC_DATE_SYN_WRONG;
 		}
 	}
 	
