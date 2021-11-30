@@ -16,23 +16,23 @@
             <Image url="@greece.jpg" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#98a2ab1e" height="539.0" layoutX="98.0" layoutY="149.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="336.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#98a2ab1e" height="612.0" layoutX="53.0" layoutY="149.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="429.0" />
       <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
-      <Button fx:id="rules11" layoutX="778.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="55.0" prefWidth="175.0" text="Profile">
+      <Button fx:id="rules11" layoutX="801.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="26.0" prefWidth="152.0" text="Profile">
          <font>
-            <Font size="36.0" />
+            <Font name="Avenir Light" size="30.0" />
          </font>
       </Button>
-      <ListView fx:id="reservationsListUser" layoutX="106.0" layoutY="227.0" onMouseClicked="#resultsListSelected" prefHeight="371.0" prefWidth="319.0" />
-      <Label fx:id="title11" alignment="CENTER" layoutX="144.0" layoutY="149.0" text="Current Booking" textAlignment="CENTER">
+      <ListView fx:id="reservationsListUser" layoutX="106.0" layoutY="283.0" onMouseClicked="#resultsListSelected" prefHeight="382.0" prefWidth="319.0" />
+      <Label fx:id="title11" alignment="CENTER" layoutX="144.0" layoutY="183.0" text="Current Booking" textAlignment="CENTER">
          <font>
-            <Font size="36.0" />
+            <Font name="Avenir Light" size="32.0" />
          </font>
       </Label>
       <Pane layoutX="515.0" layoutY="221.0" prefHeight="371.0" prefWidth="319.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0b" height="539.0" layoutX="-12.0" layoutY="-73.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="344.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff21" height="371.0" stroke="BLACK" strokeType="INSIDE" width="319.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0b" height="612.0" layoutX="-12.0" layoutY="-73.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="429.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff21" height="382.0" layoutX="40.0" stroke="BLACK" strokeType="INSIDE" width="319.0" />
             <TextField fx:id="toDateInput" layoutX="84.0" layoutY="260.0" promptText="YYYY-MM-DD" />
             <TextField fx:id="fromDateInput" layoutX="86.0" layoutY="197.0" promptText="YYYY-MM-DD" />
             <TextField fx:id="roomsInput" layoutX="84.0" layoutY="143.0" />
@@ -48,12 +48,12 @@
                <font>
                   <Font size="14.0" />
                </font></Label>
-            <Button layoutX="48.0" layoutY="388.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="68.0" prefWidth="182.0" text="Update">
+            <Button layoutX="104.0" layoutY="459.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="68.0" prefWidth="182.0" text="Update">
                <font>
-                  <Font size="36.0" />
+                  <Font name="Avenir Light" size="34.0" />
                </font>
             </Button>
-            <Label layoutX="93.0" layoutY="52.0" text="Select Room Type">
+            <Label layoutX="92.0" layoutY="37.0" text="Select Room Type">
                <font>
                   <Font size="14.0" />
                </font>
@@ -63,20 +63,21 @@
             <RadioButton fx:id="kingRadio" layoutX="208.0" layoutY="81.0" mnemonicParsing="false" text="King" />
          </children>
       </Pane>
-      <Label layoutX="115.0" layoutY="202.0" text="(Select a booking to update or cancel)">
+      <Label layoutX="110.0" layoutY="240.0" text="(Select a booking to update or cancel)">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="cancelButton" layoutX="195.0" layoutY="607.0" mnemonicParsing="false" onAction="#cancelButton" prefHeight="67.0" prefWidth="142.0" text="Cancel">
+      <Button fx:id="cancelButton" layoutX="166.0" layoutY="672.0" mnemonicParsing="false" onAction="#cancelButton" prefHeight="68.0" prefWidth="178.0" text="Cancel">
          <font>
-            <Font size="36.0" />
+            <Font name="Avenir Light" size="36.0" />
          </font>
       </Button>
-      <Label fx:id="title1" alignment="CENTER" layoutX="546.0" layoutY="149.0" text="Update Booking" textAlignment="CENTER">
+      <Label fx:id="title1" alignment="CENTER" layoutX="326.0" layoutY="71.0" text="Update your reservations" textAlignment="CENTER">
          <font>
-            <Font size="36.0" />
+            <Font name="Avenir Light" size="30.0" />
          </font>
       </Label>
+      <Button layoutX="60.0" layoutY="49.0" mnemonicParsing="false" text="Home" />
    </children>
 </AnchorPane>
