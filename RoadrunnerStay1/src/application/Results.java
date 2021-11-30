@@ -224,6 +224,11 @@ public class Results implements Initializable{
 												startDate, 
 												endDate,
 												numRooms);
+			if (rc != 0) {
+				// TODO: SUGGESTION: Show an alert window as to why the booking failed.
+				System.out.println("Booking failed.");
+				return;
+			}
 		
 			// if user is successful booking show confetti
 			Image bookedConfetti = new Image("./booked.gif");
@@ -250,9 +255,6 @@ public class Results implements Initializable{
 			if(result.get() == goToLogin) {
 				//TimeUnit.SECONDS.sleep(1);
 				changeScreenHome(event);
-			}
-			if (rc != 0) {
-				System.out.println("Booking failed.");
 			}
 		}
 		connection.closeManager();
