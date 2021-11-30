@@ -582,6 +582,7 @@ public class HotelDBManager {
 		Date startSqlDate, endSqlDate;
 		String getHotelQuery = "SELECT h.hotelId, ";
 		String updateHotelQuery = "UPDATE Hotel SET ";
+		String pRoomType = "";
 		double totalCost;
 		float roomCost = (float) 0.0;
 		float weekendDiff = (float) 0.0;
@@ -643,27 +644,48 @@ public class HotelDBManager {
 			preparedStatement.setInt(6, hotelId);
 			preparedStatement.setString(7, userId);
 			
-			int totalRooms = getTotalRoomsByType(hotelId, roomType);
-			
 			// Ensures the new number of rooms does not exceed the amount available for the hotel.
 			if (numRoomsAvailable - newNumRooms < 0) {
 				preparedStatement.close();
+				System.out.println("Error: No more number of rooms available for this type at this hotel.");
 				return ReturnCodes.RC_NO_MORE_ROOMS;
 			}
 			
-			// Gets the previous number of rooms of the reservation to edit.
-			resultSet = statement.executeQuery("SELECT numRooms FROM Reservation WHERE hotelId = " + hotelId +
+			// Gets the previous number of rooms and the room type of the reservation to edit.
+			resultSet = statement.executeQuery("SELECT numRooms, roomType FROM Reservation WHERE hotelId = " + hotelId +
 												" AND userId = \"" + userId + "\";");
 			while (resultSet.next()) {
 				pNumRooms = resultSet.getInt("numRooms");
+				pRoomType = resultSet.getString("roomType");
+				
 			}
-			
-			// An increased number rooms means adding the negative number of rooms to the hotel.
-			roomDifference = pNumRooms - newNumRooms;
 			
 			// Execute the statement.
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
+			
+			// Determines if the user selected a different room type to determine whether to use the
+			// number of rooms difference or add the previous number of rooms back to the number of
+			// rooms for the previous types.
+			roomDifference = (pRoomType.equals(roomType)) ? pNumRooms - newNumRooms : newNumRooms * -1;
+			if (!pRoomType.equals(roomType)) {
+				String updatePNumRooms = "UPDATE Hotel SET ";
+				
+				switch(pRoomType) {
+					case "standard":
+						updatePNumRooms += "numRoomsStandard = numRoomsStandard + " + pNumRooms;
+						break;
+					case "queen":
+						updatePNumRooms += "numRoomsQueen = numRoomsQueen + " + pNumRooms;
+						break;
+					default:
+						updatePNumRooms += "numroomsKing = numRoomsKing + " + pNumRooms;
+						break;
+				}
+				updatePNumRooms += " WHERE hotelId = " + hotelId + ";";
+				
+				statement.executeUpdate(updatePNumRooms);
+			}
 			
 			// Updates the hotel table for number of rooms available.
 			switch (roomType) {
