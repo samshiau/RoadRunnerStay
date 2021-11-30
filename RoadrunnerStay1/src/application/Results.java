@@ -34,6 +34,11 @@ public class Results implements Initializable{
 	@FXML RadioButton kingRadio;
 	@FXML Label hotelNameLabel;
 	@FXML Label numRoomsLabel;
+	@FXML Label totalCostLabel;
+	
+	@FXML Label standardPriceLabel;
+	@FXML Label queenPriceLabel;
+	@FXML Label kingPriceLabel;
 
 	MainController mainController = new MainController();
 	LoginController whoIsLogin = new LoginController();
@@ -45,16 +50,27 @@ public class Results implements Initializable{
 	@FXML ImageView bookedCelebrationView;
 	@FXML ImageView bookedCelebrationView2;
 	
+	// number of rooms that can be booked 
 	int numRooms = 1;
-	String whichHotel;
 	
-
+	// price of rooms per hotel
+	double getStandardPrice;
+	double getQueenPrice;
+	double getKingPrice;
+	
+	String whichHotel;
 	String roomType;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {		
 		// setup radio functionality
 		radioButtonSetup();
+		
+		// set default price
+		standardPriceLabel.setText("$10");
+		queenPriceLabel.setText("$25");
+		kingPriceLabel.setText("$50");
+		
 		for (int i = 0; i < MainController.getResultsArray().size()/2; i++) {
 			whichHotel = MainController.getResultsArray().get(i).getName();
 
@@ -63,7 +79,9 @@ public class Results implements Initializable{
 		numRoomsLabel.setText(String.valueOf(numRooms));
 	}
 	
-	// used for the radio button toggles	
+	
+	
+	// used for to setup the radio button toggles	
 	public void radioButtonSetup() {		
 		standardRadio.setToggleGroup(radioGroup);
 		queenRadio.setToggleGroup(radioGroup);
@@ -71,31 +89,67 @@ public class Results implements Initializable{
 		// set standard room type as default
 		standardRadio.setSelected(true);
 	}
+	
+	
+	
+	// decrease number of rooms but not below 1 
 	public void decreaseRoomNumber() {
 		numRooms--;
 		if(numRooms < 1) {
 			numRooms = 1;
 		}
-		numRoomsLabel.setText(String.valueOf(numRooms));
-	}
-	public void increaseRoomNumber() {
-		numRooms++;
-		if(numRooms > 9) {
-			numRooms = 9;
-		}
+		totalCost();
 		numRoomsLabel.setText(String.valueOf(numRooms));
 	}
 	
+	// increase number of rooms but not above 7
+	public void increaseRoomNumber() {
+		numRooms++;
+		if(numRooms > 7) {
+			numRooms = 7;
+		}
+		totalCost();
+		numRoomsLabel.setText(String.valueOf(numRooms));
+	}
+	
+	// shows total cost of booking depending on room type and number of rooms
+	public void totalCost() {
+		RadioButton selectedRadioButton = (RadioButton) radioGroup.getSelectedToggle();
+		roomType = selectedRadioButton.getText().toLowerCase();
+		double totalCostPrint;
+		if(roomType.equals("standard")) {
+			totalCostPrint = getStandardPrice * numRooms;
+			totalCostLabel.setText("$" + String.valueOf(totalCostPrint));
+		}
+		if(roomType.equals("queen")) {
+			totalCostPrint = getQueenPrice * numRooms;
+			totalCostLabel.setText("$" + String.valueOf(totalCostPrint));
+		}
+		if(roomType.equals("king")) {
+			totalCostPrint = getKingPrice * numRooms;
+			totalCostLabel.setText("$" + String.valueOf(totalCostPrint));
+		}
+		
+	}
+	
+	// what item is currently selected on the arraylist
 	public void resultsListSelected() throws IOException {
+		int arraylistIndex = resultsList.getSelectionModel().getSelectedIndex();
 
 		whichHotel = resultsList.getSelectionModel().getSelectedItem();
-		//showImage(whichHotel);
+		getStandardPrice = MainController.getResultsArray().get(arraylistIndex).getPriceStandard();
+		getQueenPrice = MainController.getResultsArray().get(arraylistIndex).getPriceQueen();
+		getKingPrice = MainController.getResultsArray().get(arraylistIndex).getPriceKing();
 		
-		System.out.println("Getting hotel: " + whichHotel);
+		// show price of rooms
+		standardPriceLabel.setText("$" + String.valueOf(getStandardPrice));
+		queenPriceLabel.setText("$" + String.valueOf(getQueenPrice));
+		kingPriceLabel.setText("$" + String.valueOf(getKingPrice));
 		
 		Hotel hotel = Hotel.getHotelByName(results, whichHotel);
 		System.out.println(hotel.getNumberOfRooms());
 		showImage(hotel.getImageStream());
+		totalCost();
 	}
 	
 	public void showImage(InputStream image) throws IOException {
