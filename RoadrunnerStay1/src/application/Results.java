@@ -71,6 +71,9 @@ public class Results implements Initializable{
 		queenPriceLabel.setText("$25");
 		kingPriceLabel.setText("$50");
 		
+		// set default total price
+		totalCostLabel.setText("$100");
+		
 		for (int i = 0; i < MainController.getResultsArray().size()/2; i++) {
 			whichHotel = MainController.getResultsArray().get(i).getName();
 
@@ -78,8 +81,6 @@ public class Results implements Initializable{
 		}
 		numRoomsLabel.setText(String.valueOf(numRooms));
 	}
-	
-	
 	
 	// used for to setup the radio button toggles	
 	public void radioButtonSetup() {		
@@ -89,8 +90,6 @@ public class Results implements Initializable{
 		// set standard room type as default
 		standardRadio.setSelected(true);
 	}
-	
-	
 	
 	// decrease number of rooms but not below 1 
 	public void decreaseRoomNumber() {
