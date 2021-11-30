@@ -37,7 +37,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="customerButton" layoutX="80.0" layoutY="213.0" mnemonicParsing="false" onAction="#customerButton" prefHeight="278.0" prefWidth="379.0">
+      <Button fx:id="customerButton" layoutX="80.0" layoutY="295.0" mnemonicParsing="false" onAction="#customerButton" prefHeight="278.0" prefWidth="379.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -46,7 +46,7 @@
          <font>
             <Font name="Avenir Light" size="30.0" />
          </font></Label>
-      <Label layoutX="145.0" layoutY="560.0" text="Customer">
+      <Label layoutX="159.0" layoutY="163.0" text="Customer">
          <font>
             <Font name="Avenir Light" size="40.0" />
          </font>
