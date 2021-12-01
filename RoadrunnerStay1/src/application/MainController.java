@@ -149,8 +149,6 @@ public class MainController  implements Initializable{
 	@FXML 
 	public void changeScreenResult(ActionEvent event) throws IOException {
 		userInput();
-		System.out.println(fromDateInputStr);
-		System.out.println(toDateInputStr);
 		// if nothing is selected or entered show error message
 				if((!poolSelected && !gymSelected && !spaSelected && !businessOfficeSelected) &&  
 				((minPriceInputStr.isEmpty() || minPriceInputStr.equals("0") ||
@@ -164,14 +162,14 @@ public class MainController  implements Initializable{
 			noInput.showAndWait();
 			
 		// user must select dates
-		} else if ((fromDateInputStr.equals("0") && toDateInputStr.equals("0"))) {
+		} else if ((fromDateInputStr.equals("0") || toDateInputStr.equals("0"))) {
 			Alert noInput = new Alert(AlertType.ERROR);
 			noInput.setTitle("Enter date");
-			noInput.setHeaderText("Please enter the dates so we can help you");
+			noInput.setHeaderText("Please enter both dates so we can help you");
 			noInput.setContentText("Hurry limited space available!");
 			noInput.showAndWait();
 			
-		// if user enters required information then let them see resulst
+		// if user enters required information then let them see results
 		} else {
 		// Gets the user-checked amenities.
 		boolean[] amenityChecks = new boolean[4];
