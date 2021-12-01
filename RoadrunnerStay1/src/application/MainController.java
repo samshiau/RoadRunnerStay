@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -28,10 +30,13 @@ public class MainController  implements Initializable{
 	@FXML private Button profileButton, loginButton, logOutButton, createAccountButton, searchButton;
 	@FXML private TextField hotelNameInput, fromDateInput, toDateInput, minPriceInput, maxPriceInput;
 	String hotelNameInputStr, minPriceInputStr, maxPriceInputStr;
-	static String fromDateInputStr, toDateInputStr;
+	static String fromDateInputStr = "0"; 
+	static String toDateInputStr = "0";
 	@FXML ImageView imageView, imageView2, imageView3;
 	@FXML CheckBox pool, gym, spa, businessOffice;
 	SwitchScenesController changeScene = new SwitchScenesController(); 
+	@FXML private DatePicker fromDate;
+	@FXML private DatePicker toDate;
 	
 	
 	boolean poolSelected = false, gymSelected = false, spaSelected = false, businessOfficeSelected = false; 
@@ -56,6 +61,9 @@ public class MainController  implements Initializable{
 			logOutButton.setVisible(false);
 		}
 	}
+ 
+
+	
 	public void logoutButtton() throws InterruptedException {
 		LoginController.isLoggedIn = false;
 		TimeUnit.SECONDS.sleep(2);
@@ -104,7 +112,21 @@ public class MainController  implements Initializable{
 		timeline.play();
 	}
 	
-	public void userInput() {
+	// get "from" date from calendar
+	public void getFromDate(){
+		LocalDate value = fromDate.getValue();
+		System.out.println(value.toString());
+		fromDateInputStr = value.toString();
+	}
+	
+	// get "to" date from calendar
+	public void getToDate(){
+		LocalDate value = toDate.getValue();
+		System.out.println(value.toString());
+		toDateInputStr = value.toString();
+	}
+	
+	public void userInput(){
 		// check which and if checkboxes are selected
 		if(pool.isSelected())
 			poolSelected = true;
@@ -117,8 +139,8 @@ public class MainController  implements Initializable{
 		
 		// get user input in TextFields
 		hotelNameInputStr = hotelNameInput.getText();
-		fromDateInputStr = fromDateInput.getText();
-		toDateInputStr = toDateInput.getText();
+		//fromDateInputStr = fromDateInput.getText();
+		//toDateInputStr = toDateInput.getText();
 		minPriceInputStr = minPriceInput.getText();
 		maxPriceInputStr = maxPriceInput.getText();	
 	}
@@ -127,19 +149,30 @@ public class MainController  implements Initializable{
 	@FXML 
 	public void changeScreenResult(ActionEvent event) throws IOException {
 		userInput();
+		System.out.println(fromDateInputStr);
+		System.out.println(toDateInputStr);
 		// if nothing is selected or entered show error message
-		if(!poolSelected && !gymSelected && !spaSelected && !businessOfficeSelected  
-				&& hotelNameInputStr.isEmpty() && (minPriceInputStr.isEmpty() || 
-				minPriceInputStr.equals("0") || minPriceInputStr.equals("0.0")) &&
-				(maxPriceInputStr.isEmpty() || maxPriceInputStr.equals("0") ||
-				maxPriceInputStr.equals("0.0")) ) {
+				if((!poolSelected && !gymSelected && !spaSelected && !businessOfficeSelected) &&  
+				((minPriceInputStr.isEmpty() || minPriceInputStr.equals("0") ||
+				  minPriceInputStr.equals("0.0")) && (maxPriceInputStr.isEmpty() ||
+				  maxPriceInputStr.equals("0") || maxPriceInputStr.equals("0.0")))
+				) {
 			Alert noInput = new Alert(AlertType.ERROR);
 			noInput.setTitle("Enter information");
 			noInput.setHeaderText("Please enter some information so we can help you");
 			noInput.setContentText("Hurry limited space available!");
 			noInput.showAndWait();
+			
+		// user must select dates
+		} else if ((fromDateInputStr.equals("0") && toDateInputStr.equals("0"))) {
+			Alert noInput = new Alert(AlertType.ERROR);
+			noInput.setTitle("Enter date");
+			noInput.setHeaderText("Please enter the dates so we can help you");
+			noInput.setContentText("Hurry limited space available!");
+			noInput.showAndWait();
+			
+		// if user enters required information then let them see resulst
 		} else {
-		
 		// Gets the user-checked amenities.
 		boolean[] amenityChecks = new boolean[4];
 		amenityChecks[0] = gymSelected;
