@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="752.0" prefWidth="921.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ProfileController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff0f" height="601.0" layoutX="28.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" width="856.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b2b2b20f" height="559.0" layoutX="28.0" layoutY="132.0" stroke="BLACK" strokeType="INSIDE" width="856.0" />
       <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
       <Button fx:id="employeeEditReservation" layoutX="111.0" layoutY="429.0" mnemonicParsing="false" onAction="#changeScreenEditReservations" prefHeight="63.0" prefWidth="219.0" text="Edit Reservations">
          <font>
@@ -29,7 +29,7 @@
             <Font name="Avenir Light" size="25.0" />
          </font>
       </Text>
-      <Label fx:id="wecomeUser" layoutX="98.0" layoutY="130.0" text="Wecome: &lt;Username&gt;">
+      <Label fx:id="wecomeUser" layoutX="82.0" layoutY="157.0" text="Wecome: &lt;Username&gt;">
          <font>
             <Font name="Avenir Light" size="35.0" />
          </font>
@@ -45,9 +45,20 @@
          </font>
       </Button>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="441.0" layoutX="507.0" layoutY="230.0" stroke="BLACK" strokeType="INSIDE" width="356.0" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="157.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="146.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="146.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../Downloads/user.png" />
+            <Image url="@usericon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="15.0" fitWidth="12.0" layoutX="104.0" layoutY="452.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@smallsign.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="15.0" fitWidth="12.0" layoutX="106.0" layoutY="509.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@smallsign.png" />
          </image>
       </ImageView>
    </children>

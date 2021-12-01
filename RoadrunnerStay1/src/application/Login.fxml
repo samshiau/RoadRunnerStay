@@ -41,7 +41,7 @@
          <font>
             <Font name="Avenir Light" size="50.0" />
          </font></Label>
-      <Label fx:id="loginLabel" layoutX="36.0" layoutY="471.0" prefHeight="20.0" prefWidth="134.0" text="Status: " textFill="#d70d0d">
+      <Label fx:id="loginLabel" layoutX="36.0" layoutY="471.0" prefHeight="20.0" prefWidth="214.0" text="Status: " textFill="#d70d0d">
          <font>
             <Font size="14.0" />
          </font>

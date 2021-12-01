@@ -18,9 +18,9 @@
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#98a2ab1e" height="612.0" layoutX="53.0" layoutY="149.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="429.0" />
       <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
-      <Button fx:id="rules11" layoutX="801.0" layoutY="31.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="26.0" prefWidth="152.0" text="Profile">
+      <Button fx:id="rules11" layoutX="750.0" layoutY="20.0" mnemonicParsing="false" onAction="#changeScreenProfile" prefHeight="63.0" prefWidth="233.0" text="Back to profile">
          <font>
-            <Font name="Avenir Light" size="30.0" />
+            <Font name="Avenir Light" size="25.0" />
          </font>
       </Button>
       <ListView fx:id="reservationsListUser" layoutX="106.0" layoutY="283.0" onMouseClicked="#resultsListSelected" prefHeight="382.0" prefWidth="319.0" />
@@ -29,38 +29,41 @@
             <Font name="Avenir Light" size="32.0" />
          </font>
       </Label>
-      <Pane layoutX="515.0" layoutY="221.0" prefHeight="371.0" prefWidth="319.0">
+      <Pane layoutX="530.0" layoutY="148.0" prefHeight="611.0" prefWidth="429.0" style="-fx-background-color: white;">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2197ff0b" height="612.0" layoutX="-12.0" layoutY="-73.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: white;" width="429.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff21" height="382.0" layoutX="40.0" stroke="BLACK" strokeType="INSIDE" width="319.0" />
-            <TextField fx:id="toDateInput" layoutX="84.0" layoutY="260.0" promptText="YYYY-MM-DD" />
-            <TextField fx:id="fromDateInput" layoutX="86.0" layoutY="197.0" promptText="YYYY-MM-DD" />
-            <TextField fx:id="roomsInput" layoutX="84.0" layoutY="143.0" />
-            <Label layoutX="132.0" layoutY="240.0" text="End Date">
+            <TextField fx:id="toDateInput" layoutX="220.0" layoutY="422.0" promptText="YYYY-MM-DD" />
+            <TextField fx:id="fromDateInput" layoutX="30.0" layoutY="422.0" promptText="YYYY-MM-DD" />
+            <TextField fx:id="roomsInput" layoutX="110.0" layoutY="290.0" />
+            <Label layoutX="254.0" layoutY="380.0" text="End Date">
                <font>
-                  <Font size="14.0" />
+                  <Font name="Avenir Light" size="20.0" />
                </font></Label>
-            <Label layoutX="124.0" layoutY="176.0" text="Start Date">
+            <Label layoutX="60.0" layoutY="380.0" text="Start Date">
                <font>
-                  <Font size="14.0" />
+                  <Font name="Avenir Light" size="20.0" />
                </font></Label>
-            <Label layoutX="133.0" layoutY="123.0" text="Rooms">
+            <Label layoutX="160.0" layoutY="245.0" text="Rooms">
                <font>
-                  <Font size="14.0" />
+                  <Font name="Avenir Light" size="20.0" />
                </font></Label>
-            <Button layoutX="104.0" layoutY="459.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="68.0" prefWidth="182.0" text="Update">
+            <RadioButton fx:id="queenRadio" layoutX="175.0" layoutY="190.0" mnemonicParsing="false" text="Queen" />
+            <RadioButton fx:id="kingRadio" layoutX="259.0" layoutY="190.0" mnemonicParsing="false" text="King" />
+            <RadioButton fx:id="standardRadio" layoutX="72.0" layoutY="190.0" mnemonicParsing="false" text="Standard" />
+            <Label layoutX="115.0" layoutY="133.0" text="Select Room Type">
+               <font>
+                  <Font name="Avenir Light" size="20.0" />
+               </font>
+            </Label>
+            <Button layoutX="121.0" layoutY="512.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="68.0" prefWidth="182.0" text="Update">
                <font>
                   <Font name="Avenir Light" size="34.0" />
                </font>
             </Button>
-            <Label layoutX="92.0" layoutY="37.0" text="Select Room Type">
+            <Label layoutX="56.0" layoutY="28.0" text="Enter new information">
                <font>
-                  <Font size="14.0" />
+                  <Font name="Avenir Light" size="32.0" />
                </font>
             </Label>
-            <RadioButton fx:id="standardRadio" layoutX="30.0" layoutY="81.0" mnemonicParsing="false" text="Standard" />
-            <RadioButton fx:id="queenRadio" layoutX="120.0" layoutY="81.0" mnemonicParsing="false" text="Queen" />
-            <RadioButton fx:id="kingRadio" layoutX="208.0" layoutY="81.0" mnemonicParsing="false" text="King" />
          </children>
       </Pane>
       <Label layoutX="110.0" layoutY="240.0" text="(Select a booking to update or cancel)">
@@ -78,6 +81,6 @@
             <Font name="Avenir Light" size="30.0" />
          </font>
       </Label>
-      <Button layoutX="60.0" layoutY="49.0" mnemonicParsing="false" text="Home" />
+      <Button fx:id="create1" layoutX="27.0" layoutY="18.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="149.0" />
    </children>
 </AnchorPane>

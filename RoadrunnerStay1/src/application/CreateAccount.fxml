@@ -53,11 +53,11 @@
          <font>
             <Font name="Avenir Light" size="20.0" />
          </font></Label>
-      <Label fx:id="positionLabel" layoutX="277.0" layoutY="543.0" text="Position">
+      <Label fx:id="positionLabel" layoutX="270.0" layoutY="543.0" text="Position">
          <font>
             <Font size="20.0" />
          </font></Label>
-      <ComboBox fx:id="hotelNameComboBox" layoutX="26.0" layoutY="578.0" prefWidth="150.0" promptText="Company Name" />
+      <ComboBox fx:id="hotelNameComboBox" layoutX="26.0" layoutY="578.0" prefHeight="29.0" prefWidth="167.0" promptText="Company Name" />
       <Label alignment="CENTER" layoutX="19.0" layoutY="125.0" prefHeight="74.0" prefWidth="254.0" text="Create an account" textAlignment="CENTER">
          <font>
             <Font name="Avenir Light" size="30.0" />

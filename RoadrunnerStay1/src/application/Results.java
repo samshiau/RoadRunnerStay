@@ -188,7 +188,7 @@ public class Results implements Initializable{
 			userNotLoggedIn.setHeaderText("Plesae login to book hotel");
 			userNotLoggedIn.setContentText("Hurry limited space available!");
 			// setting the icon for the alert message
-			ImageView icon = new ImageView(this.getClass().getResource("./roadrunnerIcon.png").toString());
+			ImageView icon = new ImageView(this.getClass().getResource("./logoicon.png").toString());
 			icon.setFitHeight(75);
 			icon.setFitWidth(75);
 			userNotLoggedIn.setGraphic(icon);			
@@ -243,7 +243,7 @@ public class Results implements Initializable{
 			userNotLoggedInBook.setHeaderText("Your booking is now complete you can now return to the main menu");
 			userNotLoggedInBook.setContentText("Enjoy the stay!");
 			// setting the icon for the alert message
-			ImageView icon = new ImageView(this.getClass().getResource("./roadrunnerIcon.png").toString());
+			ImageView icon = new ImageView(this.getClass().getResource("./logoicon.png").toString());
 			icon.setFitHeight(75);
 			icon.setFitWidth(75);
 			userNotLoggedInBook.setGraphic(icon);			

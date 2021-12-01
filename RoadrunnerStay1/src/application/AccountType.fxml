@@ -12,41 +12,37 @@
 
 <AnchorPane prefHeight="752.0" prefWidth="921.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AccountTypeController">
    <children>
-      <ImageView fitHeight="657.0" fitWidth="1000.0" layoutY="130.0" pickOnBounds="true">
+      <ImageView fitHeight="614.0" fitWidth="1000.0" layoutY="173.0" pickOnBounds="true">
          <image>
-            <Image url="@greece.jpg" />
+            <Image url="@plane2.jpg" />
          </image>
       </ImageView>
-      <Pane layoutX="60.0" layoutY="203.0" prefHeight="447.0" prefWidth="422.0" style="-fx-background-color: white;" />
-      <Pane layoutX="510.0" layoutY="203.0" prefHeight="447.0" prefWidth="422.0" style="-fx-background-color: white;">
-         <children>
-            <Label layoutX="120.0" layoutY="350.0" text="Employee">
-               <font>
-                  <Font name="Avenir Light" size="40.0" />
-               </font>
-            </Label>
-         </children></Pane>
       <Button fx:id="create1" layoutX="27.0" layoutY="18.0" mnemonicParsing="false" onAction="#changeScreenHome" prefHeight="48.0" prefWidth="149.0">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
       <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
-      <Button fx:id="employeeButton" layoutX="525.0" layoutY="213.0" mnemonicParsing="false" onAction="#employeeButton" prefHeight="258.0" prefWidth="396.0">
+      <Button fx:id="employeeButton" layoutX="550.0" layoutY="260.0" mnemonicParsing="false" onAction="#employeeButton" prefHeight="258.0" prefWidth="396.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="customerButton" layoutX="80.0" layoutY="295.0" mnemonicParsing="false" onAction="#customerButton" prefHeight="278.0" prefWidth="379.0">
+      <Button fx:id="customerButton" layoutX="80.0" layoutY="260.0" mnemonicParsing="false" onAction="#customerButton" prefHeight="278.0" prefWidth="379.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label alignment="CENTER" layoutX="371.0" layoutY="64.0" text="Select Accout Type" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="379.0" layoutY="50.0" text="Select Accout Type" textAlignment="CENTER">
          <font>
             <Font name="Avenir Light" size="30.0" />
          </font></Label>
-      <Label layoutX="159.0" layoutY="163.0" text="Customer">
+      <Label layoutX="183.0" layoutY="102.0" text="Customer">
+         <font>
+            <Font name="Avenir Light" size="40.0" />
+         </font>
+      </Label>
+      <Label layoutX="650.0" layoutY="102.0" text="Employee">
          <font>
             <Font name="Avenir Light" size="40.0" />
          </font>
