@@ -13,7 +13,7 @@
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b2b2b20f" height="559.0" layoutX="28.0" layoutY="132.0" stroke="BLACK" strokeType="INSIDE" width="856.0" />
       <Pane layoutX="193.0" layoutY="3.0" stylesheets="@application.css" />
-      <Button fx:id="employeeEditReservation" layoutX="111.0" layoutY="429.0" mnemonicParsing="false" onAction="#changeScreenEditReservations" prefHeight="63.0" prefWidth="219.0" text="Edit Reservations">
+      <Button fx:id="employeeEditReservation" layoutX="100.0" layoutY="429.0" mnemonicParsing="false" onAction="#changeScreenEditReservations" prefHeight="63.0" prefWidth="219.0" text="Edit Properties">
          <font>
             <Font name="Avenir Light" size="24.0" />
          </font>
@@ -34,7 +34,7 @@
             <Font name="Avenir Light" size="35.0" />
          </font>
       </Label>
-      <Button fx:id="userEditReservation" layoutX="111.0" layoutY="429.0" mnemonicParsing="false" onAction="#changeScreenEditReservationsAsUser" prefHeight="63.0" prefWidth="213.0" text="Edit Reservations">
+      <Button fx:id="userEditReservation" layoutX="115.0" layoutY="429.0" mnemonicParsing="false" onAction="#changeScreenEditReservationsAsUser" prefHeight="63.0" prefWidth="209.0" text="Edit Reservations">
          <font>
             <Font name="Avenir Light" size="23.0" />
          </font>

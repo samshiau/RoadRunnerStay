@@ -56,7 +56,7 @@
                   <Font name="Avenir Light" size="23.0" />
                </font>
             </Text>
-            <Label fx:id="nameOfHotel" alignment="CENTER" contentDisplay="CENTER" layoutX="220.0" layoutY="20.0" prefHeight="52.0" prefWidth="335.0" text="Name of Hotel">
+            <Label fx:id="nameOfHotel" alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="20.0" prefHeight="52.0" prefWidth="451.0" text="Name of Hotel">
                <font>
                   <Font name="Avenir Light" size="36.0" />
                </font>
